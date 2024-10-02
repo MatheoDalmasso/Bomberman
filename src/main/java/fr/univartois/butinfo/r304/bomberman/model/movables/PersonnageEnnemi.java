@@ -1,14 +1,15 @@
-package fr.univartois.butinfo.r304.bomberman.model.ennemi;
+package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
+
+import java.util.Random;
 
 public class PersonnageEnnemi extends AbstractMovable {
+    Random random = new Random();
+
+
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -21,6 +22,24 @@ public class PersonnageEnnemi extends AbstractMovable {
         super(game, xPosition, yPosition, sprite);
     }
 
+    /**
+     *
+     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
+     *        millisecondes).
+     *
+     * @return
+     */
+    @Override
+    public boolean move(long delta) {
+        double newHorizontalSpeed = random.nextDouble() * 2 - 1;
+        double newVerticalSpeed = random.nextDouble() * 2 - 1;
+
+        setHorizontalSpeed(newHorizontalSpeed);
+        setVerticalSpeed(newVerticalSpeed);
+
+        return super.move(delta);
+
+    }
 
     @Override
     public void collidedWith(IMovable other) {
@@ -37,4 +56,4 @@ public class PersonnageEnnemi extends AbstractMovable {
 
     }
 }
-}
+
