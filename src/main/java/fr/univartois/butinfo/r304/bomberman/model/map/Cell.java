@@ -27,7 +27,7 @@ import javafx.beans.property.SimpleObjectProperty;
  *
  * @version 0.1.0
  */
-public final class Cell {
+public class Cell {
 
     /**
      * La ligne où se trouve cette cellule sur la carte.
@@ -76,7 +76,7 @@ public final class Cell {
      *
      * @param wall Le mur initialement présent sur la cellule.
      */
-    protected Cell(Wall wall) {
+    private Cell(Wall wall) {
         this.wallProperty.set(wall);
         this.spriteProperty.set(wall.getSprite());
     }
