@@ -81,6 +81,7 @@ public class Cell {
         this.spriteProperty.set(wall.getSprite());
     }
 
+
     /**
      * Donne la ligne où se trouve cette cellule sur la carte.
      *

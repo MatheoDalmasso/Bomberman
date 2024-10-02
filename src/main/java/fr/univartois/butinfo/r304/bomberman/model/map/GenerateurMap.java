@@ -1,6 +1,7 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 
 public class GenerateurMap extends GameMap {
@@ -19,6 +20,7 @@ public class GenerateurMap extends GameMap {
                 }
                 else{
                     if(i%2==0 && j%2==0){
+                        Sprite sprite = new Sprite("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png");
                         setAt(i,j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"));
                     }
                     else {
