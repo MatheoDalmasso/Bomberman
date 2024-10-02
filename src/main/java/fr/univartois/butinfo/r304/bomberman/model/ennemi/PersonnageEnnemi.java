@@ -8,7 +8,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 
-public class PersonnageEnnemi extends AbstractMovable implements IMovable {
+public class PersonnageEnnemi extends AbstractMovable {
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -21,105 +21,6 @@ public class PersonnageEnnemi extends AbstractMovable implements IMovable {
         super(game, xPosition, yPosition, sprite);
     }
 
-    @Override
-    public int getWidth() {
-        return 0;
-    }
-
-    @Override
-    public int getHeight() {
-        return 0;
-    }
-
-    @Override
-    public void setX(int xPosition) {
-
-    }
-
-    @Override
-    public int getX() {
-        return 0;
-    }
-
-    @Override
-    public DoubleProperty getXProperty() {
-        return null;
-    }
-
-    @Override
-    public void setY(int yPosition) {
-
-    }
-
-    @Override
-    public int getY() {
-        return 0;
-    }
-
-    @Override
-    public DoubleProperty getYProperty() {
-        return null;
-    }
-
-    @Override
-    public void consume() {
-
-    }
-
-    @Override
-    public boolean isConsumed() {
-        return false;
-    }
-
-    @Override
-    public BooleanProperty isConsumedProperty() {
-        return null;
-    }
-
-    @Override
-    public void setHorizontalSpeed(double speed) {
-
-    }
-
-    @Override
-    public double getHorizontalSpeed() {
-        return 0;
-    }
-
-    @Override
-    public void setVerticalSpeed(double speed) {
-
-    }
-
-    @Override
-    public double getVerticalSpeed() {
-        return 0;
-    }
-
-    @Override
-    public void setSprite(Sprite sprite) {
-
-    }
-
-    @Override
-    public Sprite getSprite() {
-        return null;
-    }
-
-    @Override
-    public ObjectProperty<Sprite> getSpriteProperty() {
-        return null;
-    }
-
-    @Override
-    public boolean move(long timeDelta) {
-        return false;
-    }
-
-    @Override
-    public boolean isCollidingWith(IMovable other) {
-        return false;
-    }
 
     @Override
     public void collidedWith(IMovable other) {
@@ -135,9 +36,5 @@ public class PersonnageEnnemi extends AbstractMovable implements IMovable {
     public void hitEnemy() {
 
     }
-
-    @Override
-    public IMovable self() {
-        return null;
-    }
+}
 }
