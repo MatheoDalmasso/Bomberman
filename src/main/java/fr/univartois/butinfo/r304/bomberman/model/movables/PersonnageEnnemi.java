@@ -9,7 +9,6 @@ import java.util.Random;
 public class PersonnageEnnemi extends AbstractMovable {
     Random random = new Random();
 
-
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -43,12 +42,16 @@ public class PersonnageEnnemi extends AbstractMovable {
 
     @Override
     public void collidedWith(IMovable other) {
-
+        if (other instanceof PersonnageEnnemi) {
+            hitEnemy();
+        }else{
+            explode();
+        }
     }
 
     @Override
     public void explode() {
-
+        game.enemyIsDead(this);
     }
 
     @Override
