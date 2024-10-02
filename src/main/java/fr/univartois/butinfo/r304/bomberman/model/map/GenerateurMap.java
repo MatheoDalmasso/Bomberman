@@ -17,4 +17,6 @@ public class GenerateurMap extends GameMap {
             }
         }
     }
+
+    GameMap map = new GameMap(10, 10);
 }
