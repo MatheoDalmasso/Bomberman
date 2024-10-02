@@ -1,9 +1,7 @@
-package fr.univartois.butinfo.r304.bomberman.joueur;
+package fr.univartois.butinfo.r304.bomberman.model.movables;
 
-import com.sun.javafx.image.IntPixelGetter;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -24,17 +22,19 @@ public class Joueur extends AbstractMovable {
 
     @Override
     public void collidedWith(IMovable other) {
-
+        if (other instanceof Ennemi || other instanceof Explosion) {
+            decrementPointsDeVie(1);
+        }
     }
 
     @Override
     public void explode() {
-
+        decrementPointsDeVie(1);
     }
 
     @Override
     public void hitEnemy() {
-
+        decrementPointsDeVie(1);
     }
 
     public IntegerProperty scoreProperty() {
