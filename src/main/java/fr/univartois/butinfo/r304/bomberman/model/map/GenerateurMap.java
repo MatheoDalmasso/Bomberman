@@ -14,6 +14,17 @@ public class GenerateurMap extends GameMap {
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 getCells()[i][j] = new Cell(i, j);
+                if(i==0 || j==0|| i==getHeight() || j==getWidth()){
+                    setAt(i,j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"));
+                }
+                else{
+                    if(i%2==0 && j%2==0){
+                        setAt(i,j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"));
+                    }
+                    else {
+                        setAt(i, j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/lawn.png"));
+                    }
+                }
             }
         }
     }
