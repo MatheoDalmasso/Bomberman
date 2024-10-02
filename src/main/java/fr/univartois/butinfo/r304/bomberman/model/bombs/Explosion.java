@@ -24,25 +24,24 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public boolean move(long delta) {
-        if (dureeExplosion > 2000) {
+        if (System.currentTimeMillis() - dureeExplosion > 2000) {
             game.removeMovable(this);
-            return false;
         }
         return true;
     }
 
     @Override
     public void collidedWith(IMovable other) {
-
+        other.explode();
     }
 
     @Override
     public void explode() {
-
+        game.removeMovable(this);
     }
 
     @Override
     public void hitEnemy() {
-
+        System.out.println("L'explosion a touché un ennemi");
     }
 }
