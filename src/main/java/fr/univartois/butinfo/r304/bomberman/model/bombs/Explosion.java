@@ -7,6 +7,8 @@ import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 public class Explosion extends AbstractMovable {
 
+    private long dureeExplosion;
+
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -17,6 +19,16 @@ public class Explosion extends AbstractMovable {
      */
     protected Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        this.dureeExplosion = System.currentTimeMillis();
+    }
+
+    @Override
+    public boolean move(long delta) {
+        if (dureeExplosion > 2000) {
+            game.removeMovable(this);
+            return false;
+        }
+        return true;
     }
 
     @Override
