@@ -27,22 +27,22 @@ import java.util.List;
  *
  * @version 0.1.0
  */
-public final class GameMap {
+public class GameMap {
 
     /**
      * Le nombre de lignes de cellules dans cette carte.
      */
-    private int height;
+    private final int height;
 
     /**
      * Le nombre de colonnes de cellules dans cette carte.
      */
-    private int width;
+    private final int width;
 
     /**
      * Les cellules qui constituent cette carte.
      */
-    private Cell[][] cells;
+    private final Cell[][] cells;
 
     /**
      * Construit une nouvelle instance de GameMap.
@@ -153,4 +153,7 @@ public final class GameMap {
         return emptyTiles;
     }
 
+    public Cell[][] getCells() {
+        return cells;
+    }
 }

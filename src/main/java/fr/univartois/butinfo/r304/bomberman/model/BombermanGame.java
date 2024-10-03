@@ -23,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
@@ -75,7 +76,7 @@ public final class BombermanGame {
      * Le personnage du joueur.
      */
     // TODO Adaptez le type de cet attribut pour correspondre à votre implémentation.
-    private Joueur player;
+    private IMovable player;
 
     /**
      * Le nombre d'ennemis initialement dans le jeu.
