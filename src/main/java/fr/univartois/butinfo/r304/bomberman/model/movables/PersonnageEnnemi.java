@@ -17,7 +17,7 @@ public class PersonnageEnnemi extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
@@ -56,7 +56,19 @@ public class PersonnageEnnemi extends AbstractMovable {
 
     @Override
     public void hitEnemy() {
+        // Si un ennemi touche un ennemie on ne fais rien
+    }
 
+    //Réglage Erreur sonarLint
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    //Réglage Erreur sonarLint
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
 
