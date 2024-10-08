@@ -7,6 +7,7 @@ import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Joueur extends AbstractMovable {
@@ -25,6 +26,7 @@ public class Joueur extends AbstractMovable {
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);
         this.nbBombe = new SimpleIntegerProperty(1);
+        this.bombs = FXCollections.observableArrayList();
     }
 
 
@@ -33,6 +35,14 @@ public class Joueur extends AbstractMovable {
         if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
             decrementPointsDeVie(1);
         }
+    }
+
+    public void addBombe(Bombe bombe) {
+        bombs.add(bombe);
+    }
+
+    public ObservableList<Bombe> getBombs() {
+        return bombs;
     }
 
     @Override
@@ -80,6 +90,7 @@ public class Joueur extends AbstractMovable {
     public void incrementScore(int score){
         this.score.set(this.score.get() + score);
     }
+
 
     public void decrementPointsDeVie(int pointsDeVie){
         this.pointsDeVie.set(this.pointsDeVie.get() - pointsDeVie);
