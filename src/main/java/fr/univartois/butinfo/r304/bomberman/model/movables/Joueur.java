@@ -2,6 +2,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,17 +13,20 @@ public class Joueur extends AbstractMovable {
 
     private IntegerProperty pointsDeVie;
 
+    private IntegerProperty nbBombe;
+
 
     public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);
+        this.nbBombe = new SimpleIntegerProperty(1);
     }
 
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Ennemi || other instanceof Explosion) {
+        if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
             decrementPointsDeVie(1);
         }
     }
@@ -43,6 +47,14 @@ public class Joueur extends AbstractMovable {
 
     public IntegerProperty pointsDeVieProperty() {
         return pointsDeVie;
+    }
+
+    public IntegerProperty nbBombeProperty() {
+        return nbBombe;
+    }
+
+    public int getNbBombe() {
+        return nbBombe.get();
     }
 
     public int getScore() {
