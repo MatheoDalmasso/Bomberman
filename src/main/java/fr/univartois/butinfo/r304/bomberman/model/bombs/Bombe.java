@@ -38,17 +38,19 @@ public class Bombe extends AbstractMovable {
 
     @Override
     public void collidedWith(IMovable other) {
-
+        if (other instanceof Explosion) {
+            this.explode();
+        }
     }
 
     @Override
     public void explode() {
-
+        game.removeMovable(this);
     }
 
     @Override
     public void hitEnemy() {
-
+        System.out.println("La bombe a touché un ennemi");
     }
 
 }
