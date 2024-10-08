@@ -45,6 +45,8 @@ public class Joueur extends AbstractMovable {
         return bombs;
     }
 
+
+
     @Override
     public void explode() {
         decrementPointsDeVie(1);

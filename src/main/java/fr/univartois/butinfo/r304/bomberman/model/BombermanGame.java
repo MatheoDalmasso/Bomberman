@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
@@ -194,7 +195,8 @@ public final class BombermanGame {
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            // TODO Créez une bombe et ajoutez-la au joueur.
+            Bombe bomb = new Bombe(this, 0, 0, spriteStore.getSprite("./../sprites/bomb.png"));
+            player.addBombe(bomb);
         }
 
         // On crée ensuite les ennemis sur la carte.
