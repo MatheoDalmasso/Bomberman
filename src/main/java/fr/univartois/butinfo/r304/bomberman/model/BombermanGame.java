@@ -169,8 +169,8 @@ public final class BombermanGame {
      * @return La carte du jeu ayant été créée.
      */
     private GameMap createMap() {
-        GenerateurMap map = new GenerateurMap(height * getSpriteStore().getSpriteSize(),
-                width * getSpriteStore().getSpriteSize());
+        GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(),
+                width / getSpriteStore().getSpriteSize());
         return map.genererMap();
     }
 
