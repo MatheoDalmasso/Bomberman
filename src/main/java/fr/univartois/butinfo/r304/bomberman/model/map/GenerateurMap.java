@@ -2,34 +2,42 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import javafx.scene.image.Image;
 
 
-public class GenerateurMap extends GameMap {
-
+public class GenerateurMap {
+    private final int height;
+    private final int width;
+    private final Cell[][] cells;
 
     public GenerateurMap(int height, int width) {
-        super(height, width);
+        this.height = height;
+        this.width = width;
+        this.cells = new Cell[height][width];
+        genererMap();
     }
 
     public void genererMap() {
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                getCells()[i][j] = new Cell(i, j);
-                if(i==0 || j==0|| i==getHeight() || j==getWidth()){
-                    setAt(i,j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"));
+        GameMap map = new GameMap(height, width);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if(i==0 || j==0|| i==height-1 || j==width-1){
+                    cells[i][j]= new Cell(new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"))));
                 }
                 else{
                     if(i%2==0 && j%2==0){
-                        Sprite sprite = new Sprite("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png");
-                        setAt(i,j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"));
+                        cells[i][j] = new Cell(new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/wall.png"))));
                     }
                     else {
-                        setAt(i, j, new Cell("/fr/univartois/butinfo/r304/bomberman/view/sprites/lawn.png"));
+                        cells[i][j]= new Cell(new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/lawn.png"))));
                     }
                 }
             }
         }
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                map.setAt(i, j, cells[i][j]);
+            }
+        }
     }
-
-    GameMap map = new GameMap(10, 10);
 }
