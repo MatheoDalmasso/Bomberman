@@ -76,7 +76,7 @@ public final class BombermanGame {
      * Le personnage du joueur.
      */
     // TODO Adaptez le type de cet attribut pour correspondre à votre implémentation.
-    private IMovable player;
+    private Joueur player;
 
     /**
      * Le nombre d'ennemis initialement dans le jeu.
@@ -189,7 +189,7 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this , 1,1 , spriteStore.getSprite("./sprites/agent.png"));
+        player = new Joueur(this , 1,1 , spriteStore.getSprite("./../sprites/agent.png"));
         movableObjects.add(player);
         spawnMovable(player);
 
@@ -212,10 +212,9 @@ public final class BombermanGame {
      * Initialise les statistiques de cette partie.
      */
     private void initStatistics() {
-        // TODO Lier les propriétés du joueur avec celles du contrôleur.
-        controller.bindLife(null);
-        controller.bindScore(null);
-        controller.bindBombs(null);
+        controller.bindLife(player.pointsDeVieProperty());
+        controller.bindScore(player.scoreProperty());
+        controller.bindBombs(player.nbBombeProperty());
         remainingEnemies = nbEnemies;
     }
 
