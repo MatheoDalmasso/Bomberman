@@ -2,6 +2,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -22,7 +23,7 @@ public class Joueur extends AbstractMovable {
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Ennemi || other instanceof Explosion) {
+        if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
             decrementPointsDeVie(1);
         }
     }
