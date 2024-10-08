@@ -75,7 +75,6 @@ public final class BombermanGame {
     /**
      * Le personnage du joueur.
      */
-    // TODO Adaptez le type de cet attribut pour correspondre à votre implémentation.
     private Joueur player;
 
     /**
@@ -362,7 +361,7 @@ public final class BombermanGame {
      * @param enemy L'ennemi qui a été tué.
      */
     public void enemyIsDead(IMovable enemy) {
-        // TODO Mettez à jour le score du joueur.
+        player.incrementScore(1);
         remainingEnemies--;
         removeMovable(enemy);
 
