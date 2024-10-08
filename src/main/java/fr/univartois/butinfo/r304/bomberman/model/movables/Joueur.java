@@ -2,10 +2,12 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 
 public class Joueur extends AbstractMovable {
 
@@ -14,6 +16,8 @@ public class Joueur extends AbstractMovable {
     private IntegerProperty pointsDeVie;
 
     private IntegerProperty nbBombe;
+
+    private ObservableList<Bombe> bombs;
 
 
     public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
