@@ -215,6 +215,7 @@ public final class BombermanGame {
         controller.bindLife(player.pointsDeVieProperty());
         controller.bindScore(player.scoreProperty());
         controller.bindBombs(player.nbBombeProperty());
+        controller.bindBombs(player.sizeProperty());
         remainingEnemies = nbEnemies;
     }
 
