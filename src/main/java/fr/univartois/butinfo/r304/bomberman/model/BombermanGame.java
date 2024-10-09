@@ -197,7 +197,7 @@ public final class BombermanGame {
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            Bombe bomb = new Bombe(this, 0, 0, spriteStore.getSprite("./../sprites/bomb.png"));
+            Bombe bomb = new Bombe(this, 0, 0, spriteStore.getSprite("./../sprites/bomb.png"), 4000);
             player.addBombe(bomb);
         }
 

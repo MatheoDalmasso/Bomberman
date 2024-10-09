@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class Bombe extends AbstractMovable {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
+    private long delai;
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -19,17 +20,21 @@ public class Bombe extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
+        this.delai = delai;
     }
 
-    public long dropBomb() {
-        return System.currentTimeMillis();
+    public void poseBombe() {
+        double x=this.getX();
+        double y=this.getY();
+        delai = System.currentTimeMillis();
+        new Bombe(game, x, y, new Sprite(new Image("./../sprites/bomb.png")), delai);
     }
 
     @Override
     public boolean move(long delta) {
-        if (System.currentTimeMillis() - dropBomb() > 4000) {
+        if (System.currentTimeMillis() - delai > 4000) {
             for (double i=-1; i<2; i++) {
                 for (double j=-1; j<2; j++) {
                     if( i == 0 && j == 0) {
