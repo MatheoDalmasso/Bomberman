@@ -270,12 +270,12 @@ class Sprite {
 
 ### TP n°3
 
-| Fonctionnalité                             | Terminée ? | Auteur(s)                                     |
-| ------------------------------------------ | ---------- | --------------------------------------------- |
-| Représentation des ennemis                 |            |                                               |
-| Intégration des ennemis dans la partie     |            |                                               |
-| Représentation du joueur                   |            |                                               |
-| Intégration du joueur dans la partie       |            |                                               |
-| Représentation des bombes et explosion     |            |                                               |
-| Intégration des bombes dans la partie      |            |                                               |
-| Création de la carte du jeu                |            |                                               |
+| Fonctionnalité                             | Terminée ? | Auteur(s) |
+| ------------------------------------------ |-----------|-----------|
+| Représentation des ennemis                 | ✅         | Benjamin  |
+| Intégration des ennemis dans la partie     | ✅         | Benjamin  |
+| Représentation du joueur                   | ✅         | Mathias   |
+| Intégration du joueur dans la partie       | ✅         | Mathias   |
+| Représentation des bombes et explosion     | ✅         | Mathéo    |
+| Intégration des bombes dans la partie      | ✅         | Mathéo    |
+| Création de la carte du jeu                | ✅         | Simon     |
