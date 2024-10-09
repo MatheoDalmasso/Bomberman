@@ -281,8 +281,10 @@ public final class BombermanGame {
      * cette bombe.
      */
     public void dropBomb() {
-        // TODO Retirer une bombe au joueur (s'il lui en reste).
-        // TODO Utilisez ensuite la méthode dropBomb(Bomb) pour la déposer.
+        if (!player.getBombs().isEmpty()) {
+            Bombe bomb = player.getBombs().removeFirst();
+            dropBomb(bomb);
+        }
     }
 
     /**
@@ -291,11 +293,11 @@ public final class BombermanGame {
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(IMovable bomb) {
-        // TODO Adapteez le type de bomb pour correspondre à votre implémentation.
-        // TODO Déposez ensuite la bombe à la position du joueur.
+    public void dropBomb(Bombe bomb) {
+        bomb.poserBombe();
+        addMovable(bomb);
+        getCellAt(bomb.getX(), bomb.getY()).setBomb(bomb);
     }
-
     /**
      * Récupére la cellule correspondant à la position d'un objet mobile.
      * Il s'agit de la cellule sur laquelle l'objet en question occupe le plus de place.
