@@ -5,8 +5,11 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
-public class Explosion extends AbstractMovable {
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
+public class Explosion extends AbstractMovable {
+    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long dureeExplosion;
 
     /**
@@ -42,6 +45,16 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public void hitEnemy() {
-        System.out.println("L'explosion a touché un ennemi");
+        LOGGER.info("L'explosion a touché un ennemi");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
