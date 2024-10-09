@@ -4,6 +4,7 @@ import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.scene.image.Image;
 
 import java.util.logging.LogManager;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 public class Bombe extends AbstractMovable {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long delai;
+    private SpriteStore spriteStore = new SpriteStore();
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -29,7 +31,7 @@ public class Bombe extends AbstractMovable {
         double x=this.getX();
         double y=this.getY();
         delai = System.currentTimeMillis();
-        new Bombe(game, x, y, new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/bomb.png")), delai);
+        new Bombe(game, x, y, spriteStore.getSprite("bomb"), delai);
     }
 
     @Override
@@ -40,9 +42,9 @@ public class Bombe extends AbstractMovable {
                     if( i == 0 && j == 0) {
                         continue;
                     }
-                    Explosion explosion = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/explosion.png")));
+                    Explosion explosion = new Explosion(game, getX() + i, getY() + j, spriteStore.getSprite("explosion"));
                     game.addMovable(explosion);
-                    Explosion pelouse = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/lawn.png")));
+                    Explosion pelouse = new Explosion(game, getX() + i, getY() + j, spriteStore.getSprite("lawn"));
                     game.addMovable(pelouse);
                 }
             }

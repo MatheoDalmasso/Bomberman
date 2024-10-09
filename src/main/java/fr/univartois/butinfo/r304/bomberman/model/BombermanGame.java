@@ -192,19 +192,19 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this , 1,1 , spriteStore.getSprite("./../sprites/agent.png"));
+        player = new Joueur(this , 1,1 , spriteStore.getSprite("agent"));
         movableObjects.add(player);
         spawnMovable(player);
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            Bombe bomb = new Bombe(this, 0, 0, spriteStore.getSprite("./../sprites/bomb.png"), 4000);
+            Bombe bomb = new Bombe(this, 0, 0, spriteStore.getSprite("bomb"), 4000);
             player.addBombe(bomb);
         }
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            IMovable enemy = new PersonnageEnnemi(this, getWidth()-1, getHeight()-1, spriteStore.getSprite("./../sprites/goblin.png"));
+            IMovable enemy = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"));
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(enemy);
             spawnMovable(enemy);
