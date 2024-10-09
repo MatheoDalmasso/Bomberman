@@ -29,7 +29,7 @@ public class Bombe extends AbstractMovable {
         double x=this.getX();
         double y=this.getY();
         delai = System.currentTimeMillis();
-        new Bombe(game, x, y, new Sprite(new Image("./../sprites/bomb.png")), delai);
+        new Bombe(game, x, y, new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/bomb.png")), delai);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class Bombe extends AbstractMovable {
                     if( i == 0 && j == 0) {
                         continue;
                     }
-                    Explosion explosion = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("./../sprites/explosion.png")));
+                    Explosion explosion = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/explosion.png")));
                     game.addMovable(explosion);
-                    Explosion pelouse = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("./../sprites/lawn.png")));
+                    Explosion pelouse = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("/fr/univartois/butinfo/r304/bomberman/view/sprites/lawn.png")));
                     game.addMovable(pelouse);
                 }
             }
