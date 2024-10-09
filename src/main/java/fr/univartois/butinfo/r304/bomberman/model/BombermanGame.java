@@ -294,7 +294,7 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(Bombe bomb) {
-        bomb.poserBombe();
+        bomb.poseBombe();
         addMovable(bomb);
         getCellAt(bomb.getX(), bomb.getY()).setBomb(bomb);
     }
