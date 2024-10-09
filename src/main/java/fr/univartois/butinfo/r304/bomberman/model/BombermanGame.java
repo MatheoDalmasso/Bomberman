@@ -296,7 +296,7 @@ public final class BombermanGame {
     public void dropBomb(Bombe bomb) {
         bomb.poseBombe();
         addMovable(bomb);
-        getCellAt(bomb.getX(), bomb.getY()).setBomb(bomb);
+        getCellAt(bomb.getX(), bomb.getY());
     }
     /**
      * Récupére la cellule correspondant à la position d'un objet mobile.
