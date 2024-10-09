@@ -6,9 +6,11 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.scene.image.Image;
 
-public class Bombe extends AbstractMovable {
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-    private long timerApparition;
+public class Bombe extends AbstractMovable {
+    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -17,21 +19,29 @@ public class Bombe extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
     public long dropBomb() {
-        timerApparition = System.currentTimeMillis();
-        return timerApparition;
+        return System.currentTimeMillis();
     }
 
     @Override
     public boolean move(long delta) {
         if (System.currentTimeMillis() - dropBomb() > 4000) {
+            for (double i=-1; i<2; i++) {
+                for (double j=-1; j<2; j++) {
+                    if( i == 0 && j == 0) {
+                        continue;
+                    }
+                    Explosion explosion = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("./../sprites/explosion.png")));
+                    game.addMovable(explosion);
+                    Explosion pelouse = new Explosion(game, getX() + i, getY() + j, new Sprite(new Image("./../sprites/lawn.png")));
+                    game.addMovable(pelouse);
+                }
+            }
             game.removeMovable(this);
-            Explosion explosion = new Explosion(game, getX(), getY(), new Sprite(new Image("explosion.png")));
-            game.addMovable(explosion);
         }
         return true;
     }
@@ -50,7 +60,16 @@ public class Bombe extends AbstractMovable {
 
     @Override
     public void hitEnemy() {
-        System.out.println("La bombe a touché un ennemi");
+        LOGGER.info("La bombe a touché un ennemi");
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
