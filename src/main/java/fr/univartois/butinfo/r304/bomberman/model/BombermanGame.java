@@ -204,7 +204,7 @@ public final class BombermanGame {
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            IMovable enemy = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("./../sprites/goblin.png"));
+            IMovable enemy = new PersonnageEnnemi(this, getWidth()-1, getHeight()-1, spriteStore.getSprite("./../sprites/goblin.png"));
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(enemy);
             spawnMovable(enemy);

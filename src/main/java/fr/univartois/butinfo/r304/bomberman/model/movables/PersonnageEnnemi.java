@@ -40,6 +40,11 @@ public class PersonnageEnnemi extends AbstractMovable {
 
     }
 
+    /**
+     * Permet de gérer les collisions de cet objet avec un autre objet.
+     *
+     * @param other L'objet avec lequel cet objet est entré en collision.
+     */
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof PersonnageEnnemi) {
@@ -49,11 +54,17 @@ public class PersonnageEnnemi extends AbstractMovable {
         }
     }
 
+    /**
+     * Permet de gérer l'explosion de cet objet.
+     */
     @Override
     public void explode() {
         game.enemyIsDead(this);
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un ennemi.
+     */
     @Override
     public void hitEnemy() {
         // Si un ennemi touche un ennemie on ne fais rien
