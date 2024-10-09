@@ -28,6 +28,7 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * La classe {@link BombermanGame} gère une partie du jeu Bomberman.
@@ -216,7 +217,7 @@ public final class BombermanGame {
         controller.bindLife(player.pointsDeVieProperty());
         controller.bindScore(player.scoreProperty());
         controller.bindBombs(player.nbBombeProperty());
-        controller.bindBombs(player.sizeProperty());
+        controller.bindBombs(new SimpleIntegerProperty(player.getBombs().size()));
         remainingEnemies = nbEnemies;
     }
 

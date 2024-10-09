@@ -45,9 +45,6 @@ public class Joueur extends AbstractMovable {
         return bombs;
     }
 
-    public IntegerProperty sizeProperty() {
-        return new SimpleIntegerProperty(bombs.size());
-    }
 
     @Override
     public void explode() {
