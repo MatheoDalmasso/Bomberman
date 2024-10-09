@@ -30,8 +30,8 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public boolean move(long delta) {
-        double newHorizontalSpeed = random.nextDouble() * 2 - 1;
-        double newVerticalSpeed = random.nextDouble() * 2 - 1;
+        double newHorizontalSpeed = random.nextDouble() * 2 ;
+        double newVerticalSpeed = random.nextDouble() * 2 ;
 
         setHorizontalSpeed(newHorizontalSpeed);
         setVerticalSpeed(newVerticalSpeed);
