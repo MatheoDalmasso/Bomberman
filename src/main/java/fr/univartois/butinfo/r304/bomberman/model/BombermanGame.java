@@ -30,8 +30,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 /**
  * La classe {@link BombermanGame} gère une partie du jeu Bomberman.
@@ -41,7 +39,6 @@ import java.util.logging.Logger;
  */
 public final class BombermanGame {
 
-    private static final Logger LOGGER = LogManager.getLogManager().getLogger(BombermanGame.class.getPackageName());
 
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
@@ -194,13 +191,13 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this, 1, 1, spriteStore.getSprite("guy"));
+        player = new Joueur(this, 0, 0, spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            Bombe bomb = new Bombe(this, 0, 0, spriteStore.getSprite("bomb"), 4000);
+            Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
             player.addBombe(bomb);
         }
 
@@ -297,9 +294,8 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(Bombe bomb) {
-        int spriteSize = spriteStore.getSpriteSize();
-        bomb.setX(player.getX() / spriteSize);
-        bomb.setY(player.getY() / spriteSize);
+        bomb.setX(player.getX());
+        bomb.setY(player.getY());
         this.addMovable(bomb);
         bomb.move(0);
     }

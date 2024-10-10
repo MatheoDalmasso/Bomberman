@@ -5,7 +5,6 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
@@ -18,6 +17,7 @@ public class Bombe extends AbstractMovable {
     private SpriteStore spriteStore = new SpriteStore();
     private GameMap map = game.getGameMap();
     private long startTime = -1;
+
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -38,6 +38,12 @@ public class Bombe extends AbstractMovable {
 
     @Override
     public boolean move(long delta) {
+        // Récupérer la position de la bombe
+        int bombX = getX();
+        int bombY = getY();
+
+        Cell bombCell = game.getCellAt(bombX, bombY);
+
         if (startTime == -1) {
             startTime = System.currentTimeMillis();
             poseBombe();
@@ -46,36 +52,32 @@ public class Bombe extends AbstractMovable {
         long elapsedTime = System.currentTimeMillis() - startTime;
 
         if (elapsedTime < 2500) {
-            // Display bomb and explosion during the 4 seconds
-            map.setAt(this.getY(), this.getX(), new Cell(spriteStore.getSprite("bomb")));
-            for (double i = -1; i < 2; i++) {
-                for (double j = -1; j < 2; j++) {
-                    if (!(i == 0 && j == 0)) {
-                        if (map.getAt((int) (this.getY() + i), (int) (this.getX() + j)).getWall() == null) {
-                            Explosion explosion = new Explosion(game, this.getX() + j, this.getY() + i, spriteStore.getSprite("explosion"));
-                            map.setAt((int) (this.getY() + i), (int) (this.getX() + j), new Cell(spriteStore.getSprite("explosion")));
-                            game.addMovable(explosion);
-                        }
-                    }
 
+            if (bombCell.getWall() == null) {
+                Explosion explosion = new Explosion(game, bombX, bombY, spriteStore.getSprite("explosion"));
+                game.addMovable(explosion);
+            }
 
+            int[][] directions = {
+                    {0, -1}, // haut
+                    {0, 1},  // bas
+                    {-1, 0}, // gauche
+                    {1, 0}    // droite
+            };
+
+            for (int[] dir : directions) {
+                int adjacentX = bombX + dir[0] * spriteStore.getSpriteSize();
+                int adjacentY = bombY + dir[1] * spriteStore.getSpriteSize();
+                
+                Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
+                if (adjacentCell.getWall() == null) {
+                    Explosion adjExplosion = new Explosion(game, adjacentX, adjacentY, spriteStore.getSprite("explosion"));
+                    game.addMovable(adjExplosion);
                 }
             }
-        } else {
-            System.out.println("test");
-            // After 4 seconds, display lawn
-            for (double i = -1; i < 2; i++) {
-                for (double j = -1; j < 2; j++) {
-                    if (map.getAt((int) (this.getY() + i), (int) (this.getX() + j)).getSprite().equals(spriteStore.getSprite("explosion"))) {
-                        System.out.println("Test3");
-                        map.setAt((int) (this.getY() + i), (int) (this.getX() + j), new Cell(spriteStore.getSprite("lawn")));
-                    }
-                }
-            }
-            this.game.removeMovable(this);
+            game.removeMovable(this);
             return true;
         }
-        System.out.println("test2");
         return false;
     }
 
@@ -83,9 +85,6 @@ public class Bombe extends AbstractMovable {
     public void collidedWith(IMovable other) {
         if (other instanceof Explosion) {
             this.explode();
-        }
-        if (other instanceof PersonnageEnnemi) {
-            this.hitEnemy();
         }
     }
 
