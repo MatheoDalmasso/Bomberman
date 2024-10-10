@@ -12,20 +12,33 @@ import javafx.collections.ObservableList;
 
 public class Joueur extends AbstractMovable {
 
+    /**
+     * score du joueur.
+     */
     private IntegerProperty score;
 
+    /**
+     * Points de vie du joueur.
+     */
     private IntegerProperty pointsDeVie;
 
+    /**
+     * Nombre de bombes du joueur.
+     */
     private IntegerProperty nbBombe;
 
+    /**
+     * Liste des bombes du joueur.
+     */
     private ObservableList<Bombe> bombs;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
-     * @param game
-     * @param xPosition
-     * @param yPosition
-     * @param sprite
+     *
+     * @param game      Le jeu dans lequel l'objet évolue.
+     * @param xPosition La position en x initiale de l'objet.
+     * @param yPosition La position en y initiale de l'objet.
+     * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
     public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
@@ -37,6 +50,7 @@ public class Joueur extends AbstractMovable {
 
     /**
      * Déplace le joueur.
+     *
      * @param other L'objet avec lequel cet objet est entré en collision.
      */
     @Override
@@ -48,7 +62,8 @@ public class Joueur extends AbstractMovable {
 
     /**
      * Ajoute une bombe à la liste des bombes.
-     * @param bombe
+     *
+     * @param bombe La bombe à ajouter.
      */
     public void addBombe(Bombe bombe) {
         bombs.add(bombe);
@@ -56,21 +71,23 @@ public class Joueur extends AbstractMovable {
 
     /**
      * Supprime une bombe de la liste des bombes.
-     * @return
+     *
+     * @return le nombre de bombes restantes.
      */
     public ObservableList<Bombe> getBombs() {
         return bombs;
     }
 
-
+    /**
+     * Décremente les points de vie du joueur quand il explose.
+     */
     @Override
     public void explode() {
         decrementPointsDeVie(1);
     }
 
     /**
-     * Handles the explosion event for the player.
-     * Decreases the player's life points by 1.
+     * Décremente la vie du joueur quand il est touché par un ennemi.
      */
     @Override
     public void hitEnemy() {
@@ -79,100 +96,100 @@ public class Joueur extends AbstractMovable {
 
 
     /**
-     * Returns the score property of the player.
+     * Retourne le score du joueur.
      *
-     * @return The score property.
+     * @return Le score.
      */
     public IntegerProperty scoreProperty() {
         return score;
     }
 
     /**
-     * Returns the life points property of the player.
+     * Retourne les points de vie du joueur.
      *
-     * @return The life points property.
+     * @return Les points de vie.
      */
     public IntegerProperty pointsDeVieProperty() {
         return pointsDeVie;
     }
 
     /**
-     * Returns the bomb count property of the player.
+     * Retourne le nombre de bombes du joueur.
      *
-     * @return The bomb count property.
+     * @return Le nombre de bombes.
      */
     public IntegerProperty nbBombeProperty() {
         return nbBombe;
     }
 
     /**
-     * Returns the number of bombs the player has.
+     * Retourne le nombre de bombes du joueur.
      *
-     * @return The number of bombs.
+     * @return Le nombre de bombes.
      */
     public int getNbBombe() {
         return nbBombe.get();
     }
 
     /**
-     * Returns the score of the player.
+     * Retourne le score du joueur.
      *
-     * @return The score.
+     * @return Le score.
      */
     public int getScore() {
         return score.get();
     }
 
     /**
-     * Sets the score of the player.
+     * Change le score du joueur.
      *
-     * @param score The new score.
+     * @param score Le nouveau score.
      */
     public void setScore(int score) {
         this.score.set(score);
     }
 
     /**
-     * Returns the life points of the player.
+     * Retourne les points de vie du joueur.
      *
-     * @return The life points.
+     * @return Les points de vie.
      */
     public int getPointsDeVie() {
         return pointsDeVie.get();
     }
 
     /**
-     * Sets the life points of the player.
+     * Change les points de vie du joueur.
      *
-     * @param pointsDeVie The new life points.
+     * @param pointsDeVie Les nouveaux points de vies.
      */
     public void setPointsDeVie(int pointsDeVie) {
         this.pointsDeVie.set(pointsDeVie);
     }
 
     /**
-     * Increments the score of the player by a specified amount.
+     * Incrémente le score du joueur par un montant précis.
      *
-     * @param score The amount to increment the score by.
+     * @param score Le montant à ajouter au score.
      */
     public void incrementScore(int score) {
         this.score.set(this.score.get() + score);
     }
 
     /**
-     * Decrements the life points of the player by a specified amount.
+     * Decrémente le nombre de points de vies du joueur par un montant précis.
      *
-     * @param pointsDeVie The amount to decrement the life points by.
+     * @param pointsDeVie Le montant à retirer aux points de vie.
      */
     public void decrementPointsDeVie(int pointsDeVie) {
         this.pointsDeVie.set(this.pointsDeVie.get() - pointsDeVie);
     }
 
     /**
-     * Checks if this player is equal to another object.
+     * Check si le joueur est égale à un autre objet.
      *
-     * @param obj The object to compare with.
-     * @return True if the objects are equal, false otherwise.
+     * @param obj L'ojet à comparer.
+     * @return Vraie si les objets sont égaux, faux sinon.
      */
     @Override
     public boolean equals(Object obj) {
@@ -180,9 +197,9 @@ public class Joueur extends AbstractMovable {
     }
 
     /**
-     * Returns the hash code of this player.
+     * Retourne le hash code de l'objet.
      *
-     * @return The hash code.
+     * @return Le hash code.
      */
     @Override
     public int hashCode() {

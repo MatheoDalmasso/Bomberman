@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,16 +9,12 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
 
 package fr.univartois.butinfo.r304.bomberman.model;
-
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
@@ -31,14 +27,22 @@ import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 /**
  * La classe {@link BombermanGame} gère une partie du jeu Bomberman.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public final class BombermanGame {
+
+    private static final Logger LOGGER = LogManager.getLogManager().getLogger(BombermanGame.class.getPackageName());
 
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
@@ -108,11 +112,11 @@ public final class BombermanGame {
     /**
      * Crée une nouvelle instance de BombermanGame.
      *
-     * @param gameWidth La largeur de la carte du jeu.
-     * @param gameHeight La hauteur de la carte du jeu.
+     * @param gameWidth   La largeur de la carte du jeu.
+     * @param gameHeight  La hauteur de la carte du jeu.
      * @param spriteStore L'instance de {@link ISpriteStore} permettant de créer les
-     *        {@link Sprite} du jeu.
-     * @param nbEnemies Le nombre d'ennemis dans le jeu.
+     *                    {@link Sprite} du jeu.
+     * @param nbEnemies   Le nombre d'ennemis dans le jeu.
      */
     public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies) {
         this.width = gameWidth;
@@ -172,8 +176,8 @@ public final class BombermanGame {
      */
     private GameMap createMap() {
         GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
-        System.out.println(height/getSpriteStore().getSpriteSize());
-        System.out.println(width/getSpriteStore().getSpriteSize());
+        LOGGER.log(Level.INFO, "Hauteur d\''une cellule {0}", height / getSpriteStore().getSpriteSize()); //36
+        LOGGER.log(Level.INFO, "Largeur d\''une cellule {0}", width / getSpriteStore().getSpriteSize()); //24
         return map.genererMap();
     }
 
@@ -193,7 +197,7 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this , 1,1 , spriteStore.getSprite("guy"));
+        player = new Joueur(this, 1, 1, spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
 
@@ -300,12 +304,12 @@ public final class BombermanGame {
         addMovable(bomb);
         getCellAt(player.getX(), player.getY()).replaceBy(new Cell(spriteStore.getSprite("bomb")));
     }
+
     /**
      * Récupére la cellule correspondant à la position d'un objet mobile.
      * Il s'agit de la cellule sur laquelle l'objet en question occupe le plus de place.
      *
      * @param movable L'objet mobile dont la cellule doit être récupérée.
-     *
      * @return La cellule occupée par l'objet mobile.
      */
     private Cell getCellOf(IMovable movable) {
@@ -320,7 +324,6 @@ public final class BombermanGame {
      *
      * @param x La position en x de la cellule.
      * @param y La position en y de la cellule.
-     *
      * @return La cellule à la position donnée.
      */
     public Cell getCellAt(int x, int y) {

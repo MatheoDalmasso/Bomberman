@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +9,7 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -19,12 +19,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -86,7 +81,7 @@ public abstract class AbstractMovable implements IMovable {
      * @param sprite L'instance de {@link Sprite} représentant l'objet.
      */
     protected AbstractMovable(BombermanGame game, double xPosition,
-            double yPosition, Sprite sprite) {
+                              double yPosition, Sprite sprite) {
         this.game = game;
         this.xPosition = new SimpleDoubleProperty(xPosition);
         this.yPosition = new SimpleDoubleProperty(yPosition);
@@ -335,12 +330,8 @@ public abstract class AbstractMovable implements IMovable {
             return true;
         }
 
-        if (game.getCellAt(x + getWidth() - MARGIN, y + getHeight() - MARGIN).getWall() != null) {
-            // Le coin inférieur droit de l'objet a atteint un mur.
-            return true;
-        }
-
-        return false;
+        // Le coin inférieur droit de l'objet a atteint un mur.
+        return game.getCellAt(x + getWidth() - MARGIN, y + getHeight() - MARGIN).getWall() != null;
     }
 
     /*

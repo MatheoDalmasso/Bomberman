@@ -19,7 +19,6 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.image.Image;
 
 /**
  * La classe {@link Cell} représente une cellule de la carte du jeu du Bomberman.
