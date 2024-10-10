@@ -1,16 +1,12 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
-import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
-import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
-import javafx.scene.image.Image;
 
 public class GenerateurMap {
     private final int height;
     private final int width;
     private final Cell[][] cells;
     private GameMap map;
-    private BombermanGame game;
     SpriteStore spriteStore = new SpriteStore();
 
 
@@ -18,7 +14,6 @@ public class GenerateurMap {
         this.height = height;
         this.width = width;
         this.cells = new Cell[height][width];
-
     }
 
 
@@ -30,16 +25,15 @@ public class GenerateurMap {
                     map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("wall"))));
                 }
                 else{
-                    if(i%2==0 && j%2==0){
-                        map.setAt(i, j, new Cell(spriteStore.getSprite("wall")));
+                    if(i%3==0 && j%3==0){
+                        map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("wall"))));
                     }
                     else {
                         map.setAt(i, j, new Cell(spriteStore.getSprite("lawn")));
                     }
                 }
-                System.out.println(map.getAt(i,j).getWallProperty().toString() + " valeur de i "+ i + " valeur de j " + j);
-            }
 
+            }
         }
         return map;
     }

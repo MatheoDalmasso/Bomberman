@@ -3,6 +3,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.Random;
@@ -15,8 +16,7 @@ public class PersonnageEnnemi extends AbstractMovable {
     private static final int TEMPS_MOUVEMENT = 2000; // Durée de mouvement en millisecondes
     private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance de mouvement en pixels
     private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // Vitesse de déplacement en pixels par seconde
-
-
+    
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -65,11 +65,8 @@ public class PersonnageEnnemi extends AbstractMovable {
         boolean moved = super.move((long) SPEED);
 
         if(!moved){
-            System.out.println("Change direction due to obstacle or boundary.");
             changeDirection();
         }
-
-
         setHorizontalSpeed(0);
         setVerticalSpeed(0);
 
