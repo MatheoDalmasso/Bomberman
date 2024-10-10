@@ -30,7 +30,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -176,8 +175,6 @@ public final class BombermanGame {
      */
     private GameMap createMap() {
         GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
-        LOGGER.log(Level.INFO, "Hauteur d\''une cellule {0}", height / getSpriteStore().getSpriteSize()); //36
-        LOGGER.log(Level.INFO, "Largeur d\''une cellule {0}", width / getSpriteStore().getSpriteSize()); //24
         return map.genererMap();
     }
 
