@@ -171,8 +171,9 @@ public final class BombermanGame {
      * @return La carte du jeu ayant été créée.
      */
     private GameMap createMap() {
-        GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(),
-                width / getSpriteStore().getSpriteSize());
+        GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        System.out.println(height/getSpriteStore().getSpriteSize());
+        System.out.println(width/getSpriteStore().getSpriteSize());
         return map.genererMap();
     }
 
@@ -192,7 +193,7 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this , 1,1 , spriteStore.getSprite("agent"));
+        player = new Joueur(this , 1,1 , spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
 
@@ -297,7 +298,7 @@ public final class BombermanGame {
     public void dropBomb(Bombe bomb) {
         bomb.poseBombe();
         addMovable(bomb);
-        getCellAt(bomb.getX(), bomb.getY());
+        getCellAt(player.getX(), player.getY()).replaceBy(new Cell(spriteStore.getSprite("bomb")));
     }
     /**
      * Récupére la cellule correspondant à la position d'un objet mobile.

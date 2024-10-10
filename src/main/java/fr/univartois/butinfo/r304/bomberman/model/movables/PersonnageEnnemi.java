@@ -2,12 +2,20 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.Random;
 
 public class PersonnageEnnemi extends AbstractMovable {
     Random random = new Random();
+    private int direction; // 0 = gauche, 1 = droite, 2 = haut, 3 = bas
+    private long debutMouvement;
+
+    private static final int TEMPS_MOUVEMENT = 2000; // Durée de mouvement en millisecondes
+    private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance de mouvement en pixels
+    private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // Vitesse de déplacement en pixels par seconde
+
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -19,6 +27,8 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        changeDirection();
+        debutMouvement = System.currentTimeMillis();
     }
 
     /**
@@ -30,14 +40,47 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public boolean move(long delta) {
-        double newHorizontalSpeed = random.nextDouble() * 2 ;
-        double newVerticalSpeed = random.nextDouble() * 2 ;
+        long currentTime = System.currentTimeMillis();
 
-        setHorizontalSpeed(newHorizontalSpeed);
-        setVerticalSpeed(newVerticalSpeed);
+        if (currentTime - debutMouvement > TEMPS_MOUVEMENT) {
+            changeDirection();
+            debutMouvement = currentTime;
+        }
 
-        return super.move(delta);
+        switch (direction) {
+            case 0: //cas vers la gauche
+                setHorizontalSpeed(-SPEED);
+                break;
+            case 1: //cas vers la droite
+                setHorizontalSpeed(SPEED);
+                break;
+            case 2: //cas vers le bas
+                setVerticalSpeed(-SPEED);
+                break;
+            case 3: //cas vers le haut
+                setVerticalSpeed(SPEED);
+                break;
+        }
 
+        boolean moved = super.move((long) SPEED);
+
+        if(!moved){
+            System.out.println("Change direction due to obstacle or boundary.");
+            changeDirection();
+        }
+
+
+        setHorizontalSpeed(0);
+        setVerticalSpeed(0);
+
+        return moved;
+
+    }
+
+    private void changeDirection() {
+        direction = random.nextInt(4);
+        setHorizontalSpeed(0);
+        setVerticalSpeed(0);
     }
 
     /**
@@ -49,7 +92,8 @@ public class PersonnageEnnemi extends AbstractMovable {
     public void collidedWith(IMovable other) {
         if (other instanceof PersonnageEnnemi) {
             hitEnemy();
-        }else{
+        }
+        if(other instanceof Explosion){
             explode();
         }
     }

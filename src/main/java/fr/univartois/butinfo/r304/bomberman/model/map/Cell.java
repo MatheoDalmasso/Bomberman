@@ -77,7 +77,7 @@ public class Cell {
      *
      * @param wall Le mur initialement présent sur la cellule.
      */
-    private Cell(Wall wall) {
+    protected Cell(Wall wall) {
         this.wallProperty.set(wall);
         this.spriteProperty.set(wall.getSprite());
     }
