@@ -33,7 +33,12 @@ public class Bombe extends AbstractMovable {
     }
 
     public void poseBombe() {
-        delai = System.currentTimeMillis();
+        if (game.getRemainingBombs() > 0) {
+            delai = System.currentTimeMillis();
+            game.decreaseBombs();
+        } else {
+            LOGGER.info("Pas de bombes disponibles.");
+        }
     }
 
     @Override
@@ -65,15 +70,20 @@ public class Bombe extends AbstractMovable {
                     {1, 0}    // droite
             };
 
-            for (int[] dir : directions) {
-                int adjacentX = bombX + dir[0] * spriteStore.getSpriteSize();
-                int adjacentY = bombY + dir[1] * spriteStore.getSpriteSize();
-                
-                Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
-                if (adjacentCell.getWall() == null) {
-                    Explosion adjExplosion = new Explosion(game, adjacentX, adjacentY, spriteStore.getSprite("explosion"));
-                    game.addMovable(adjExplosion);
+            for (int i = 0; i < directions.length; i++) {
+                for (int j = 0; j < directions[i].length; j++) {
+                    if (j == 0) { // Si c'est la direction en x
+                        int adjacentX = bombX + directions[i][j] * spriteStore.getSpriteSize();
+                        int adjacentY = bombY + directions[i][1] * spriteStore.getSpriteSize();
+
+                        Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
+                        if (adjacentCell.getWall() == null) {
+                            Explosion adjExplosion = new Explosion(game, adjacentX, adjacentY, spriteStore.getSprite("explosion"));
+                            game.addMovable(adjExplosion);
+                        }
+                    }
                 }
+
             }
             game.removeMovable(this);
             return true;

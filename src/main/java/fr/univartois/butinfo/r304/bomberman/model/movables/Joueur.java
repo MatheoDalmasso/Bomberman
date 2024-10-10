@@ -47,6 +47,7 @@ public class Joueur extends AbstractMovable {
         this.nbBombe = new SimpleIntegerProperty(1);
         this.bombs = FXCollections.observableArrayList();
     }
+    
 
     /**
      * Déplace le joueur.

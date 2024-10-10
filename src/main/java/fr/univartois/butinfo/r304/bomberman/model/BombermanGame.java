@@ -101,6 +101,11 @@ public final class BombermanGame {
     private final AnimationTimer animation = new BombermanAnimation(movableObjects);
 
     /**
+     * Le nombre de bombes restant au joueur.
+     */
+    private int remainingBombs;
+
+    /**
      * Le contrôleur du jeu.
      */
     private IBombermanController controller;
@@ -119,6 +124,26 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        this.remainingBombs = DEFAULT_BOMBS;
+    }
+
+    /**
+     * Donne le reste de bombe du joueur.
+     *
+     * @return Le reste de bombe du joueur.
+     */
+    public int getRemainingBombs() {
+        return remainingBombs;
+    }
+
+    /**
+     * Diminue le nombre de bombes restantes du joueur.
+     */
+    public void decreaseBombs() {
+        if (remainingBombs > 0) {
+            remainingBombs--;
+            System.out.println("Bombes restantes : " + remainingBombs);
+        }
     }
 
     /**
@@ -209,6 +234,7 @@ public final class BombermanGame {
             spawnMovable(enemy);
         }
     }
+
 
     /**
      * Initialise les statistiques de cette partie.
