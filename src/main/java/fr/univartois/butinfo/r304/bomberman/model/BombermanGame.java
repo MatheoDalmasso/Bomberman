@@ -297,9 +297,20 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(Bombe bomb) {
-        bomb.poseBombe();
-        addMovable(bomb);
-        getCellAt(player.getX(), player.getY()).replaceBy(new Cell(spriteStore.getSprite("bomb")));
+        int spriteSize = spriteStore.getSpriteSize();
+        bomb.setX(player.getX() / spriteSize);
+        bomb.setY(player.getY() / spriteSize);
+        this.addMovable(bomb);
+        bomb.move(0);
+    }
+
+    /**
+     * Donne la carte du jeu.
+     *
+     * @return La carte du jeu.
+     */
+    public GameMap getGameMap() {
+        return gameMap;
     }
 
     /**
