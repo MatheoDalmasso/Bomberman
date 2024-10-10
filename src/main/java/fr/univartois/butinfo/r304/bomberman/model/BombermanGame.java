@@ -142,7 +142,6 @@ public final class BombermanGame {
     public void decreaseBombs() {
         if (remainingBombs > 0) {
             remainingBombs--;
-            System.out.println("Bombes restantes : " + remainingBombs);
         }
     }
 
@@ -342,7 +341,7 @@ public final class BombermanGame {
      * @param movable L'objet mobile dont la cellule doit être récupérée.
      * @return La cellule occupée par l'objet mobile.
      */
-    private Cell getCellOf(IMovable movable) {
+    protected Cell getCellOf(IMovable movable) {
         // On commence par récupérer la position du centre de l'objet.
         int midX = movable.getX() + (movable.getWidth() / 2);
         int midY = movable.getY() + (movable.getHeight() / 2);

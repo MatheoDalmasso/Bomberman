@@ -25,6 +25,13 @@ public class Explosion extends AbstractMovable {
         this.dureeExplosion = System.currentTimeMillis();
     }
 
+    /**
+     * Enlève l'explosion de la carte.
+     *
+     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
+     *              millisecondes).
+     * @return
+     */
     @Override
     public boolean move(long delta) {
         if (System.currentTimeMillis() - dureeExplosion > 2000) {
@@ -33,26 +40,48 @@ public class Explosion extends AbstractMovable {
         return true;
     }
 
+    /**
+     * Elimine l'objet avec lequel cet objet est entré en collision.
+     *
+     * @param other L'objet avec lequel cet objet est entré en collision.
+     */
     @Override
     public void collidedWith(IMovable other) {
         other.explode();
     }
 
+    /**
+     * Enlève l'explosion de la carte.
+     */
     @Override
     public void explode() {
         game.removeMovable(this);
     }
 
+    /**
+     * L'explosion a touché un ennemi.
+     */
     @Override
     public void hitEnemy() {
         LOGGER.info("L'explosion a touché un ennemi");
     }
 
+    /**
+     * Permet de comparer deux objets.
+     *
+     * @param obj L'objet à comparer.
+     * @return true si les objets sont égaux, false sinon.
+     */
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
 
+    /**
+     * Retourne le code de hachage de cet objet.
+     *
+     * @return Le code de hachage de cet objet.
+     */
     @Override
     public int hashCode() {
         return super.hashCode();
