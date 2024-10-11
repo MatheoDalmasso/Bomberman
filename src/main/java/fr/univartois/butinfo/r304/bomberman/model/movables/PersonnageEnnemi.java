@@ -2,12 +2,19 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.Random;
 
 public class PersonnageEnnemi extends AbstractMovable {
     Random random = new Random();
+    private int direction; // 0 = gauche, 1 = droite, 2 = bas, 3 = haut
+    private long debutMouvement;
+
+    private static final int TEMPS_MOUVEMENT = 2000; // Durée de mouvement en millisecondes du mouvement à réaliser
+    private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance de mouvement en pixels du mouvement à réaliser
+    private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // Vitesse de déplacement en pixels par seconde
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -19,25 +26,65 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        changeDirection();
+        debutMouvement = System.currentTimeMillis();
     }
 
     /**
-     *
      * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
-     *        millisecondes).
-     *
-     * @return
+     *              millisecondes).
+     * @return true si l'objet a bougé, false sinon.
      */
     @Override
     public boolean move(long delta) {
-        double newHorizontalSpeed = random.nextDouble() * 2 - 1;
-        double newVerticalSpeed = random.nextDouble() * 2 - 1;
+        //Nous avons décidé d'adapter les mouvements des ennemies avec des mouvements aléatoires avec un mouvement toutes les 2 secondes
 
-        setHorizontalSpeed(newHorizontalSpeed);
-        setVerticalSpeed(newVerticalSpeed);
+        long currentTime = System.currentTimeMillis(); // Temps actuel en millisecondes
 
-        return super.move(delta);
+        if (currentTime - debutMouvement > TEMPS_MOUVEMENT) { // Si le temps de mouvement est écoulé
+            changeDirection(); // On change de direction
+            debutMouvement = currentTime; // On met à jour le temps de début de mouvement
+        }
 
+        // On déplace l'objet dans la direction actuelle
+        switch (direction) {
+            case 0: //cas vers la gauche
+                setHorizontalSpeed(-SPEED);
+                break;
+            case 1: //cas vers la droite
+                setHorizontalSpeed(SPEED);
+                break;
+            case 2: //cas vers le bas
+                setVerticalSpeed(-SPEED);
+                break;
+            case 3: //cas vers le haut
+                setVerticalSpeed(SPEED);
+                break;
+            default: //cas par défaut
+                break;
+        }
+
+        // On récupère la valeur de retour de la méthode move de la classe mère
+        boolean moved = super.move(delta);
+
+        // Si l'objet n'a pas bougé, on change de direction
+        if (!moved) {
+            changeDirection();
+        }
+
+        setHorizontalSpeed(0);
+        setVerticalSpeed(0);
+
+        return moved;
+    }
+
+    /**
+     * Change la direction de cet objet.
+     */
+    private void changeDirection() {
+        direction = random.nextInt(4);
+        setHorizontalSpeed(0);
+        setVerticalSpeed(0);
     }
 
     /**
@@ -49,7 +96,8 @@ public class PersonnageEnnemi extends AbstractMovable {
     public void collidedWith(IMovable other) {
         if (other instanceof PersonnageEnnemi) {
             hitEnemy();
-        }else{
+        }
+        if (other instanceof Explosion) {
             explode();
         }
     }
@@ -67,16 +115,25 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public void hitEnemy() {
-        // Si un ennemi touche un ennemie on ne fais rien
+        // Si un ennemi rentre en collision avec un autre ennemi, il ne se passe rien
     }
 
-    //Réglage Erreur sonarLint
+    /**
+     * Permet de comparer cet objet avec un autre objet.
+     *
+     * @param obj L'objet avec lequel comparer cet objet.
+     * @return true si les deux objets sont égaux, false sinon.
+     */
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
 
-    //Réglage Erreur sonarLint
+    /**
+     * Permet de récupérer le code de hachage de cet objet.
+     *
+     * @return Le code de hachage de cet objet.
+     */
     @Override
     public int hashCode() {
         return super.hashCode();
