@@ -1,6 +1,8 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
+import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
+import javafx.stage.Stage;
 
 /**
  * La classe {@link GenerateurMap} permet de générer une carte de jeu.
@@ -9,6 +11,8 @@ public class GenerateurMap implements IGenerateurMap {
     private final int height;
     private final int width;
     SpriteStore spriteStore = new SpriteStore();
+    private Stage stage;
+    private BombermanGame game;
 
     /**
      * Crée un générateur de carte de jeu.
@@ -45,4 +49,11 @@ public class GenerateurMap implements IGenerateurMap {
         return map;
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setGame(BombermanGame game) {
+        this.game = game;
+    }
 }

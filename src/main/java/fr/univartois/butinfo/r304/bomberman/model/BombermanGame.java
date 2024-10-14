@@ -20,6 +20,7 @@ import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
 import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
@@ -110,6 +111,8 @@ public final class BombermanGame {
      */
     private IBombermanController controller;
 
+    private IGenerateurMap generateurMap;
+
     /**
      * Crée une nouvelle instance de BombermanGame.
      *
@@ -152,6 +155,10 @@ public final class BombermanGame {
      */
     public void setController(IBombermanController controller) {
         this.controller = controller;
+    }
+
+    public void setGenerateurMap(IGenerateurMap generateurMap) {
+        this.generateurMap = generateurMap;
     }
 
     /**
