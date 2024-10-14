@@ -11,7 +11,7 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class Bombe extends AbstractMovable {
+public class Bombe extends AbstractMovable implements IBombe {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long delai;
     private SpriteStore spriteStore = new SpriteStore();
@@ -35,6 +35,7 @@ public class Bombe extends AbstractMovable {
     /**
      * Decrémente le nombre de bombes disponibles.
      */
+    @Override
     public void poseBombe() {
         if (game.getRemainingBombs() > 0) {
             delai = System.currentTimeMillis();
@@ -64,7 +65,7 @@ public class Bombe extends AbstractMovable {
     }
 
     /**
-     * Fait detonner la bombe
+     * Fait exploser la bombe
      */
     private void detonateBomb() {
         Cell bombCell = game.getCellAt(getX(), getY());
