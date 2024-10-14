@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.bombs.BigBombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
@@ -307,8 +308,15 @@ public final class BombermanGame {
      */
     public void dropBomb() {
         if (!player.getBombs().isEmpty()) {
-            Bombe bomb = player.getBombs().removeFirst();
-            dropBomb(bomb);
+            int randomBomb = RANDOM.nextInt(4);
+            if (randomBomb == 1) {
+                BigBombe bomb = new BigBombe(this, player.getX(), player.getY(), spriteStore.getSprite("large-bomb"), 4000);
+                dropBomb(bomb);
+            }
+            else {
+                Bombe bomb = player.getBombs().removeFirst();
+                dropBomb(bomb);
+            }
         }
     }
 
@@ -319,6 +327,13 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(Bombe bomb) {
+        bomb.setX(player.getX());
+        bomb.setY(player.getY());
+        this.addMovable(bomb);
+        bomb.move(0);
+    }
+
+    public void dropBomb(BigBombe bomb) {
         bomb.setX(player.getX());
         bomb.setY(player.getY());
         this.addMovable(bomb);

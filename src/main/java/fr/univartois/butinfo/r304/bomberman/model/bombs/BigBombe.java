@@ -35,29 +35,55 @@ public class BigBombe extends AbstractMovable implements IBombe {
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        if (elapsedTime >= 5000) {
-            new Explosion(game, xPosition.get(), yPosition.get(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get() + spriteStore.getSpriteSize(), yPosition.get(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get() + spriteStore.getSpriteSize() * 2, yPosition.get(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get() - spriteStore.getSpriteSize(), yPosition.get(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get() - spriteStore.getSpriteSize() * 2, yPosition.get(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get(), yPosition.get() + spriteStore.getSpriteSize(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get(), yPosition.get() + spriteStore.getSpriteSize() * 2, spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get(), yPosition.get() - spriteStore.getSpriteSize(), spriteStore.getSprite("explosion"));
-            new Explosion(game, xPosition.get(), yPosition.get() - spriteStore.getSpriteSize() * 2, spriteStore.getSprite("explosion"));
-            game.removeMovable(this);
-            game.getCellAt((int)xPosition.get(), (int)yPosition.get()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get() + spriteStore.getSpriteSize(), (int)yPosition.get()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get() + spriteStore.getSpriteSize() * 2, (int)yPosition.get()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get() - spriteStore.getSpriteSize(), (int)yPosition.get()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get() - spriteStore.getSpriteSize() * 2, (int)yPosition.get()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get(), (int)yPosition.get() + spriteStore.getSpriteSize()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get(), (int)yPosition.get() + spriteStore.getSpriteSize() * 2).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get(), (int)yPosition.get() - spriteStore.getSpriteSize()).replaceBy(new Cell(spriteStore.getSprite("lawn")));
-            game.getCellAt((int)xPosition.get(), (int)yPosition.get() - spriteStore.getSpriteSize() * 2).replaceBy(new Cell(spriteStore.getSprite("lawn")));
+        if (elapsedTime >= 4000) {
+            detonateBomb();
             return true;
         }
         return false;
+    }
+
+    /**
+     * Fait exploser la bombe
+     */
+    private void detonateBomb() {
+        Cell bombCell = game.getCellAt(getX(), getY());
+        if (bombCell.getWall() == null) {
+            createExplosion(getX(), getY());
+        }
+        createAdjacentExplosions();
+        game.removeMovable(this);
+        game.decreaseBombs();
+    }
+
+    /**
+     * Crée une explosion
+     *
+     * @param x La position x
+     * @param y La position y
+     */
+    private void createExplosion(int x, int y) {
+        Explosion explosion = new Explosion(game, x, y, spriteStore.getSprite("explosion"));
+        game.addMovable(explosion);
+    }
+
+    /**
+     * Crée des explosions adjacentes
+     */
+    private void createAdjacentExplosions() {
+        // Définir les directions (haut, bas, gauche, droite)
+        int[] directionX = {0, 0, -1, 1, -2, 2};
+        int[] directionY = {-2, 2, -1, 1, 0, 0};
+
+        for (int i = 0; i < directionX.length; i++) {
+            int adjacentX = getX() + directionX[i] * spriteStore.getSpriteSize();
+            int adjacentY = getY() + directionY[i] * spriteStore.getSpriteSize();
+
+            Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
+
+            if (adjacentCell.getWall() == null) {
+                createExplosion(adjacentX, adjacentY);
+            }
+        }
     }
 
     @Override
