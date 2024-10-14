@@ -283,10 +283,10 @@ class Sprite {
 ### TP n°4
 
 | Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)                                     |
-| ------------------------------------------- | ---------------------------- | ---------- | --------------------------------------------- |
-| Variantes de déplacement des ennemis        |                              |            |                                               |
-| Gestion des points de vie (ennemis, joueur) |                              |            |                                               |
-| Invulnérabilité du joueur                   |                              |            |                                               |
-| Solidité des murs                           |                              |            |                                               |
-| Variantes de génération pour la carte       |                              |            |                                               |
-| Différents types de bombes                  |                              |            |                                               |
+| ------------------------------------------- |------------------------------| ---------- | --------------------------------------------- |
+| Variantes de déplacement des ennemis        | Stratégie                    |            |                                               |
+| Gestion des points de vie (ennemis, joueur) | Décorateur                   |            |                                               |
+| Invulnérabilité du joueur                   | Etat                         |            |                                               |
+| Solidité des murs                           | Etat                         |            |                                               |
+| Variantes de génération pour la carte       | Fabrique abstraite           |            |                                               |
+| Différents types de bombes                  | Fabrique abstraite           |            |                                               |
