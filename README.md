@@ -282,11 +282,11 @@ class Sprite {
 
 ### TP n°4
 
-| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)                                     |
-| ------------------------------------------- |------------------------------| ---------- | --------------------------------------------- |
-| Variantes de déplacement des ennemis        | Stratégie                    |            |                                               |
-| Gestion des points de vie (ennemis, joueur) | Décorateur                   |            |                                               |
-| Invulnérabilité du joueur                   | Etat                         |            |                                               |
-| Solidité des murs                           | Etat                         |            |                                               |
-| Variantes de génération pour la carte       | Fabrique abstraite           |            |                                               |
-| Différents types de bombes                  | Fabrique abstraite           |            |                                               |
+| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)          |
+| ------------------------------------------- |------------------------------| ---------- |--------------------|
+| Variantes de déplacement des ennemis        | Stratégie                    |            | Benjamin           |
+| Gestion des points de vie (ennemis, joueur) | Décorateur                   |            | Mathias / Benjamin |
+| Invulnérabilité du joueur                   | Etat                         |            | Mathias            |
+| Solidité des murs                           | Etat                         |            | Simon / Matheo     |
+| Variantes de génération pour la carte       | Fabrique abstraite           |            | Simon              |
+| Différents types de bombes                  | Fabrique abstraite           |            | Matheo             |
