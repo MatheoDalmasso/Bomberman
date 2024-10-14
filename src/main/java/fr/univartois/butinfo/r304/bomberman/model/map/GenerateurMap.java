@@ -5,7 +5,7 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 /**
  * La classe {@link GenerateurMap} permet de générer une carte de jeu.
  */
-public class GenerateurMap {
+public class GenerateurMap implements IGenerateurMap {
     private final int height;
     private final int width;
     SpriteStore spriteStore = new SpriteStore();
@@ -26,6 +26,7 @@ public class GenerateurMap {
      *
      * @return La carte de jeu générée.
      */
+    @Override
     public GameMap genererMap() {
         GameMap map = new GameMap(height, width);
         for (int i = 0; i < height; i++) {
