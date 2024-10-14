@@ -165,6 +165,8 @@ public class Cell {
         return wallProperty;
     }
 
+
+
     /**
      * Remplace le contenu de cette cellule par celui d'une autre cellule.
      *
