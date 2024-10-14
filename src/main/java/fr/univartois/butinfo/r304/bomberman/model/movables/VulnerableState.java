@@ -9,11 +9,13 @@ public class VulnerableState implements IPlayerState {
     public void collideWith(Joueur player, IMovable other) {
         if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
             player.decrementPointsDeVie(1);
+            player.devientInvulnerable();
         }
     }
 
     @Override
     public void explode(Joueur joueur) {
         joueur.decrementPointsDeVie(1);
+        joueur.devientInvulnerable();
     }
 }
