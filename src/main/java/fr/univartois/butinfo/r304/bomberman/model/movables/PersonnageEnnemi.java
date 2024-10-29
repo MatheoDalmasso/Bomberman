@@ -16,6 +16,8 @@ public class PersonnageEnnemi extends AbstractMovable {
     private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance de mouvement en pixels du mouvement à réaliser
     private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // Vitesse de déplacement en pixels par seconde
 
+    private DeplacementStrategy deplacementStrategy; //Instance du patron de conception Strategy
+
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -24,10 +26,13 @@ public class PersonnageEnnemi extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite, DeplacementStrategy deplacementStrategy) {
         super(game, xPosition, yPosition, sprite);
-        changeDirection();
-        debutMouvement = System.currentTimeMillis();
+        this.deplacementStrategy = deplacementStrategy;
+    }
+
+    public void setDeplacementStrategy(DeplacementStrategy deplacementStrategy) {
+        this.deplacementStrategy = deplacementStrategy;
     }
 
     /**
@@ -37,54 +42,12 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public boolean move(long delta) {
-        //Nous avons décidé d'adapter les mouvements des ennemies avec des mouvements aléatoires avec un mouvement toutes les 2 secondes
-
-        long currentTime = System.currentTimeMillis(); // Temps actuel en millisecondes
-
-        if (currentTime - debutMouvement > TEMPS_MOUVEMENT) { // Si le temps de mouvement est écoulé
-            changeDirection(); // On change de direction
-            debutMouvement = currentTime; // On met à jour le temps de début de mouvement
-        }
-
-        // On déplace l'objet dans la direction actuelle
-        switch (direction) {
-            case 0: //cas vers la gauche
-                setHorizontalSpeed(-SPEED);
-                break;
-            case 1: //cas vers la droite
-                setHorizontalSpeed(SPEED);
-                break;
-            case 2: //cas vers le bas
-                setVerticalSpeed(-SPEED);
-                break;
-            case 3: //cas vers le haut
-                setVerticalSpeed(SPEED);
-                break;
-            default: //cas par défaut
-                break;
-        }
-
-        // On récupère la valeur de retour de la méthode move de la classe mère
-        boolean moved = super.move(delta);
-
-        // Si l'objet n'a pas bougé, on change de direction
-        if (!moved) {
-            changeDirection();
-        }
-
-        setHorizontalSpeed(0);
-        setVerticalSpeed(0);
-
-        return moved;
+        deplacementStrategy.deplacer(this, delta);
+        return true;
     }
 
-    /**
-     * Change la direction de cet objet.
-     */
-    private void changeDirection() {
-        direction = random.nextInt(4);
-        setHorizontalSpeed(0);
-        setVerticalSpeed(0);
+    public boolean superMove(long delta) {
+        return super.move(delta);
     }
 
     /**

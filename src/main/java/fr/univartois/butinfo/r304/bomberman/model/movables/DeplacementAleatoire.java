@@ -38,7 +38,7 @@ public class DeplacementAleatoire implements DeplacementStrategy {
                 break;
         }
 
-        boolean moved = ennemi.move(delta);
+        boolean moved = ennemi.superMove(delta);
 
         if (!moved) {
             changeDirection();

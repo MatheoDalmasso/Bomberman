@@ -24,7 +24,7 @@ public class DeplacementIntelligent implements DeplacementStrategy {
             ennemi.setVerticalSpeed(-ennemi.getVerticalSpeed());
         }
 
-        ennemi.move(delta);
+        ennemi.superMove(delta);
 
         ennemi.setHorizontalSpeed(0);
         ennemi.setVerticalSpeed(0);
