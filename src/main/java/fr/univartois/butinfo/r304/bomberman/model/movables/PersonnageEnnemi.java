@@ -5,16 +5,7 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
-import java.util.Random;
-
 public class PersonnageEnnemi extends AbstractMovable {
-    Random random = new Random();
-    private int direction; // 0 = gauche, 1 = droite, 2 = bas, 3 = haut
-    private long debutMouvement;
-
-    private static final int TEMPS_MOUVEMENT = 2000; // Durée de mouvement en millisecondes du mouvement à réaliser
-    private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance de mouvement en pixels du mouvement à réaliser
-    private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // Vitesse de déplacement en pixels par seconde
 
     private DeplacementStrategy deplacementStrategy; //Instance du patron de conception Strategy
 
