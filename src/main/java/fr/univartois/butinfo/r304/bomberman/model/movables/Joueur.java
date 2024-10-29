@@ -17,6 +17,10 @@ import java.util.TimerTask;
 
 public class Joueur extends AbstractMovable {
 
+    private SpriteStore spriteStore;
+
+    private PlayerState state;
+
     /**
      * score du joueur.
      */
@@ -55,6 +59,8 @@ public class Joueur extends AbstractMovable {
      */
     public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        this.spriteStore = new SpriteStore();
+        this.state = new VulnerableState();
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);
         this.nbBombe = new SimpleIntegerProperty(1);
@@ -73,21 +79,26 @@ public class Joueur extends AbstractMovable {
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
-            decrementPointsDeVie(1);
+            takeDamage(1);
         }
     }
 
-    public void devientInvulnerable() {
-        setState(invulnerableState);
-        setSprite(new Sprite(new Image("rourke")));
+    public void makePlayerInvulnerable() {
+        InvulnerableState.makePlayerInvulnerable(this);
+    }
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                setState(vulnerableState);
-                setSprite(new Sprite(new Image("agent")));
-            }
-        }, 5000);
+    public SpriteStore getSpriteStore() {
+        return spriteStore;
+    }
+
+
+    public void setState(PlayerState state) {
+        this.state = state;
+        state.updateAppearance(this);
+    }
+
+    public void takeDamage(int damage) {
+        state.takeDamage(this , damage);
     }
 
     /**
@@ -113,7 +124,7 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void explode() {
-        decrementPointsDeVie(1);
+        takeDamage(1);
     }
 
     /**
@@ -121,7 +132,7 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void hitEnemy() {
-        decrementPointsDeVie(1);
+        takeDamage(1);
     }
 
 

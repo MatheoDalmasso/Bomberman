@@ -1,21 +1,19 @@
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
-import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
-
-public class VulnerableState implements IPlayerState {
+public class VulnerableState implements PlayerState {
 
     @Override
-    public void collideWith(Joueur player, IMovable other) {
-        if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
-            player.decrementPointsDeVie(1);
-            player.devientInvulnerable();
+    public void takeDamage(Joueur player, int damage) {
+        player.decrementPointsDeVie(damage);
+        if(player.getPointsDeVie() <= 0){
+            player.setSprite(player.getSpriteStore().getSprite("goblin"));
+        } else {
+            player.makePlayerInvulnerable();
         }
     }
 
     @Override
-    public void explode(Joueur joueur) {
-        joueur.decrementPointsDeVie(1);
-        joueur.devientInvulnerable();
+    public void updateAppearance(Joueur player) {
+        player.setSprite(player.getSpriteStore().getSprite("agent"));
     }
 }
