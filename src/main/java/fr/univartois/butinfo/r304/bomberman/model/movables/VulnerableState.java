@@ -12,6 +12,6 @@ public class VulnerableState implements PlayerState {
 
     @Override
     public void updateAppearance(Joueur player) {
-        player.setSprite(player.getSpriteStore().getSprite("punker.png"));
+        player.setSprite(player.getSpriteStore().getSprite("agent.png"));
     }
 }
