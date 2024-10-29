@@ -20,6 +20,8 @@ import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.movables.DeplacementAleatoire;
+import fr.univartois.butinfo.r304.bomberman.model.movables.DeplacementIntelligent;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
 import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
@@ -225,12 +227,23 @@ public final class BombermanGame {
             player.addBombe(bomb);
         }
 
+        int x = RANDOM.nextInt(2);
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            IMovable enemy = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"));
-            enemy.setHorizontalSpeed(DEFAULT_SPEED);
-            movableObjects.add(enemy);
-            spawnMovable(enemy);
+
+            System.out.println("Le deplacement de l'ennemi est : " + x);
+            if (x == 0) {
+                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
+                ennemiAleatoire.setHorizontalSpeed(DEFAULT_SPEED);
+                movableObjects.add(ennemiAleatoire);
+                spawnMovable(ennemiAleatoire);
+            } else {
+                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
+                ennemiAleatoire.setVerticalSpeed(DEFAULT_SPEED);
+                movableObjects.add(ennemiAleatoire);
+                spawnMovable(ennemiAleatoire);
+            }
+
         }
     }
 

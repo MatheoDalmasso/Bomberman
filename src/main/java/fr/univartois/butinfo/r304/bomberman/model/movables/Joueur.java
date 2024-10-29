@@ -69,7 +69,7 @@ public class Joueur extends AbstractMovable {
         this.invulnerableState = new InvulnerableState();
         this.state = vulnerableState;
     }
-    
+
 
     /**
      * Déplace le joueur.
