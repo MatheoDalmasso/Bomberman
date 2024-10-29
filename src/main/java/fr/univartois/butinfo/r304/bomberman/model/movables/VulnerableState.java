@@ -6,12 +6,14 @@ public class VulnerableState implements PlayerState {
     public void takeDamage(Joueur player, int damage) {
         player.decrementPointsDeVie(damage);
         if(player.getPointsDeVie() <= 0){
-            player.setSprite(player.getSpriteStore().getSprite("goblin.png"));
+            player.setSprite(player.getSpriteStore().getSprite("goblin"));
+        } else {
+            player.makePlayerInvulnerable();
         }
     }
 
     @Override
     public void updateAppearance(Joueur player) {
-        player.setSprite(player.getSpriteStore().getSprite("agent.png"));
+        player.setSprite(player.getSpriteStore().getSprite("agent"));
     }
 }

@@ -14,16 +14,16 @@ public class InvulnerableState implements PlayerState {
 
     @Override
     public void updateAppearance(Joueur player) {
-        player.setSprite(player.getSpriteStore().getSprite("punker.png"));
+        player.setSprite(player.getSpriteStore().getSprite("punker"));
     }
 
     public static void makePlayerInvulnerable(Joueur player) {
         player.setState(new InvulnerableState());
-        player.setSprite(player.getSpriteStore().getSprite("punker.png"));
+        player.setSprite(player.getSpriteStore().getSprite("punker"));
         PauseTransition pause = new PauseTransition(Duration.seconds(INVULNERABLE_DURATION));
         pause.setOnFinished(event -> {
             player.setState(new VulnerableState());
-            player.setSprite(player.getSpriteStore().getSprite("agent.png"));
+            player.setSprite(player.getSpriteStore().getSprite("agent"));
         });
         pause.play();
     }

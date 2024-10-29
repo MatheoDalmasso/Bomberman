@@ -64,8 +64,12 @@ public class Joueur extends AbstractMovable {
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
-            decrementPointsDeVie(1);
+            takeDamage(1);
         }
+    }
+
+    public void makePlayerInvulnerable() {
+        InvulnerableState.makePlayerInvulnerable(this);
     }
 
     public SpriteStore getSpriteStore() {
