@@ -10,10 +10,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Joueur extends AbstractMovable {
 
@@ -41,13 +37,6 @@ public class Joueur extends AbstractMovable {
      */
     private ObservableList<Bombe> bombs;
 
-    private IPlayerState state;
-
-    private final IPlayerState vulnerableState;
-
-    private final IPlayerState invulnerableState;
-
-    private SpriteStore spriteStore = new SpriteStore();
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -65,9 +54,6 @@ public class Joueur extends AbstractMovable {
         this.pointsDeVie = new SimpleIntegerProperty(3);
         this.nbBombe = new SimpleIntegerProperty(1);
         this.bombs = FXCollections.observableArrayList();
-        this.vulnerableState = new VulnerableState();
-        this.invulnerableState = new InvulnerableState();
-        this.state = vulnerableState;
     }
 
 
@@ -98,7 +84,7 @@ public class Joueur extends AbstractMovable {
     }
 
     public void takeDamage(int damage) {
-        state.takeDamage(this , damage);
+        state.takeDamage(this, damage);
     }
 
     /**
@@ -132,6 +118,9 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void hitEnemy() {
+        if (pointsDeVie.get() == 1) {
+            game.playerIsDead();
+        }
         takeDamage(1);
     }
 
@@ -208,9 +197,6 @@ public class Joueur extends AbstractMovable {
         this.pointsDeVie.set(pointsDeVie);
     }
 
-    public void setState(IPlayerState state) {
-        this.state = state;
-    }
 
     /**
      * Incrémente le score du joueur par un montant précis.
