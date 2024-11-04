@@ -82,6 +82,8 @@ public class Cell {
     }
 
 
+
+
     /**
      * Donne la ligne où se trouve cette cellule sur la carte.
      *
