@@ -39,6 +39,8 @@ public class FakeBombe extends AbstractMovable implements IBombe {
 
         long elapsedTime = System.currentTimeMillis() - startTime;
         if (elapsedTime >= 4000) {
+            game.removeMovable(this);
+            game.decreaseBombs();
             return true;
         }
         return false;

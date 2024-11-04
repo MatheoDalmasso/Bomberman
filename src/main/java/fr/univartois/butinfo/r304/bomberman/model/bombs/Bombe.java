@@ -15,7 +15,6 @@ public class Bombe extends AbstractMovable implements IBombe {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long delai;
     private SpriteStore spriteStore = new SpriteStore();
-    private GameMap map = game.getGameMap();
     private long startTime = -1;
 
 

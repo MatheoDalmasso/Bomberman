@@ -314,10 +314,12 @@ public final class BombermanGame {
                     player.getY() > spriteStore.getSpriteSize()*2 && player.getY() < (height - spriteStore.getSpriteSize())*2 ) {
                 BigBombe bomb = new BigBombe(this, player.getX(), player.getY(), spriteStore.getSprite("large-bomb"), 4000);
                 dropBomb(bomb);
+                player.getBombs().removeFirst();
             }
             else if (randomBomb == 3) {
                 FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
                 dropBomb(bomb);
+                player.getBombs().removeFirst();
             }
              else {
                 Bombe bomb = player.getBombs().removeFirst();
