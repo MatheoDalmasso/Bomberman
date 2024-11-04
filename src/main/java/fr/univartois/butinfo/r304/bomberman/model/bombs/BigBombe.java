@@ -8,32 +8,18 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+public class BigBombe extends AbstractMovable implements IBombe {
 
-public class Bombe extends AbstractMovable implements IBombe {
-    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long delai;
     private SpriteStore spriteStore = new SpriteStore();
     private long startTime = -1;
 
 
-    /**
-     * Crée une nouvelle instance de AbstractMovable.
-     *
-     * @param game      Le jeu dans lequel l'objet évolue.
-     * @param xPosition La position en x initiale de l'objet.
-     * @param yPosition La position en y initiale de l'objet.
-     * @param sprite    L'instance de {@link Sprite} représentant l'objet.
-     */
-    public Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
+    public BigBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
         this.delai = delai;
     }
 
-    /**
-     * Decrémente le nombre de bombes disponibles.
-     */
     @Override
     public void poseBombe() {
         if (game.getRemainingBombs() > 0) {
@@ -41,13 +27,6 @@ public class Bombe extends AbstractMovable implements IBombe {
         }
     }
 
-    /**
-     * Enlève la bombe de la carte.
-     *
-     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
-     *              millisecondes).
-     * @return true si la bombe a explosé, false sinon.
-     */
     @Override
     public boolean move(long delta) {
         if (startTime == -1) {
@@ -56,7 +35,7 @@ public class Bombe extends AbstractMovable implements IBombe {
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        if (elapsedTime >= 2500) {
+        if (elapsedTime >= 4000) {
             detonateBomb();
             return true;
         }
@@ -92,8 +71,8 @@ public class Bombe extends AbstractMovable implements IBombe {
      */
     private void createAdjacentExplosions() {
         // Définir les directions (haut, bas, gauche, droite)
-        int[] directionX = {0, 0, -1, 1};
-        int[] directionY = {-1, 1, 0, 0};
+        int[] directionX = {0, 0, -1, 1, -2, 2};
+        int[] directionY = {-2, 2, -1, 1, 0, 0};
 
         for (int i = 0; i < directionX.length; i++) {
             int adjacentX = getX() + directionX[i] * spriteStore.getSpriteSize();
@@ -107,70 +86,20 @@ public class Bombe extends AbstractMovable implements IBombe {
         }
     }
 
-    /**
-     * Gère les collisions entre cet objet et un autre objet.
-     *
-     * @param other L'objet avec lequel cet objet est entré en collision.
-     */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Explosion) {
-            this.explode();
+        if (other instanceof IBombe) {
+            explode();
         }
     }
 
-    /**
-     * Gère l'explosion de cet objet.
-     */
     @Override
     public void explode() {
-        game.removeMovable(this);
+        hitEnemy();
     }
 
-    /**
-     * Gère le fait que cette explosion a touché un ennemi.
-     */
     @Override
     public void hitEnemy() {
-        LOGGER.info("La bombe a touché un ennemi");
-    }
-
-    /**
-     * Retourne le code de hachage de cet objet.
-     *
-     * @return Le code de hachage de cet objet.
-     */
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    /**
-     * Vérifie si cet objet est égal à un autre objet.
-     *
-     * @param obj L'objet à comparer.
-     * @return Si cet objet est égal à l'autre objet.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    /**
-     * Donne le délai avant l'explosion de la bombe.
-     *
-     * @return Le délai avant l'explosion.
-     */
-    public long getDelai() {
-        return delai;
-    }
-
-    /**
-     * Modifie le délai
-     *
-     * @param delai Le nouveau délai.
-     */
-    public void setDelai(long delai) {
-        this.delai = delai;
+        game.removeMovable(this);
     }
 }

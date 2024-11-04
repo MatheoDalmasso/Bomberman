@@ -16,7 +16,9 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.bombs.BigBombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.FakeBombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
@@ -320,8 +322,32 @@ public final class BombermanGame {
      */
     public void dropBomb() {
         if (!player.getBombs().isEmpty()) {
-            Bombe bomb = player.getBombs().removeFirst();
-            dropBomb(bomb);
+            int randomBomb = RANDOM.nextInt(10);
+            int playerX = player.getX();
+            int playerY = player.getY();
+            int spriteSize = spriteStore.getSpriteSize();
+            int mapWidth = getWidth();
+            int mapHeight = getHeight();
+            System.out.println("playerX : " + playerX + " playerY : " + playerY + " mapWidth : " + mapWidth + " mapHeight : " + mapHeight + " spriteSize : " + spriteSize);
+            if (randomBomb < 2) {
+                if (playerX > spriteSize && playerX < (mapWidth - spriteSize*2) && playerY > spriteSize && playerY < (mapHeight - spriteSize*2)) {
+                    BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
+                    dropBomb(bomb);
+                    player.getBombs().removeFirst();
+                }
+                else {
+                    System.out.println("impossible de poser une bombe");
+                }
+            }
+            else if (randomBomb == 3) {
+                FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
+                dropBomb(bomb);
+                player.getBombs().removeFirst();
+            }
+             else {
+                Bombe bomb = player.getBombs().removeFirst();
+                dropBomb(bomb);
+            }
         }
     }
 
@@ -332,6 +358,20 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(Bombe bomb) {
+        bomb.setX(player.getX());
+        bomb.setY(player.getY());
+        this.addMovable(bomb);
+        bomb.move(0);
+    }
+
+    public void dropBomb(BigBombe bomb) {
+        bomb.setX(player.getX());
+        bomb.setY(player.getY());
+        this.addMovable(bomb);
+        bomb.move(0);
+    }
+
+    public void dropBomb(FakeBombe bomb) {
         bomb.setX(player.getX());
         bomb.setY(player.getY());
         this.addMovable(bomb);
