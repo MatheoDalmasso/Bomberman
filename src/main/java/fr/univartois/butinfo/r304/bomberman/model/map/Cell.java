@@ -50,6 +50,7 @@ public class Cell {
      */
     private final ObjectProperty<Wall> wallProperty = new SimpleObjectProperty<>();
 
+    private final ObjectProperty<Brick> brickProperty = new SimpleObjectProperty<>();
 
 
     /**
@@ -81,6 +82,11 @@ public class Cell {
     protected Cell(Wall wall) {
         this.wallProperty.set(wall);
         this.spriteProperty.set(wall.getSprite());
+    }
+
+    protected Cell(Brick brick) {
+        this.brickProperty.set(brick);
+        this.spriteProperty.set(brick.getSprite());
     }
 
 
@@ -158,6 +164,10 @@ public class Cell {
         return wallProperty.get();
     }
 
+    public Brick getBrick() {
+        return brickProperty.get();
+    }
+
     /**
      * Donne la propriété contenant le mur présent sur cette cellule sur la carte.
      *
@@ -167,6 +177,9 @@ public class Cell {
         return wallProperty;
     }
 
+    public ObjectProperty<Brick> getBrickProperty() {
+        return brickProperty;
+    }
 
 
 
