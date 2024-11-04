@@ -310,11 +310,21 @@ public final class BombermanGame {
     public void dropBomb() {
         if (!player.getBombs().isEmpty()) {
             int randomBomb = RANDOM.nextInt(10);
-            if (randomBomb < 2 && player.getX() > spriteStore.getSpriteSize()*2 && player.getX() < (width - spriteStore.getSpriteSize())*2 &&
-                    player.getY() > spriteStore.getSpriteSize()*2 && player.getY() < (height - spriteStore.getSpriteSize())*2 ) {
-                BigBombe bomb = new BigBombe(this, player.getX(), player.getY(), spriteStore.getSprite("large-bomb"), 4000);
-                dropBomb(bomb);
-                player.getBombs().removeFirst();
+            int playerX = player.getX();
+            int playerY = player.getY();
+            int spriteSize = spriteStore.getSpriteSize();
+            int mapWidth = getWidth();
+            int mapHeight = getHeight();
+            System.out.println("playerX : " + playerX + " playerY : " + playerY + " mapWidth : " + mapWidth + " mapHeight : " + mapHeight + " spriteSize : " + spriteSize);
+            if (randomBomb < 2) {
+                if (playerX > spriteSize && playerX < (mapWidth - spriteSize*2) && playerY > spriteSize && playerY < (mapHeight - spriteSize*2)) {
+                    BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
+                    dropBomb(bomb);
+                    player.getBombs().removeFirst();
+                }
+                else {
+                    System.out.println("impossible de poser une bombe");
+                }
             }
             else if (randomBomb == 3) {
                 FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
