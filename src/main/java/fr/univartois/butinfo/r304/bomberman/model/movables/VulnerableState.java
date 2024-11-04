@@ -1,5 +1,7 @@
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
+
 public class VulnerableState implements PlayerState {
 
     @Override

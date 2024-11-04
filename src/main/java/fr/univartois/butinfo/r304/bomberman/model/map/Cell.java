@@ -50,6 +50,8 @@ public class Cell {
      */
     private final ObjectProperty<Wall> wallProperty = new SimpleObjectProperty<>();
 
+
+
     /**
      * Crée une nouvelle instance de Cell.
      * La cellule créée est initialement vide.
@@ -80,8 +82,6 @@ public class Cell {
         this.wallProperty.set(wall);
         this.spriteProperty.set(wall.getSprite());
     }
-
-
 
 
     /**
@@ -166,6 +166,7 @@ public class Cell {
     public ObjectProperty<Wall> getWallProperty() {
         return wallProperty;
     }
+
 
 
 

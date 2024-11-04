@@ -65,14 +65,12 @@ public final class Bomberman extends Application {
         BombermanController controller = fxmlLoader.getController();
         GenerateurMap generateurMap = new GenerateurMap(GAME_HEIGHT, GAME_WIDTH);
         controller.setStage(stage);
-        generateurMap.setStage(stage);
 
         // On crée ensuite le jeu, que l'on lie au contrôleur.
         BombermanGame game = new BombermanGame(
                 GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), NB_ENEMIES);
         controller.setGame(game);
         game.setController(controller);
-        generateurMap.setGame(game);
         game.setGenerateurMap(generateurMap);
         game.prepare();
 
