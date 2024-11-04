@@ -163,16 +163,16 @@ public final class BombermanController implements IBombermanController {
         // Lorsque l'utilisateur appuie sur une flèche, on déplace son personnage.
         stage.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             if (started) {
-                if (e.getCode() == KeyCode.UP) {
+                if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.Z) {
                     game.moveUp();
 
-                } else if (e.getCode() == KeyCode.LEFT) {
+                } else if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.Q) {
                     game.moveLeft();
 
-                } else if (e.getCode() == KeyCode.DOWN) {
+                } else if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
                     game.moveDown();
 
-                } else if (e.getCode() == KeyCode.RIGHT) {
+                } else if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) {
                     game.moveRight();
                 }
             }
@@ -180,7 +180,7 @@ public final class BombermanController implements IBombermanController {
 
         // Lorsque l'utilisateur relâche l'une des flèches, on arrête le déplacement.
         stage.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
-            if (started && e.getCode().isArrowKey()) {
+            if (started && e.getCode().isArrowKey() || e.getCode() == KeyCode.Z || e.getCode() == KeyCode.Q || e.getCode() == KeyCode.S || e.getCode() == KeyCode.D) {
                 game.stopMoving();
             }
         });
