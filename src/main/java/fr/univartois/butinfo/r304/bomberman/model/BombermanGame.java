@@ -29,6 +29,7 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
@@ -84,6 +85,8 @@ public final class BombermanGame {
      */
     private Joueur player;
 
+    private final IntegerProperty remainingBombs = new SimpleIntegerProperty(DEFAULT_BOMBS);
+
     /**
      * Le nombre d'ennemis initialement dans le jeu.
      */
@@ -107,7 +110,6 @@ public final class BombermanGame {
     /**
      * Le nombre de bombes restant au joueur.
      */
-    private int remainingBombs;
 
     /**
      * Le contrôleur du jeu.
@@ -128,7 +130,6 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
-        this.remainingBombs = DEFAULT_BOMBS;
     }
 
     /**
@@ -137,16 +138,20 @@ public final class BombermanGame {
      * @return Le reste de bombe du joueur.
      */
     public int getRemainingBombs() {
-        return remainingBombs;
+        return remainingBombs.get();
     }
 
     /**
      * Diminue le nombre de bombes restantes du joueur.
      */
     public void decreaseBombs() {
-        if (remainingBombs > 0) {
-            remainingBombs--;
+        if (remainingBombs.get() > 0) {
+            remainingBombs.set(remainingBombs.get() - 1);
         }
+    }
+
+    public IntegerProperty remainingBombsProperty() {
+        return remainingBombs;
     }
 
     /**
@@ -256,8 +261,7 @@ public final class BombermanGame {
     private void initStatistics() {
         controller.bindLife(player.pointsDeVieProperty());
         controller.bindScore(player.scoreProperty());
-        controller.bindBombs(player.nbBombeProperty());
-        controller.bindBombs(new SimpleIntegerProperty(player.getBombs().size()));
+        controller.bindBombs(remainingBombs);
         remainingEnemies = nbEnemies;
     }
 
