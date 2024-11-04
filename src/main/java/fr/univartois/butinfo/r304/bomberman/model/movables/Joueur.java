@@ -5,12 +5,17 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Joueur extends AbstractMovable {
+
+    private SpriteStore spriteStore;
+
+    private PlayerState state;
 
     /**
      * score du joueur.
@@ -32,6 +37,7 @@ public class Joueur extends AbstractMovable {
      */
     private ObservableList<Bombe> bombs;
 
+
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -42,12 +48,14 @@ public class Joueur extends AbstractMovable {
      */
     public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        this.spriteStore = new SpriteStore();
+        this.state = new VulnerableState();
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);
         this.nbBombe = new SimpleIntegerProperty(1);
         this.bombs = FXCollections.observableArrayList();
     }
-    
+
 
     /**
      * Déplace le joueur.
@@ -57,8 +65,26 @@ public class Joueur extends AbstractMovable {
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
-            decrementPointsDeVie(1);
+            takeDamage(1);
         }
+    }
+
+    public void makePlayerInvulnerable() {
+        InvulnerableState.makePlayerInvulnerable(this);
+    }
+
+    public SpriteStore getSpriteStore() {
+        return spriteStore;
+    }
+
+
+    public void setState(PlayerState state) {
+        this.state = state;
+        state.updateAppearance(this);
+    }
+
+    public void takeDamage(int damage) {
+        state.takeDamage(this, damage);
     }
 
     /**
@@ -84,7 +110,7 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void explode() {
-        decrementPointsDeVie(1);
+        takeDamage(1);
     }
 
     /**
@@ -92,7 +118,10 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void hitEnemy() {
-        decrementPointsDeVie(1);
+        if (pointsDeVie.get() == 1) {
+            game.playerIsDead();
+        }
+        takeDamage(1);
     }
 
 
@@ -167,6 +196,7 @@ public class Joueur extends AbstractMovable {
     public void setPointsDeVie(int pointsDeVie) {
         this.pointsDeVie.set(pointsDeVie);
     }
+
 
     /**
      * Incrémente le score du joueur par un montant précis.
