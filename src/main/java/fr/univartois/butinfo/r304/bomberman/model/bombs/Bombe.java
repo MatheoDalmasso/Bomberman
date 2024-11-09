@@ -96,7 +96,14 @@ public class Bombe extends AbstractMovable implements IBombe {
 
             Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
 
-            if (adjacentCell.getWall() == null) {
+            if (adjacentCell != null && adjacentCell.getWall() != null) {
+                Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
+
+                Cell cell = game.getCellAt(adjacentX, adjacentY);
+                cell.replaceBy(lawnCell);
+
+                createExplosion(adjacentX, adjacentY);
+            } else if (adjacentCell != null && adjacentCell.getWall() == null) {
                 createExplosion(adjacentX, adjacentY);
             }
         }

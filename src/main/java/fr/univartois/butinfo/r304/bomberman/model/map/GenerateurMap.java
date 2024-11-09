@@ -1,6 +1,5 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
-import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.stage.Stage;
 
@@ -43,11 +42,10 @@ public class GenerateurMap implements IGenerateurMap {
                 } else {
                     if (i % 3 == 0 && j % 3 == 0) {
                         map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("wall"))));
-                    }
-                    else if (random.nextInt(100) < 20) { // 20% chance to place a brick
-                        map.setAt(i, j, new Cell(new Brick(spriteStore.getSprite("bricks"))));
-                    }else if (random.nextInt(100) < 10) { // 20% chance to place a brick
-                        map.setAt(i, j, new Cell(new Brick(spriteStore.getSprite("cracked-bricks"))));
+                    } else if (random.nextInt(100) < 20) { // 20% chance to place a brick
+                        map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("bricks"))));
+                    } else if (random.nextInt(100) < 10) { // 20% chance to place a brick
+                        map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("cracked-bricks"))));
                     } else {
                         map.setAt(i, j, new Cell(spriteStore.getSprite("lawn")));
                     }
