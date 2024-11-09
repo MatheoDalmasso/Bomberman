@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import fr.univartois.butinfo.r304.bomberman.controller.BombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
+import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -62,6 +63,7 @@ public final class Bomberman extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/bomberman.fxml"));
         Parent viewContent = fxmlLoader.load();
         BombermanController controller = fxmlLoader.getController();
+        GenerateurMap generateurMap = new GenerateurMap(GAME_HEIGHT, GAME_WIDTH);
         controller.setStage(stage);
 
         // On crée ensuite le jeu, que l'on lie au contrôleur.
@@ -69,6 +71,7 @@ public final class Bomberman extends Application {
                 GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), NB_ENEMIES);
         controller.setGame(game);
         game.setController(controller);
+        game.setGenerateurMap(generateurMap);
         game.prepare();
 
         // On peut maintenant afficher la scène et la fenêtre.
