@@ -30,11 +30,15 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.List;
 import java.util.Random;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -45,6 +49,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class BombermanGame {
 
+
+    private Timeline bombTimer;
 
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
@@ -133,7 +139,27 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        startBombTimer();
     }
+
+    private void startBombTimer() {
+        bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
+        bombTimer.setCycleCount(Timeline.INDEFINITE);
+        bombTimer.play();
+    }
+
+    private void incrementBombCount() {
+        addBombToPlayer();
+        remainingBombs.set(remainingBombs.get() + 1);
+    }
+
+    private void addBombToPlayer() {
+        Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
+        player.addBombe(bomb);
+    }
+
+
+
 
     /**
      * Donne le reste de bombe du joueur.
