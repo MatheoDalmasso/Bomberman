@@ -23,22 +23,18 @@ import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.movables.DeplacementAleatoire;
-import fr.univartois.butinfo.r304.bomberman.model.movables.DeplacementIntelligent;
-import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
-import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.*;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Random;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -159,8 +155,6 @@ public final class BombermanGame {
     }
 
 
-
-
     /**
      * Donne le reste de bombe du joueur.
      *
@@ -195,6 +189,7 @@ public final class BombermanGame {
     public void setGenerateurMap(IGenerateurMap generateurMap) {
         this.generateurMap = generateurMap;
     }
+
     /**
      * Donne l'instance de {@link ISpriteStore} permettant de créer les {@link Sprite} du jeu..
      *
@@ -273,9 +268,10 @@ public final class BombermanGame {
             System.out.println("Le deplacement de l'ennemi est : " + x);
             if (x == 0) {
                 PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-                ennemiAleatoire.setHorizontalSpeed(DEFAULT_SPEED);
-                movableObjects.add(ennemiAleatoire);
-                spawnMovable(ennemiAleatoire);
+                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 1); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
+                ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+                movableObjects.add(ennemiAvecSante);
+                spawnMovable(ennemiAvecSante);
             } else {
                 PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
                 ennemiAleatoire.setVerticalSpeed(DEFAULT_SPEED);
