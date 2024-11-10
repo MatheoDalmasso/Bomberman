@@ -113,6 +113,13 @@ public class Bombe extends AbstractMovable implements IBombe {
         }
     }
 
+    /**
+     * Gère les collisions avec les murs
+     *
+     * @param adjacentCell la cellule adjacente
+     * @param adjacentX    la position x de la cellule adjacente
+     * @param adjacentY    la position y de la cellule adjacente
+     */
     private void handleWallCell(Cell adjacentCell, int adjacentX, int adjacentY) {
         Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
         Cell cell = game.getCellAt(adjacentX, adjacentY);
@@ -128,12 +135,29 @@ public class Bombe extends AbstractMovable implements IBombe {
         }
     }
 
+    /**
+     * Vérifie si la cellule est un mur en brique
+     *
+     * @param adjacentCell     la cellule adjacente
+     * @param urlBricks        l'url des briques
+     * @param urlCrackedBricks l'url des briques fissurées
+     * @param urlWall          l'url du mur
+     * @return true si la cellule est un mur en brique, false sinon
+     */
     private boolean isBrickWall(Cell adjacentCell, String urlBricks, String urlCrackedBricks, String urlWall) {
         return (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks) ||
                 adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlCrackedBricks)) &&
                 !adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlWall);
     }
 
+    /**
+     * Dégrade le mur
+     *
+     * @param adjacentCell les cases adjacentes
+     * @param state        l'état du mur
+     * @param lawnCell     la cellule de l'herbe
+     * @param cell         la cellule
+     */
     private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
         if (state instanceof BrickWallState) {
             adjacentCell.getWall().degrade();
