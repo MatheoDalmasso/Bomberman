@@ -170,14 +170,16 @@ public final class BombermanGame {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Rules");
         alert.setHeaderText("Welcome to Bomberman!");
-        alert.setContentText("Rules:\n" +
-                "1. Use arrow keys to move your character or use z, q ,s ,d.\n" +
-                "2. Press space to drop a bomb.\n" +
-                "3. Kill all enemies to win the game (you need to kill them with your bombs , Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls).\n" +
-                "4. If u lose one life you will be invulnerable for 5 seconds.\n" +
-                "5. Every 15 seconds we will give you 1 bombe  .\n\n" +
-                "Good luck!");
+        alert.setContentText("""
+                Rules:
+                1. Use arrow keys to move your character or use z, q, s, d.
+                2. Press space to drop a bomb.
+                3. Kill all enemies to win the game (you need to kill them with your bombs. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls).
+                4. If you lose one life, you will be invulnerable for 5 seconds.
+                5. Every 15 seconds, we will give you 1 bomb.
 
+                Good luck!
+                """);
         alert.showAndWait();
         startBombTimer();
     }
