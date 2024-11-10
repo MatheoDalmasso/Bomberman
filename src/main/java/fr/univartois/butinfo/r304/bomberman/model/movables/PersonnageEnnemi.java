@@ -1,3 +1,6 @@
+/**
+ * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
@@ -5,16 +8,15 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
-import java.util.Random;
-
+/**
+ * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
+ */
 public class PersonnageEnnemi extends AbstractMovable {
-    Random random = new Random();
-    private int direction; // 0 = gauche, 1 = droite, 2 = bas, 3 = haut
-    private long debutMouvement;
 
-    private static final int TEMPS_MOUVEMENT = 2000; // Durée de mouvement en millisecondes du mouvement à réaliser
-    private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance de mouvement en pixels du mouvement à réaliser
-    private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // Vitesse de déplacement en pixels par seconde
+    /**
+     * La stratégie de déplacement du personnage ennemi.
+     */
+    private DeplacementStrategy deplacementStrategy; //Instance du patron de conception Strategy
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -24,10 +26,18 @@ public class PersonnageEnnemi extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite, DeplacementStrategy deplacementStrategy) {
         super(game, xPosition, yPosition, sprite);
-        changeDirection();
-        debutMouvement = System.currentTimeMillis();
+        this.deplacementStrategy = deplacementStrategy;
+    }
+
+    /**
+     * Permet de mettre la stratégie de déplacement du personnage ennemi.
+     *
+     * @param deplacementStrategy La stratégie de déplacement du personnage ennemi.
+     */
+    public void setDeplacementStrategy(DeplacementStrategy deplacementStrategy) {
+        this.deplacementStrategy = deplacementStrategy;
     }
 
     /**
@@ -37,54 +47,18 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public boolean move(long delta) {
-        //Nous avons décidé d'adapter les mouvements des ennemies avec des mouvements aléatoires avec un mouvement toutes les 2 secondes
-
-        long currentTime = System.currentTimeMillis(); // Temps actuel en millisecondes
-
-        if (currentTime - debutMouvement > TEMPS_MOUVEMENT) { // Si le temps de mouvement est écoulé
-            changeDirection(); // On change de direction
-            debutMouvement = currentTime; // On met à jour le temps de début de mouvement
-        }
-
-        // On déplace l'objet dans la direction actuelle
-        switch (direction) {
-            case 0: //cas vers la gauche
-                setHorizontalSpeed(-SPEED);
-                break;
-            case 1: //cas vers la droite
-                setHorizontalSpeed(SPEED);
-                break;
-            case 2: //cas vers le bas
-                setVerticalSpeed(-SPEED);
-                break;
-            case 3: //cas vers le haut
-                setVerticalSpeed(SPEED);
-                break;
-            default: //cas par défaut
-                break;
-        }
-
-        // On récupère la valeur de retour de la méthode move de la classe mère
-        boolean moved = super.move(delta);
-
-        // Si l'objet n'a pas bougé, on change de direction
-        if (!moved) {
-            changeDirection();
-        }
-
-        setHorizontalSpeed(0);
-        setVerticalSpeed(0);
-
-        return moved;
+        deplacementStrategy.deplacer(this, delta);
+        return true;
     }
 
     /**
-     * Change la direction de cet objet.
+     * Permet de déplacer l'ennemi de manière aléatoire.
+     *
+     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
+     * @return true si l'objet a bougé, false sinon.
      */
-    private void changeDirection() {
-        direction = random.nextInt(4);
-        setHorizontalSpeed(0);
-        setVerticalSpeed(0);
+    public boolean superMove(long delta) {
+        return super.move(delta);
     }
 
     /**
@@ -97,8 +71,12 @@ public class PersonnageEnnemi extends AbstractMovable {
         if (other instanceof PersonnageEnnemi) {
             hitEnemy();
         }
-        if (other instanceof Explosion) {
-            explode();
+        if (!(this.getClass().isAssignableFrom(EnemyWithLife.class))) {
+            // Decorateur le fait
+        } else {
+            if (other instanceof Explosion) {
+                explode();
+            }
         }
     }
 

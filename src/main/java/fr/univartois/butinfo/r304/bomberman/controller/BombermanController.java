@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +9,7 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -36,7 +36,6 @@ import javafx.stage.Stage;
  * du Bomberman dans une interface JavaFX.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public final class BombermanController implements IBombermanController {
@@ -146,44 +145,56 @@ public final class BombermanController implements IBombermanController {
      * Ajoute les écouteurs de touches pour le jeu.
      */
     private void addKeyListeners() {
-        // L'appui (bref) sur une touche peut avoir plusieurs effets.
-        stage.addEventFilter(KeyEvent.KEY_TYPED, e -> {
-            if (!started) {
-                // La partie démarre à la première touche appuyée.
-                started = true;
-                message.setVisible(false);
-                game.start();
+        stage.addEventFilter(KeyEvent.KEY_TYPED, this::handleKeyTyped);
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPressed);
+        stage.addEventFilter(KeyEvent.KEY_RELEASED, this::handleKeyReleased);
+    }
 
-            } else if (" ".equals(e.getCharacter())) {
-                // La partie a commencé : il faut déposer une bombe.
-                game.dropBomb();
+    /**
+     * Gère l'événement de touche tapée.
+     *
+     * @param e L'événement de touche tapée.
+     */
+    private void handleKeyTyped(KeyEvent e) {
+        if (!started) {
+            // La partie démarre à la première touche appuyée.
+            started = true;
+            message.setVisible(false);
+            game.start();
+        } else if (" ".equals(e.getCharacter())) {
+            // La partie a commencé : il faut déposer une bombe.
+            game.dropBomb();
+        }
+    }
+
+    /**
+     * Gère l'événement de touche pressée.
+     *
+     * @param e L'événement de touche pressée.
+     */
+    private void handleKeyPressed(KeyEvent e) {
+        if (started) {
+            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.Z) {
+                game.moveUp();
+            } else if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.Q) {
+                game.moveLeft();
+            } else if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
+                game.moveDown();
+            } else if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) {
+                game.moveRight();
             }
-        });
+        }
+    }
 
-        // Lorsque l'utilisateur appuie sur une flèche, on déplace son personnage.
-        stage.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            if (started) {
-                if (e.getCode() == KeyCode.UP) {
-                    game.moveUp();
-
-                } else if (e.getCode() == KeyCode.LEFT) {
-                    game.moveLeft();
-
-                } else if (e.getCode() == KeyCode.DOWN) {
-                    game.moveDown();
-
-                } else if (e.getCode() == KeyCode.RIGHT) {
-                    game.moveRight();
-                }
-            }
-        });
-
-        // Lorsque l'utilisateur relâche l'une des flèches, on arrête le déplacement.
-        stage.addEventFilter(KeyEvent.KEY_RELEASED, e -> {
-            if (started && e.getCode().isArrowKey()) {
-                game.stopMoving();
-            }
-        });
+    /**
+     * Gère l'événement de touche relâchée.
+     *
+     * @param e L'événement de touche relâchée.
+     */
+    private void handleKeyReleased(KeyEvent e) {
+        if (started && (e.getCode().isArrowKey() || e.getCode() == KeyCode.Z || e.getCode() == KeyCode.Q || e.getCode() == KeyCode.S || e.getCode() == KeyCode.D)) {
+            game.stopMoving();
+        }
     }
 
     /*

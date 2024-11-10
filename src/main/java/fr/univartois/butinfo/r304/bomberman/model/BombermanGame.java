@@ -16,16 +16,24 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.bombs.BigBombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.FakeBombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
-import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.movables.*;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Alert;
+import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Random;
@@ -80,6 +88,8 @@ public final class BombermanGame {
      */
     private Joueur player;
 
+    private final IntegerProperty remainingBombs = new SimpleIntegerProperty(DEFAULT_BOMBS);
+
     /**
      * Le nombre d'ennemis initialement dans le jeu.
      */
@@ -103,12 +113,16 @@ public final class BombermanGame {
     /**
      * Le nombre de bombes restant au joueur.
      */
-    private int remainingBombs;
 
     /**
      * Le contrôleur du jeu.
      */
     private IBombermanController controller;
+
+    /**
+     * Le générateur de la carte du jeu.
+     */
+    private IGenerateurMap generateurMap; // NOSONAR
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -124,8 +138,50 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
-        this.remainingBombs = DEFAULT_BOMBS;
     }
+
+    /**
+     * Démarre le timer de recupération des bombes.
+     */
+    private void startBombTimer() {
+        Timeline bombTimer;
+        bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
+        bombTimer.setCycleCount(Animation.INDEFINITE);
+        bombTimer.play();
+    }
+
+    /**
+     * Incrémente le nombre de bombes restantes du joueur.
+     */
+    private void incrementBombCount() {
+        addBombToPlayer();
+        remainingBombs.set(remainingBombs.get() + 1);
+    }
+
+    /**
+     * Ajoute une bombe au joueur.
+     */
+    private void addBombToPlayer() {
+        Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
+        player.addBombe(bomb);
+    }
+
+    private void showGameRules() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Rules");
+        alert.setHeaderText("Welcome to Bomberman!");
+        alert.setContentText("Rules:\n" +
+                "1. Use arrow keys to move your character or use z, q ,s ,d.\n" +
+                "2. Press space to drop a bomb.\n" +
+                "3. Kill all enemies to win the game (you need to kill them with your bombs , Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls).\n" +
+                "4. If u lose one life you will be invulnerable for 5 seconds.\n" +
+                "5. Every 15 seconds we will give you 1 bombe  .\n\n" +
+                "Good luck!");
+
+        alert.showAndWait();
+        startBombTimer();
+    }
+
 
     /**
      * Donne le reste de bombe du joueur.
@@ -133,16 +189,25 @@ public final class BombermanGame {
      * @return Le reste de bombe du joueur.
      */
     public int getRemainingBombs() {
-        return remainingBombs;
+        return remainingBombs.get();
     }
 
     /**
      * Diminue le nombre de bombes restantes du joueur.
      */
     public void decreaseBombs() {
-        if (remainingBombs > 0) {
-            remainingBombs--;
+        if (remainingBombs.get() > 0) {
+            remainingBombs.set(remainingBombs.get() - 1);
         }
+    }
+
+    /**
+     * Donne le nombre de bombes restantes du joueur.
+     *
+     * @return Le nombre de bombes restantes du joueur.
+     */
+    public IntegerProperty remainingBombsProperty() {
+        return remainingBombs;
     }
 
     /**
@@ -152,6 +217,10 @@ public final class BombermanGame {
      */
     public void setController(IBombermanController controller) {
         this.controller = controller;
+    }
+
+    public void setGenerateurMap(IGenerateurMap generateurMap) {
+        this.generateurMap = generateurMap;
     }
 
     /**
@@ -185,6 +254,7 @@ public final class BombermanGame {
      * Prépare une partie de Bomberman avant qu'elle ne démarre.
      */
     public void prepare() {
+        showGameRules();
         gameMap = createMap();
         controller.prepare(gameMap);
     }
@@ -225,12 +295,22 @@ public final class BombermanGame {
             player.addBombe(bomb);
         }
 
+        int x = RANDOM.nextInt(2);
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            IMovable enemy = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"));
-            enemy.setHorizontalSpeed(DEFAULT_SPEED);
-            movableObjects.add(enemy);
-            spawnMovable(enemy);
+            if (x == 0) {
+                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
+                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 6); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
+                ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+                movableObjects.add(ennemiAvecSante);
+                spawnMovable(ennemiAvecSante);
+            } else {
+                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
+                ennemiAleatoire.setVerticalSpeed(DEFAULT_SPEED);
+                movableObjects.add(ennemiAleatoire);
+                spawnMovable(ennemiAleatoire);
+            }
+
         }
     }
 
@@ -241,8 +321,7 @@ public final class BombermanGame {
     private void initStatistics() {
         controller.bindLife(player.pointsDeVieProperty());
         controller.bindScore(player.scoreProperty());
-        controller.bindBombs(player.nbBombeProperty());
-        controller.bindBombs(new SimpleIntegerProperty(player.getBombs().size()));
+        controller.bindBombs(remainingBombs);
         remainingEnemies = nbEnemies;
     }
 
@@ -307,8 +386,26 @@ public final class BombermanGame {
      */
     public void dropBomb() {
         if (!player.getBombs().isEmpty()) {
-            Bombe bomb = player.getBombs().removeFirst();
-            dropBomb(bomb);
+            int randomBomb = RANDOM.nextInt(10);
+            int playerX = player.getX();
+            int playerY = player.getY();
+            int spriteSize = spriteStore.getSpriteSize();
+            int mapWidth = getWidth();
+            int mapHeight = getHeight();
+            if (randomBomb < 2) {
+                if (playerX > spriteSize && playerX < (mapWidth - spriteSize * 2) && playerY > spriteSize && playerY < (mapHeight - spriteSize * 2)) {
+                    BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
+                    dropBomb(bomb);
+                    player.getBombs().removeFirst();
+                }
+            } else if (randomBomb == 3) {
+                FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
+                dropBomb(bomb);
+                player.getBombs().removeFirst();
+            } else {
+                Bombe bomb = player.getBombs().removeFirst();
+                dropBomb(bomb);
+            }
         }
     }
 
@@ -319,8 +416,40 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(Bombe bomb) {
-        bomb.setX(player.getX());
-        bomb.setY(player.getY());
+        Cell cell = getCellOf(player);
+
+        bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
+        bomb.setY(cell.getRow() * spriteStore.getSpriteSize());
+        this.addMovable(bomb);
+        bomb.move(0);
+    }
+
+    /**
+     * Dépose une BigBombe sur la tuile où se trouve le joueur
+     *
+     * @param bomb La bombe à déposer.
+     */
+    public void dropBomb(BigBombe bomb) {
+        Cell cell = getCellOf(player);
+
+        bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
+        bomb.setY(cell.getRow() * spriteStore.getSpriteSize());
+
+        this.addMovable(bomb);
+        bomb.move(0);
+    }
+
+    /**
+     * Dépose une FakeBombe sur la tuile où se trouve le joueur
+     *
+     * @param bomb La bombe à déposer.
+     */
+    public void dropBomb(FakeBombe bomb) {
+        Cell cell = getCellOf(player);
+
+        bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
+        bomb.setY(cell.getRow() * spriteStore.getSpriteSize());
+
         this.addMovable(bomb);
         bomb.move(0);
     }

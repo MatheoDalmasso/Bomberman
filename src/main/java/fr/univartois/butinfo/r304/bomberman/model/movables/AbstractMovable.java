@@ -300,6 +300,7 @@ public abstract class AbstractMovable implements IMovable {
             return false;
         }
 
+
         // L'objet n'a atteint aucun obstacle
         xPosition.set(newX);
         yPosition.set(newY);
@@ -333,6 +334,7 @@ public abstract class AbstractMovable implements IMovable {
         // Le coin inférieur droit de l'objet a atteint un mur.
         return game.getCellAt(x + getWidth() - MARGIN, y + getHeight() - MARGIN).getWall() != null;
     }
+
 
     /*
      * (non-Javadoc)

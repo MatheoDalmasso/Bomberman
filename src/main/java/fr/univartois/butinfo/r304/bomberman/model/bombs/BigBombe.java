@@ -1,5 +1,5 @@
 /**
- * Cette classe représente une bombe dans le jeu Bomberman.
+ * La classe BigBombe représente une bombe de grande taille.
  */
 package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
@@ -10,18 +10,27 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.util.Objects;
 
 /**
- * Cette classe représente une bombe dans le jeu Bomberman.
+ * La classe BigBombe représente une bombe de grande taille.
  */
-public class Bombe extends AbstractMovable implements IBombe {
-    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackage().getName());
-    private long delai;
-    private SpriteStore spriteStore = new SpriteStore();
-    private long startTime = -1;
+public class BigBombe extends AbstractMovable implements IBombe {
 
+    /**
+     * Le délai avant l'explosion
+     */
+    private long delai;
+
+    /**
+     * Le SpriteStore
+     */
+    private SpriteStore spriteStore = new SpriteStore();
+
+    /**
+     * Le temps de début
+     */
+    private long startTime = -1;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -30,8 +39,9 @@ public class Bombe extends AbstractMovable implements IBombe {
      * @param xPosition La position en x initiale de l'objet.
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
+     * @param delai     Le délai avant l'explosion
      */
-    public Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
+    public BigBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
         this.delai = delai;
     }
@@ -47,7 +57,7 @@ public class Bombe extends AbstractMovable implements IBombe {
     }
 
     /**
-     * Enlève la bombe de la carte.
+     * Pose la bombe et la fait explosée
      *
      * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
      *              millisecondes).
@@ -61,7 +71,7 @@ public class Bombe extends AbstractMovable implements IBombe {
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        if (elapsedTime >= 2500) {
+        if (elapsedTime >= 4000) {
             detonateBomb();
             return true;
         }
@@ -72,6 +82,10 @@ public class Bombe extends AbstractMovable implements IBombe {
      * Fait exploser la bombe
      */
     private void detonateBomb() {
+        Cell bombCell = game.getCellAt(getX(), getY());
+        if (bombCell.getWall() == null) {
+            createExplosion(getX(), getY());
+        }
         createAdjacentExplosions();
         game.removeMovable(this);
         game.decreaseBombs();
@@ -93,8 +107,8 @@ public class Bombe extends AbstractMovable implements IBombe {
      */
     private void createAdjacentExplosions() {
         // Définir les directions (haut, bas, gauche, droite)
-        int[] directionX = {0, 0, -1, 1};
-        int[] directionY = {-1, 1, 0, 0};
+        int[] directionX = {0, 0, -1, 1, -2, 2};
+        int[] directionY = {-2, 2, -1, 1, 0, 0};
 
         for (int i = 0; i < directionX.length; i++) {
             int adjacentX = getX() + directionX[i] * spriteStore.getSpriteSize();
@@ -102,93 +116,62 @@ public class Bombe extends AbstractMovable implements IBombe {
 
             Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
 
-            if (adjacentCell != null && adjacentCell.getWall() != null) {
-                Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
-
-                Cell cell = game.getCellAt(adjacentX, adjacentY);
-                Sprite sp = spriteStore.getSprite("bricks");
-                String urlBricks = sp.getImage().getUrl();
-
-                String wallSpriteUrl = adjacentCell.getWall().getSprite().getImage().getUrl();
-                String urlWall = spriteStore.getSprite("wall").getImage().getUrl();
-
-                if (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks)) { //On check avec l'url car on peut pas check 2 sprite (pas la même adresse ??)
-                    if (!wallSpriteUrl.equals(urlWall)) {
-                        createExplosion(adjacentX, adjacentY);
-                    }
-                    cell.replaceBy(lawnCell);
-                }
-
-            } else if (adjacentCell != null && adjacentCell.getWall() == null) {
+            if (adjacentCell.getWall() == null) {
                 createExplosion(adjacentX, adjacentY);
             }
         }
     }
 
     /**
-     * Gère les collisions entre cet objet et un autre objet.
+     * Si l'objet est en collision avec un autre objet il explose
      *
      * @param other L'objet avec lequel cet objet est entré en collision.
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Explosion) {
-            this.explode();
+        if (other instanceof IBombe) {
+            explode();
         }
     }
 
     /**
-     * Gère l'explosion de cet objet.
+     * Si l'objet est en collision avec un autre objet il explose
      */
     @Override
     public void explode() {
+        hitEnemy();
+    }
+
+    /**
+     * Si l'objet est en collision avec un ennemi
+     */
+    @Override
+    public void hitEnemy() {
         game.removeMovable(this);
     }
 
     /**
-     * Gère le fait que cette explosion a touché un ennemi.
+     * Renvoi si un objet et egale a un autre
+     *
+     * @param o L'objet avec lequel cet objet doit être comparé.
+     * @return true si l'objet est égal à l'autre objet, false sinon.
      */
     @Override
-    public void hitEnemy() {
-        LOGGER.info("La bombe a touché un ennemi");
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        BigBombe bigBombe = (BigBombe) o;
+        return delai == bigBombe.delai && startTime == bigBombe.startTime && Objects.equals(spriteStore, bigBombe.spriteStore);
     }
 
     /**
-     * Retourne le code de hachage de cet objet.
+     * Renvoi le hashcode de l'objet
      *
      * @return Le code de hachage de cet objet.
      */
     @Override
     public int hashCode() {
-        return super.hashCode();
-    }
-
-    /**
-     * Vérifie si cet objet est égal à un autre objet.
-     *
-     * @param obj L'objet à comparer.
-     * @return Si cet objet est égal à l'autre objet.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    /**
-     * Donne le délai avant l'explosion de la bombe.
-     *
-     * @return Le délai avant l'explosion.
-     */
-    public long getDelai() {
-        return delai;
-    }
-
-    /**
-     * Modifie le délai
-     *
-     * @param delai Le nouveau délai.
-     */
-    public void setDelai(long delai) {
-        this.delai = delai;
+        return Objects.hash(super.hashCode(), delai, spriteStore, startTime);
     }
 }
