@@ -1,3 +1,6 @@
+/**
+ * Cette classe représente une bombe dans le jeu Bomberman.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
@@ -10,6 +13,9 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * Cette classe représente une bombe dans le jeu Bomberman.
+ */
 public class Bombe extends AbstractMovable implements IBombe {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long delai;
@@ -108,7 +114,7 @@ public class Bombe extends AbstractMovable implements IBombe {
 
 
                 if (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks)) { //On check avec l'url car on peut pas check 2 sprite (pas la même adresse ??)
-                    System.out.println("Brick");
+                    LOGGER.info("Brick");
                     if (!wallSpriteUrl.equals(urlWall)) {
                         createExplosion(adjacentX, adjacentY);
                     }
