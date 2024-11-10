@@ -4,6 +4,7 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 /**
  * Classe représentant l'état d'un mur en brique.
@@ -14,6 +15,9 @@ public class BrickWallState implements IWallState {
      * Le sprite représentant le mur en brique.
      */
     private final Sprite sprite;
+
+    SpriteStore spriteStore = new SpriteStore();
+
 
     /**
      * Crée un nouvel état de mur en brique.
@@ -31,7 +35,7 @@ public class BrickWallState implements IWallState {
      */
     @Override
     public void degrade(Wall wall) {
-        wall.setState(new CrackedBrickWallState(getSprite()));
+        wall.setState(new CrackedBrickWallState(spriteStore.getSprite("cracked-bricks")));
     }
 
     /**
