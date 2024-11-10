@@ -1,26 +1,26 @@
 /**
- * Package contenant les classes du modèle représentant la carte du jeu.
+ * Package qui contient les classes du modèle représentant la carte du jeu.
  */
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 /**
- * Classe représentant l'état d'un mur incassable.
+ * Classe représentant l'état d'un mur en brique.
  */
-public class WallInvincibleState implements IWallState {
+public class BrickWallState implements IWallState {
 
     /**
-     * Le sprite représentant le mur incassable.
+     * Le sprite représentant le mur en brique.
      */
     private final Sprite sprite;
 
     /**
-     * Crée un nouvel état de mur incassable.
+     * Crée un nouvel état de mur en brique.
      *
-     * @param sprite Le sprite représentant le mur incassable.
+     * @param sprite Le sprite représentant le mur en brique.
      */
-    public WallInvincibleState(Sprite sprite) {
+    public BrickWallState(Sprite sprite) {
         this.sprite = sprite;
     }
 
@@ -31,7 +31,7 @@ public class WallInvincibleState implements IWallState {
      */
     @Override
     public void degrade(Wall wall) {
-        // Do nothing, mur incassable
+        wall.setState(new CrackedBrickWallState(sprite));
     }
 
     /**
