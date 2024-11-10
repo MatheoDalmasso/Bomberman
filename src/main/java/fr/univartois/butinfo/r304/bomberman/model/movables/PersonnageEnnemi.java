@@ -51,8 +51,12 @@ public class PersonnageEnnemi extends AbstractMovable {
         if (other instanceof PersonnageEnnemi) {
             hitEnemy();
         }
-        if (other instanceof Explosion) {
-            explode();
+        if (!(this.getClass().getSimpleName().equals(EnemyWithLife.class.getSimpleName()))) {
+            // Decorateur le fait
+        } else {
+            if (other instanceof Explosion) {
+                explode();
+            }
         }
     }
 

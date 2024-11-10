@@ -3,6 +3,7 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
+import fr.univartois.butinfo.r304.bomberman.model.movables.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.logging.LogManager;
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
 public class Explosion extends AbstractMovable {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long dureeExplosion;
+    private EnemyWithLife enemy;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -47,7 +49,11 @@ public class Explosion extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        other.explode();
+        if (other instanceof EnemyWithLife) {
+            // Decorator le fait
+        } else {
+            other.explode();
+        }
     }
 
     /**
