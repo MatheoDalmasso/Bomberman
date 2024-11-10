@@ -31,7 +31,7 @@ public class BrickWallState implements IWallState {
      */
     @Override
     public void degrade(Wall wall) {
-        wall.setState(new CrackedBrickWallState(sprite));
+        wall.setState(new CrackedBrickWallState(getSprite()));
     }
 
     /**
