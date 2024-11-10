@@ -136,7 +136,6 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
-        startBombTimer();
     }
 
     private void startBombTimer() {
@@ -168,6 +167,7 @@ public final class BombermanGame {
                 "Good luck!");
 
         alert.showAndWait();
+        startBombTimer();
     }
 
 
