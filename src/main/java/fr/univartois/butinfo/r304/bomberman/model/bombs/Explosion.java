@@ -1,3 +1,6 @@
+/**
+ * Ce package contient les classes représentant les bombes dans le jeu Bomberman.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
@@ -9,10 +12,12 @@ import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * Cette classe représente une explosion dans le jeu Bomberman.
+ */
 public class Explosion extends AbstractMovable {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
     private long dureeExplosion;
-    private EnemyWithLife enemy;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
