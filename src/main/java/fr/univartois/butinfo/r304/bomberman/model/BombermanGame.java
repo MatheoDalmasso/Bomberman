@@ -118,6 +118,9 @@ public final class BombermanGame {
      */
     private IBombermanController controller;
 
+    /**
+     * Le générateur de la carte du jeu.
+     */
     private IGenerateurMap generateurMap; // NOSONAR
 
     /**
@@ -182,6 +185,11 @@ public final class BombermanGame {
         }
     }
 
+    /**
+     * Donne le nombre de bombes restantes du joueur.
+     *
+     * @return Le nombre de bombes restantes du joueur.
+     */
     public IntegerProperty remainingBombsProperty() {
         return remainingBombs;
     }
@@ -399,6 +407,11 @@ public final class BombermanGame {
         bomb.move(0);
     }
 
+    /**
+     * Dépose une BigBombe sur la tuile où se trouve le joueur
+     *
+     * @param bomb La bombe à déposer.
+     */
     public void dropBomb(BigBombe bomb) {
         Cell cell = getCellOf(player);
 
@@ -409,6 +422,11 @@ public final class BombermanGame {
         bomb.move(0);
     }
 
+    /**
+     * Dépose une FakeBombe sur la tuile où se trouve le joueur
+     *
+     * @param bomb La bombe à déposer.
+     */
     public void dropBomb(FakeBombe bomb) {
         Cell cell = getCellOf(player);
 
