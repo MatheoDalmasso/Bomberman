@@ -27,6 +27,7 @@ public class GenerateurMap implements IGenerateurMap {
         this.random = new Random();
     }
 
+
     /**
      * Génère une carte de jeu.
      *
@@ -37,21 +38,53 @@ public class GenerateurMap implements IGenerateurMap {
         GameMap map = new GameMap(height, width);
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
-                    map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("wall"))));
-                } else {
-                    if (i % 3 == 0 && j % 3 == 0) {
-                        map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("wall"))));
-                    } else if (random.nextInt(100) < 20) { // 20% chance to place a brick
-                        map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("bricks"))));
-                    } else if (random.nextInt(100) < 10) { // 20% chance to place a brick
-                        map.setAt(i, j, new Cell(new Wall(spriteStore.getSprite("cracked-bricks"))));
-                    } else {
-                        map.setAt(i, j, new Cell(spriteStore.getSprite("lawn")));
-                    }
-                }
+                map.setAt(i, j, generateCell(i, j));
             }
         }
         return map;
     }
+
+    /**
+     * Génère une cellule pour une position donnée.
+     *
+     * @param i La position en hauteur.
+     * @param j La position en largeur.
+     * @return La cellule générée.
+     */
+    private Cell generateCell(int i, int j) {
+        if (isBorder(i, j)) {
+            return new Cell(new Wall(spriteStore.getSprite("wall")));
+        } else if (isWallPosition(i, j)) {
+            return new Cell(new Wall(spriteStore.getSprite("wall")));
+        } else if (random.nextInt(100) < 20) {
+            return new Cell(new Wall(spriteStore.getSprite("bricks")));
+        } else if (random.nextInt(100) < 10) {
+            return new Cell(new Wall(spriteStore.getSprite("cracked-bricks")));
+        } else {
+            return new Cell(spriteStore.getSprite("lawn"));
+        }
+    }
+
+    /**
+     * Vérifie si une position est sur la bordure de la carte.
+     *
+     * @param i La position en hauteur.
+     * @param j La position en largeur.
+     * @return true si la position est sur la bordure, false sinon.
+     */
+    private boolean isBorder(int i, int j) {
+        return i == 0 || j == 0 || i == height - 1 || j == width - 1;
+    }
+
+    /**
+     * Vérifie si une position doit contenir un mur.
+     *
+     * @param i La position en hauteur.
+     * @param j La position en largeur.
+     * @return true si la position doit contenir un mur, false sinon.
+     */
+    private boolean isWallPosition(int i, int j) {
+        return i % 3 == 0 && j % 3 == 0;
+    }
+
 }
