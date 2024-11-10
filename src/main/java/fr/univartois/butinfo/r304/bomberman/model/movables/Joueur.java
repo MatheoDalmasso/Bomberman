@@ -1,3 +1,6 @@
+/**
+ * Classe Joueur : permet de gérer le joueur.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
@@ -11,10 +14,19 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe Joueur : permet de gérer le joueur.
+ */
 public class Joueur extends AbstractMovable {
 
+    /**
+     * Le sprite store.
+     */
     private SpriteStore spriteStore;
 
+    /**
+     * L'état du joueur.
+     */
     private PlayerState state;
 
     /**
@@ -69,20 +81,37 @@ public class Joueur extends AbstractMovable {
         }
     }
 
+    /**
+     * Permet de render invincible le joueur.
+     */
     public void makePlayerInvulnerable() {
         InvulnerableState.makePlayerInvulnerable(this);
     }
 
+    /**
+     * Permet de recupérer le sprite store.
+     *
+     * @return Le sprite store.
+     */
     public SpriteStore getSpriteStore() {
         return spriteStore;
     }
 
-
+    /**
+     * Permet de recupérer l'état du joueur.
+     *
+     * @param state L'état du joueur.
+     */
     public void setState(PlayerState state) {
         this.state = state;
         state.updateAppearance(this);
     }
 
+    /**
+     * Permet d'infliger des dégâts au joueur.
+     *
+     * @param damage Les dégâts à infliger.
+     */
     public void takeDamage(int damage) {
         state.takeDamage(this, damage);
     }
