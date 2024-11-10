@@ -6,6 +6,7 @@ import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 public class EnemyWithLife extends AbstractIMovableDecorator {
     private PersonnageEnnemi ennemi;
     private int pv;
+    private long lastHitTime = 0;
 
     public EnemyWithLife(PersonnageEnnemi ennemi, int pv) {
         super(ennemi);
@@ -15,13 +16,19 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
 
     @Override
     public void collidedWith(IMovable other) {
+        if (other instanceof PersonnageEnnemi) {
+            hitEnemy();
+        }
         if (other instanceof Explosion) {
-            System.out.println("Explosion touchée !");
-            if (pv == 0) {
-                ennemi.explode();  // L'ennemi meurt
-            } else {
-                decreasePv(1);  // Réduit les PV de 1
-                System.out.println("PV restants: " + pv);
+            if (System.currentTimeMillis() - lastHitTime >= 5000) {
+                lastHitTime = System.currentTimeMillis();
+                decreasePv(1);
+                if (pv == 0) {
+                    ennemi.explode();  // L'ennemi meurt
+                } else {
+                    // Réduit les PV de 1
+                    System.out.println("PV restants: " + pv);
+                }
             }
         }
     }

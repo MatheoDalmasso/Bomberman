@@ -64,7 +64,7 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof PersonnageEnnemi || other instanceof Explosion) {
+        if (other instanceof PersonnageEnnemi || other instanceof EnemyWithLife || other instanceof Explosion) {
             takeDamage(1);
         }
     }

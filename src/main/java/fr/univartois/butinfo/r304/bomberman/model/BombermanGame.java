@@ -268,7 +268,7 @@ public final class BombermanGame {
             System.out.println("Le deplacement de l'ennemi est : " + x);
             if (x == 0) {
                 PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 1); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
+                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 3); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
                 ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
                 movableObjects.add(ennemiAvecSante);
                 spawnMovable(ennemiAvecSante);
