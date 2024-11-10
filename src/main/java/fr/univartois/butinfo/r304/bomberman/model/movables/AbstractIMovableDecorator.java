@@ -10,7 +10,7 @@ public abstract class AbstractIMovableDecorator implements IMovable {
 
     protected IMovable iMovable;
 
-    public AbstractIMovableDecorator(IMovable iMovable) {
+    protected AbstractIMovableDecorator(IMovable iMovable) {
         this.iMovable = iMovable;
     }
 
@@ -73,9 +73,6 @@ public abstract class AbstractIMovableDecorator implements IMovable {
     public boolean isCollidingWith(IMovable other) {
         return iMovable.isCollidingWith(other);
     }
-
-
-    public abstract void collidedWith(IMovable other);
 
 
     public void explode() {
