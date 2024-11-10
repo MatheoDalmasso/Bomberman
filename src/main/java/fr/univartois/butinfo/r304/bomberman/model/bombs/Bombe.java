@@ -5,7 +5,10 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.map.BrickWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
+import fr.univartois.butinfo.r304.bomberman.model.map.IWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
@@ -103,25 +106,67 @@ public class Bombe extends AbstractMovable implements IBombe {
             Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
 
             if (adjacentCell != null && adjacentCell.getWall() != null) {
-                Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
-
-                Cell cell = game.getCellAt(adjacentX, adjacentY);
-                Sprite sp = spriteStore.getSprite("bricks");
-                String urlBricks = sp.getImage().getUrl();
-
-                String wallSpriteUrl = adjacentCell.getWall().getSprite().getImage().getUrl();
-                String urlWall = spriteStore.getSprite("wall").getImage().getUrl();
-
-                if (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks)) { //On check avec l'url car on peut pas check 2 sprite (pas la même adresse ??)
-                    if (!wallSpriteUrl.equals(urlWall)) {
-                        createExplosion(adjacentX, adjacentY);
-                    }
-                    cell.replaceBy(lawnCell);
-                }
-
+                handleWallCell(adjacentCell, adjacentX, adjacentY);
             } else if (adjacentCell != null && adjacentCell.getWall() == null) {
                 createExplosion(adjacentX, adjacentY);
             }
+        }
+    }
+
+    /**
+     * Gère les collisions avec les murs
+     *
+     * @param adjacentCell la cellule adjacente
+     * @param adjacentX    la position x de la cellule adjacente
+     * @param adjacentY    la position y de la cellule adjacente
+     */
+    private void handleWallCell(Cell adjacentCell, int adjacentX, int adjacentY) {
+        Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
+        Cell cell = game.getCellAt(adjacentX, adjacentY);
+        Sprite sp = spriteStore.getSprite("bricks");
+        String urlBricks = sp.getImage().getUrl();
+        String urlCrackedBricks = spriteStore.getSprite("cracked-bricks").getImage().getUrl();
+        String urlWall = spriteStore.getSprite("wall").getImage().getUrl();
+
+        if (isBrickWall(adjacentCell, urlBricks, urlCrackedBricks, urlWall)) {
+            IWallState state = adjacentCell.getWall().getState();
+            createExplosion(adjacentX, adjacentY);
+            degradeWall(adjacentCell, state, lawnCell, cell);
+        }
+    }
+
+    /**
+     * Vérifie si la cellule est un mur en brique
+     *
+     * @param adjacentCell     la cellule adjacente
+     * @param urlBricks        l'url des briques
+     * @param urlCrackedBricks l'url des briques fissurées
+     * @param urlWall          l'url du mur
+     * @return true si la cellule est un mur en brique, false sinon
+     */
+    private boolean isBrickWall(Cell adjacentCell, String urlBricks, String urlCrackedBricks, String urlWall) {
+        return (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks) ||
+                adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlCrackedBricks)) &&
+                !adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlWall);
+    }
+
+    /**
+     * Dégrade le mur
+     *
+     * @param adjacentCell les cases adjacentes
+     * @param state        l'état du mur
+     * @param lawnCell     la cellule de l'herbe
+     * @param cell         la cellule
+     */
+    private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
+        if (state instanceof BrickWallState) {
+            adjacentCell.getWall().degrade();
+            IWallState crackedState = adjacentCell.getWall().getState();
+            Cell cellWallReplace = new Cell(new Wall(crackedState));
+            adjacentCell.replaceBy(cellWallReplace);
+        } else {
+            adjacentCell.getWall().degrade();
+            cell.replaceBy(lawnCell);
         }
     }
 
