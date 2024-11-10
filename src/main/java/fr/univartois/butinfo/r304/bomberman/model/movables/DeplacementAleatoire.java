@@ -1,16 +1,50 @@
+/**
+ * Classe DeplacementAleatoire : permet de déplacer un personnage ennemi de manière aléatoire.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import java.util.Random;
 
+/**
+ * Classe DeplacementAleatoire : permet de déplacer un personnage ennemi de manière aléatoire.
+ */
 public class DeplacementAleatoire implements DeplacementStrategy {
+    /**
+     * Le générateur de nombres aléatoires.
+     */
     Random random = new Random();
+
+    /**
+     * La direction actuelle de cet objet.
+     */
     private int direction;
+
+    /**
+     * Le moment où le mouvement a commencé.
+     */
     private long debutMouvement;
 
+    /**
+     * Temps de mouvement d'un ennemi.
+     */
     private static final int TEMPS_MOUVEMENT = 2000;
-    private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36;
-    private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000;
 
+    /**
+     * La distance en pixels du mouvement.
+     */
+    private static final double DISTANCE_PIXELS_DU_MOUVEMENT = 36; // Distance en pixels du mouvement
+
+    /**
+     * La vitesse de déplacement.
+     */
+    private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000; // La speed
+
+    /**
+     * Permet de déplacer l'ennemi de manière aléatoire.
+     *
+     * @param ennemi L'ennemi à déplacer.
+     * @param delta  Le temps écoulé depuis le dernier déplacement de cet objet (en
+     */
     @Override
     public void deplacer(PersonnageEnnemi ennemi, long delta) {
 

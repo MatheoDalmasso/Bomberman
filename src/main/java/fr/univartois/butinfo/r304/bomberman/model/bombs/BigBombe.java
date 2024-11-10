@@ -1,25 +1,54 @@
+/**
+ * La classe BigBombe représente une bombe de grande taille.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
+import java.util.Objects;
+
+/**
+ * La classe BigBombe représente une bombe de grande taille.
+ */
 public class BigBombe extends AbstractMovable implements IBombe {
 
+    /**
+     * Le délai avant l'explosion
+     */
     private long delai;
+
+    /**
+     * Le SpriteStore
+     */
     private SpriteStore spriteStore = new SpriteStore();
+
+    /**
+     * Le temps de début
+     */
     private long startTime = -1;
 
-
+    /**
+     * Crée une nouvelle instance de AbstractMovable.
+     *
+     * @param game      Le jeu dans lequel l'objet évolue.
+     * @param xPosition La position en x initiale de l'objet.
+     * @param yPosition La position en y initiale de l'objet.
+     * @param sprite    L'instance de {@link Sprite} représentant l'objet.
+     * @param delai     Le délai avant l'explosion
+     */
     public BigBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
         this.delai = delai;
     }
 
+    /**
+     * Decrémente le nombre de bombes disponibles.
+     */
     @Override
     public void poseBombe() {
         if (game.getRemainingBombs() > 0) {
@@ -27,6 +56,13 @@ public class BigBombe extends AbstractMovable implements IBombe {
         }
     }
 
+    /**
+     * Pose la bombe et la fait explosée
+     *
+     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
+     *              millisecondes).
+     * @return true si la bombe a explosé, false sinon.
+     */
     @Override
     public boolean move(long delta) {
         if (startTime == -1) {
@@ -86,6 +122,11 @@ public class BigBombe extends AbstractMovable implements IBombe {
         }
     }
 
+    /**
+     * Si l'objet est en collision avec un autre objet il explose
+     *
+     * @param other L'objet avec lequel cet objet est entré en collision.
+     */
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof IBombe) {
@@ -93,13 +134,44 @@ public class BigBombe extends AbstractMovable implements IBombe {
         }
     }
 
+    /**
+     * Si l'objet est en collision avec un autre objet il explose
+     */
     @Override
     public void explode() {
         hitEnemy();
     }
 
+    /**
+     * Si l'objet est en collision avec un ennemi
+     */
     @Override
     public void hitEnemy() {
         game.removeMovable(this);
+    }
+
+    /**
+     * Renvoi si un objet et egale a un autre
+     *
+     * @param o L'objet avec lequel cet objet doit être comparé.
+     * @return true si l'objet est égal à l'autre objet, false sinon.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        BigBombe bigBombe = (BigBombe) o;
+        return delai == bigBombe.delai && startTime == bigBombe.startTime && Objects.equals(spriteStore, bigBombe.spriteStore);
+    }
+
+    /**
+     * Renvoi le hashcode de l'objet
+     *
+     * @return Le code de hachage de cet objet.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), delai, spriteStore, startTime);
     }
 }

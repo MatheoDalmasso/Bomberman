@@ -1,3 +1,6 @@
+/**
+ * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
+ */
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
@@ -5,8 +8,14 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
+/**
+ * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
+ */
 public class PersonnageEnnemi extends AbstractMovable {
 
+    /**
+     * La stratégie de déplacement du personnage ennemi.
+     */
     private DeplacementStrategy deplacementStrategy; //Instance du patron de conception Strategy
 
     /**
@@ -22,6 +31,11 @@ public class PersonnageEnnemi extends AbstractMovable {
         this.deplacementStrategy = deplacementStrategy;
     }
 
+    /**
+     * Permet de mettre la stratégie de déplacement du personnage ennemi.
+     *
+     * @param deplacementStrategy La stratégie de déplacement du personnage ennemi.
+     */
     public void setDeplacementStrategy(DeplacementStrategy deplacementStrategy) {
         this.deplacementStrategy = deplacementStrategy;
     }
@@ -37,6 +51,12 @@ public class PersonnageEnnemi extends AbstractMovable {
         return true;
     }
 
+    /**
+     * Permet de déplacer l'ennemi de manière aléatoire.
+     *
+     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
+     * @return true si l'objet a bougé, false sinon.
+     */
     public boolean superMove(long delta) {
         return super.move(delta);
     }
@@ -51,7 +71,7 @@ public class PersonnageEnnemi extends AbstractMovable {
         if (other instanceof PersonnageEnnemi) {
             hitEnemy();
         }
-        if (!(this.getClass().getSimpleName().equals(EnemyWithLife.class.getSimpleName()))) {
+        if (!(this.getClass().isAssignableFrom(EnemyWithLife.class))) {
             // Decorateur le fait
         } else {
             if (other instanceof Explosion) {

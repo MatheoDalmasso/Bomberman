@@ -26,6 +26,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.*;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -46,8 +47,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class BombermanGame {
 
-
-    private Timeline bombTimer;
 
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
@@ -120,7 +119,10 @@ public final class BombermanGame {
      */
     private IBombermanController controller;
 
-    private IGenerateurMap generateurMap;
+    /**
+     * Le générateur de la carte du jeu.
+     */
+    private IGenerateurMap generateurMap; // NOSONAR
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -138,17 +140,27 @@ public final class BombermanGame {
         this.nbEnemies = nbEnemies;
     }
 
+    /**
+     * Démarre le timer de recupération des bombes.
+     */
     private void startBombTimer() {
+        Timeline bombTimer;
         bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
-        bombTimer.setCycleCount(Timeline.INDEFINITE);
+        bombTimer.setCycleCount(Animation.INDEFINITE);
         bombTimer.play();
     }
 
+    /**
+     * Incrémente le nombre de bombes restantes du joueur.
+     */
     private void incrementBombCount() {
         addBombToPlayer();
         remainingBombs.set(remainingBombs.get() + 1);
     }
 
+    /**
+     * Ajoute une bombe au joueur.
+     */
     private void addBombToPlayer() {
         Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
         player.addBombe(bomb);
@@ -189,6 +201,11 @@ public final class BombermanGame {
         }
     }
 
+    /**
+     * Donne le nombre de bombes restantes du joueur.
+     *
+     * @return Le nombre de bombes restantes du joueur.
+     */
     public IntegerProperty remainingBombsProperty() {
         return remainingBombs;
     }
@@ -281,8 +298,6 @@ public final class BombermanGame {
         int x = RANDOM.nextInt(2);
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-
-            System.out.println("Le deplacement de l'ennemi est : " + x);
             if (x == 0) {
                 PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
                 IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 6); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
@@ -377,14 +392,11 @@ public final class BombermanGame {
             int spriteSize = spriteStore.getSpriteSize();
             int mapWidth = getWidth();
             int mapHeight = getHeight();
-            System.out.println("playerX : " + playerX + " playerY : " + playerY + " mapWidth : " + mapWidth + " mapHeight : " + mapHeight + " spriteSize : " + spriteSize);
             if (randomBomb < 2) {
                 if (playerX > spriteSize && playerX < (mapWidth - spriteSize * 2) && playerY > spriteSize && playerY < (mapHeight - spriteSize * 2)) {
                     BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
                     dropBomb(bomb);
                     player.getBombs().removeFirst();
-                } else {
-                    System.out.println("impossible de poser une bombe");
                 }
             } else if (randomBomb == 3) {
                 FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
@@ -408,33 +420,36 @@ public final class BombermanGame {
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
         bomb.setY(cell.getRow() * spriteStore.getSpriteSize());
-
-        //bomb.setX(player.getX());
-        //bomb.setY(player.getY());
         this.addMovable(bomb);
         bomb.move(0);
     }
 
+    /**
+     * Dépose une BigBombe sur la tuile où se trouve le joueur
+     *
+     * @param bomb La bombe à déposer.
+     */
     public void dropBomb(BigBombe bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
         bomb.setY(cell.getRow() * spriteStore.getSpriteSize());
 
-        //bomb.setX(player.getX());
-        //bomb.setY(player.getY());
         this.addMovable(bomb);
         bomb.move(0);
     }
 
+    /**
+     * Dépose une FakeBombe sur la tuile où se trouve le joueur
+     *
+     * @param bomb La bombe à déposer.
+     */
     public void dropBomb(FakeBombe bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
         bomb.setY(cell.getRow() * spriteStore.getSpriteSize());
 
-        //bomb.setX(player.getX());
-        //bomb.setY(player.getY());
         this.addMovable(bomb);
         bomb.move(0);
     }
