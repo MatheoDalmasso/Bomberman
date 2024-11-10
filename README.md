@@ -287,6 +287,6 @@ class Sprite {
 | Variantes de déplacement des ennemis        | Stratégie                    | ✅          | Benjamin           |
 | Gestion des points de vie (ennemis, joueur) | Décorateur                   | ✅          | Mathias / Benjamin |
 | Invulnérabilité du joueur                   | Etat                         | ✅          | Mathias            |
-| Solidité des murs                           | Etat                         |            | Simon / Matheo     |
+| Solidité des murs                           | Etat                         | ✅           | Simon / Matheo     |
 | Variantes de génération pour la carte       | Fabrique abstraite           | ✅          | Simon              |
 | Différents types de bombes                  | Fabrique abstraite           | ✅          | Matheo             |
