@@ -31,6 +31,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Alert;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -154,6 +155,21 @@ public final class BombermanGame {
         player.addBombe(bomb);
     }
 
+    private void showGameRules() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Rules");
+        alert.setHeaderText("Welcome to Bomberman!");
+        alert.setContentText("Rules:\n" +
+                "1. Use arrow keys to move your character or use z, q ,s ,d.\n" +
+                "2. Press space to drop a bomb.\n" +
+                "3. Kill all enemies to win the game (you need to kill them with your bombs , Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls).\n" +
+                "4. If u lose one life you will be invulnerable for 5 seconds.\n" +
+                "5. Every 15 seconds we will give you 1 bombe  .\n\n" +
+                "Good luck!");
+
+        alert.showAndWait();
+    }
+
 
     /**
      * Donne le reste de bombe du joueur.
@@ -221,6 +237,7 @@ public final class BombermanGame {
      * Prépare une partie de Bomberman avant qu'elle ne démarre.
      */
     public void prepare() {
+        showGameRules();
         gameMap = createMap();
         controller.prepare(gameMap);
     }
@@ -268,7 +285,7 @@ public final class BombermanGame {
             System.out.println("Le deplacement de l'ennemi est : " + x);
             if (x == 0) {
                 PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 1); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
+                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 6); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
                 ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
                 movableObjects.add(ennemiAvecSante);
                 spawnMovable(ennemiAvecSante);
