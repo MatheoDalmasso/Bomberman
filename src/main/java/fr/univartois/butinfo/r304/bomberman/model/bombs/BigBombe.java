@@ -116,7 +116,24 @@ public class BigBombe extends AbstractMovable implements IBombe {
 
             Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
 
-            if (adjacentCell.getWall() == null) {
+            if (adjacentCell != null && adjacentCell.getWall() != null) {
+                Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
+
+                Cell cell = game.getCellAt(adjacentX, adjacentY);
+                Sprite sp = spriteStore.getSprite("bricks");
+                String urlBricks = sp.getImage().getUrl();
+
+                String wallSpriteUrl = adjacentCell.getWall().getSprite().getImage().getUrl();
+                String urlWall = spriteStore.getSprite("wall").getImage().getUrl();
+
+                if (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks)) { //On check avec l'url car on peut pas check 2 sprite (pas la même adresse ??)
+                    if (!wallSpriteUrl.equals(urlWall)) {
+                        createExplosion(adjacentX, adjacentY);
+                    }
+                    cell.replaceBy(lawnCell);
+                }
+
+            } else if (adjacentCell != null && adjacentCell.getWall() == null) {
                 createExplosion(adjacentX, adjacentY);
             }
         }
