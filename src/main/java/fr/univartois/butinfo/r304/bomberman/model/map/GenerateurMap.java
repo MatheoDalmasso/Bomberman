@@ -52,18 +52,21 @@ public class GenerateurMap implements IGenerateurMap {
      * @return La cellule générée.
      */
     private Cell generateCell(int i, int j) {
+        IWallState state;
         if (isBorder(i, j)) {
-            return new Cell(new Wall(spriteStore.getSprite("wall")));
+            state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (isWallPosition(i, j)) {
-            return new Cell(new Wall(spriteStore.getSprite("wall")));
+            state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (random.nextInt(100) < 20) {
-            return new Cell(new Wall(spriteStore.getSprite("bricks")));
+            state = new BrickWallState(spriteStore.getSprite("bricks"));
         } else if (random.nextInt(100) < 10) {
-            return new Cell(new Wall(spriteStore.getSprite("cracked-bricks")));
+            state = new CrackedBrickWallState(spriteStore.getSprite("cracked-bricks"));
         } else {
             return new Cell(spriteStore.getSprite("lawn"));
         }
+        return new Cell(new Wall(state));
     }
+
 
     /**
      * Vérifie si une position est sur la bordure de la carte.

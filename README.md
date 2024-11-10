@@ -270,23 +270,23 @@ class Sprite {
 
 ### TP n°3
 
-| Fonctionnalité                             | Terminée ? | Auteur(s) |
-| ------------------------------------------ |-----------|-----------|
-| Représentation des ennemis                 | ✅         | Benjamin  |
-| Intégration des ennemis dans la partie     | ✅         | Benjamin  |
-| Représentation du joueur                   | ✅         | Mathias   |
-| Intégration du joueur dans la partie       | ✅         | Mathias   |
-| Représentation des bombes et explosion     | ✅         | Mathéo    |
-| Intégration des bombes dans la partie      | ✅         | Mathéo    |
-| Création de la carte du jeu                | ✅         | Simon     |
+| Fonctionnalité                         | Terminée ? | Auteur(s) |
+|----------------------------------------|------------|-----------|
+| Représentation des ennemis             | ✅          | Benjamin  |
+| Intégration des ennemis dans la partie | ✅          | Benjamin  |
+| Représentation du joueur               | ✅          | Mathias   |
+| Intégration du joueur dans la partie   | ✅          | Mathias   |
+| Représentation des bombes et explosion | ✅          | Mathéo    |
+| Intégration des bombes dans la partie  | ✅          | Mathéo    |
+| Création de la carte du jeu            | ✅          | Simon     |
 
 ### TP n°4
 
 | Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)          |
-| ------------------------------------------- |------------------------------| ---------- |--------------------|
-| Variantes de déplacement des ennemis        | Stratégie                    |            | Benjamin           |
-| Gestion des points de vie (ennemis, joueur) | Décorateur                   |            | Mathias / Benjamin |
-| Invulnérabilité du joueur                   | Etat                         |            | Mathias            |
-| Solidité des murs                           | Etat                         |            | Simon / Matheo     |
-| Variantes de génération pour la carte       | Fabrique abstraite           |            | Simon              |
-| Différents types de bombes                  | Fabrique abstraite           |            | Matheo             |
+|---------------------------------------------|------------------------------|------------|--------------------|
+| Variantes de déplacement des ennemis        | Stratégie                    | ✅          | Benjamin           |
+| Gestion des points de vie (ennemis, joueur) | Décorateur                   | ✅          | Mathias / Benjamin |
+| Invulnérabilité du joueur                   | Etat                         | ✅          | Mathias            |
+| Solidité des murs                           | Etat                         | ✅           | Simon / Matheo     |
+| Variantes de génération pour la carte       | Fabrique abstraite           | ✅          | Simon              |
+| Différents types de bombes                  | Fabrique abstraite           | ✅          | Matheo             |
