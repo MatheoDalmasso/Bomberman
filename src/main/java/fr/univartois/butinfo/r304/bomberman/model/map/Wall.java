@@ -24,24 +24,49 @@ import fr.univartois.butinfo.r304.bomberman.view.Sprite;
  * une explosion.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public final class Wall {
 
-
     /**
-     * Le sprite représentant ce mur sur la carte.
+     * L'état du mur.
      */
-    private Sprite sprite;
+    private IWallState state;
+
 
     /**
      * Crée une nouvelle instance de Wall.
      *
-     * @param sprite Le sprite représentant le mur sur la carte.
+     * @param state Le sprite représentant le mur sur la carte.
      */
-    public Wall(Sprite sprite) {
-        this.sprite = sprite;
+    public Wall(IWallState state) {
+        this.state = state;
+    }
+
+    /**
+     * Change l'état du mur.
+     *
+     * @param newState Le nouvel état du mur.
+     */
+    public void setState(IWallState newState) {
+        this.state = newState;
+    }
+
+    /**
+     * Récupère l'état du mur.
+     *
+     * @return L'état du mur.
+     */
+    public IWallState getState() {
+        return state;
+    }
+
+
+    /**
+     * Degradation du mur.
+     */
+    public void degrade() {
+        state.degrade(this);
     }
 
     /**
@@ -50,7 +75,7 @@ public final class Wall {
      * @return Le sprite représentant ce mur sur la carte.
      */
     public Sprite getSprite() {
-        return sprite;
+        return state.getSprite();
     }
 
 }
