@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class Bombe extends AbstractMovable implements IBombe {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackage().getName());
     private long delai;
-    private SpriteStore spriteStore = new SpriteStore();
+    private SpriteStore spriteStore = SpriteStore.getInstance();
     private long startTime = -1;
 
 

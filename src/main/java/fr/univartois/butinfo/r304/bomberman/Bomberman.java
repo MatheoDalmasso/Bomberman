@@ -68,7 +68,7 @@ public final class Bomberman extends Application {
 
         // On crée ensuite le jeu, que l'on lie au contrôleur.
         BombermanGame game = new BombermanGame(
-                GAME_WIDTH, GAME_HEIGHT, new SpriteStore(), NB_ENEMIES);
+                GAME_WIDTH, GAME_HEIGHT, SpriteStore.getInstance(), NB_ENEMIES);
         controller.setGame(game);
         game.setController(controller);
         game.setGenerateurMap(generateurMap);
