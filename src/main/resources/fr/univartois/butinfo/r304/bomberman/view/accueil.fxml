@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.univartois.butinfo.r304.bomberman.controller.AccueilController"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: #f4f4f4; -fx-padding: 20;">
+
+    <!-- Titre -->
+    <Label text="Welcome to Bomberman"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+
+    <!-- Règles du jeu -->
+    <Label text="Game rules :"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+    <Label text="1. Use arrow keys to move your character or use z, q, s, d."
+           style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+    <Label text="2. Press space to drop a bomb."
+           style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+    <Label text="3. Kill all enemies to win the game (you need to kill them with your bombs)."
+           style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+    <Label text="4. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls)."
+           style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+    <Label text="5. There are 3 levels of difficulty. Easy, medium and hard."
+           style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+
+    <!-- Sélection du niveau -->
+    <Label text="Choose your level :"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+    <HBox alignment="CENTER" spacing="10">
+        <Button text="Easy" fx:id="buttonLevel1"
+                style="-fx-font-size: 14px; -fx-background-color: green; -fx-text-fill: #fff;" />
+        <Button text="Medium" fx:id="buttonLevel2"
+                style="-fx-font-size: 14px; -fx-background-color: orange; -fx-text-fill: #fff;" />
+        <Button text="Hard" fx:id="buttonLevel3"
+                style="-fx-font-size: 14px; -fx-background-color: red; -fx-text-fill: #fff;" />
+    </HBox>
+</VBox>

@@ -18,6 +18,7 @@ repositories {
     mavenCentral()
 }
 
+
 // Le nom de la classe contenant la méthode "main".
 application {
     mainClass = 'fr.univartois.butinfo.r304.bomberman.Bomberman'
