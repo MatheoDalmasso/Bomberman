@@ -290,3 +290,14 @@ class Sprite {
 | Solidité des murs                           | Etat                         | ✅           | Simon / Matheo     |
 | Variantes de génération pour la carte       | Fabrique abstraite           | ✅          | Simon              |
 | Différents types de bombes                  | Fabrique abstraite           | ✅          | Matheo             |
+
+### TP n°5
+
+| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)                                     |
+| ------------------------------------------- | ---------------------------- | ---------- | --------------------------------------------- |
+| Instance du `SpriteStore`                   |                              |            |                                               |
+| Bonus de bombe                              |                              |            |                                               |
+| Bonus d'invulnérabilité                     |                              |            |                                               |
+| Bonus de point de vie                       |                              |            |                                               |
+| Apparition aléatoire d'un bonus             |                              |            |                                               |
+| Gestion des différents niveaux              |                              |            |                                               |
