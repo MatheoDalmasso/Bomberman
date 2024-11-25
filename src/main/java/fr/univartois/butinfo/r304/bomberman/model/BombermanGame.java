@@ -30,6 +30,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -284,6 +285,7 @@ public final class BombermanGame {
         GenerateurMap map = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
         return map.genererMap();
     }
+
 
     /**
      * Démarre la partie de Bomberman.

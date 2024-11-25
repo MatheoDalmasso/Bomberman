@@ -173,10 +173,6 @@ public final class BombermanController implements IBombermanController {
                 case "3":
                     game.start(3); // Démarre le jeu avec la difficulté difficile.
                     break;
-                default:
-                    // Si une autre touche est pressée, démarre avec la difficulté par défaut.
-                    game.start(1);
-                    break;
             }
         } else if (" ".equals(e.getCharacter())) {
             // La partie a commencé : il faut déposer une bombe.
