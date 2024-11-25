@@ -64,7 +64,7 @@ public class GenerateurMap implements IGenerateurMap {
         } else {
             return new Cell(spriteStore.getSprite("lawn"));
         }
-        return new Cell(new Wall(state));
+        return new Cell(new Wall(state, i * spriteStore.getSpriteSize(), j * spriteStore.getSpriteSize()));
     }
 
 

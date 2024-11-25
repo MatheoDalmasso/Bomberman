@@ -22,7 +22,7 @@ public class RecupBombe extends AbstractMovable implements IWallState {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected RecupBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public RecupBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         bombe = new Bombe(game, xPosition, yPosition, sprite, 4000);
     }
@@ -47,6 +47,6 @@ public class RecupBombe extends AbstractMovable implements IWallState {
 
     @Override
     public void degrade(Wall wall) {
-        //
+        // Ne fais rien après la dégradation
     }
 }
