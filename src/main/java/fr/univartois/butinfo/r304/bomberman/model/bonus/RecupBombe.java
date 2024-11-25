@@ -31,6 +31,7 @@ public class RecupBombe extends AbstractMovable implements IWallState {
     public void collidedWith(IMovable other) {
         if (other instanceof Joueur joueur) {
             joueur.addBombe(bombe);
+            game.removeMovable(this);
         }
     }
 
