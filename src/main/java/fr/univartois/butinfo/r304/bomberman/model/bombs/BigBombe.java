@@ -110,8 +110,8 @@ public class BigBombe extends AbstractMovable implements IBombe {
      */
     private void createAdjacentExplosions() {
         // Définir les directions (haut, bas, gauche, droite)
-        int[] directionX = {0, 0, -1, 1};
-        int[] directionY = {-1, 1, 0, 0};
+        int[] directionX = {0, 0, -1, 1, -2, 2};
+        int[] directionY = {-2, 2, -1, 1, 0, 0};
 
         for (int i = 0; i < directionX.length; i++) {
             int adjacentX = getX() + directionX[i] * spriteStore.getSpriteSize();
