@@ -19,10 +19,7 @@ package fr.univartois.butinfo.r304.bomberman.model;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.BigBombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.FakeBombe;
-import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.*;
 import fr.univartois.butinfo.r304.bomberman.model.movables.*;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
@@ -255,9 +252,16 @@ public final class BombermanGame {
     /**
      * Prépare une partie de Bomberman avant qu'elle ne démarre.
      */
-    public void prepare() {
-        showGameRules();
-        gameMap = createMap();
+    public void prepare1() {
+        gameMap = createMap1();
+        controller.prepare(gameMap);
+    }
+    public void prepare2() {
+        gameMap = createMap2();
+        controller.prepare(gameMap);
+    }
+    public void prepare3() {
+        gameMap = createMap3();
         controller.prepare(gameMap);
     }
 
@@ -266,20 +270,43 @@ public final class BombermanGame {
      *
      * @return La carte du jeu ayant été créée.
      */
-    private GameMap createMap() {
-        GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+    private GameMap createMap1() {
+        GenerateurMap map = new GenerateurMap1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        return map.genererMap();
+    }
+
+    private GameMap createMap2() {
+        GenerateurMap map = new GenerateurMap2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        return map.genererMap();
+    }
+
+    private GameMap createMap3() {
+        GenerateurMap map = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
         return map.genererMap();
     }
 
     /**
      * Démarre la partie de Bomberman.
      */
-    public void start() {
-        prepare();
+    public void start(int difficultyLevel) {
+        switch (difficultyLevel) {
+            case 1:
+                prepare1();
+                break;
+            case 2:
+                prepare2();
+                break;
+            case 3:
+                prepare3();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+        }
         createMovables();
         initStatistics();
         animation.start();
     }
+
 
     /**
      * Crée les différents objets présents au début de la partie et pouvant se déplacer.

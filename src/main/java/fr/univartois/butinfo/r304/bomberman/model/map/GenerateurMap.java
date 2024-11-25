@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * La classe {@link GenerateurMap} permet de générer une carte de jeu.
  */
-public class GenerateurMap implements IGenerateurMap {
+public abstract class GenerateurMap implements IGenerateurMap {
     private final int height;
     private final int width;
     SpriteStore spriteStore = new SpriteStore();
@@ -51,22 +51,9 @@ public class GenerateurMap implements IGenerateurMap {
      * @param j La position en largeur.
      * @return La cellule générée.
      */
-    private Cell generateCell(int i, int j) {
-        IWallState state;
-        if (isBorder(i, j)) {
-            state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (isWallPosition(i, j)) {
-            state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (random.nextInt(100) < 20) {
-            state = new BrickWallState(spriteStore.getSprite("bricks"));
-        } else if (random.nextInt(100) < 10) {
-            state = new CrackedBrickWallState(spriteStore.getSprite("cracked-bricks"));
-        } else {
-            return new Cell(spriteStore.getSprite("lawn"));
-        }
-        return new Cell(new Wall(state));
-    }
 
+
+    protected abstract Cell generateCell(int i, int j);
 
     /**
      * Vérifie si une position est sur la bordure de la carte.
@@ -90,4 +77,12 @@ public class GenerateurMap implements IGenerateurMap {
         return i % 3 == 0 && j % 3 == 0;
     }
 
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 }

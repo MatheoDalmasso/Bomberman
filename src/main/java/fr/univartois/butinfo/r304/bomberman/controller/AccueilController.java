@@ -1,40 +1,87 @@
 package fr.univartois.butinfo.r304.bomberman.controller;
 
+import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
+import fr.univartois.butinfo.r304.bomberman.model.map.*;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AccueilController {
 
     @FXML
-    private RadioButton level1;
+    public Button buttonLevel1;
 
     @FXML
-    private RadioButton level2;
+    public Button buttonLevel2;
 
     @FXML
-    private RadioButton level3;
-
-    private ToggleGroup levelGroup;
+    public Button buttonLevel3;
 
     @FXML
-    public void initialize() {
-        levelGroup = new ToggleGroup();
-        level1.setToggleGroup(levelGroup);
-        level2.setToggleGroup(levelGroup);
-        level3.setToggleGroup(levelGroup);
+    public void onClickEasy(ActionEvent actionEvent) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap1(1080,720);
+        mapGenerator.genererMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) buttonLevel1.getScene().getWindow();
+        BombermanController controller = loader.getController();
+
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
+        game.setGenerateurMap(mapGenerator);
+        game.setController(controller);
+        controller.setGame(game);
+        game.prepare1();
+        stage.setScene(scene);
+
     }
 
     @FXML
-    public void startGame(ActionEvent actionEvent) {
-        RadioButton selectedRadioButton = (RadioButton) levelGroup.getSelectedToggle();
-        String level = selectedRadioButton.getText();
+    public void onClickMedium(ActionEvent actionEvent) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap2(1080,720);
+        mapGenerator.genererMap();
 
-        // Logic to start the game with the selected level
-        System.out.println("Starting game with level: " + level);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) buttonLevel2.getScene().getWindow();
+        BombermanController controller = loader.getController();
 
-        // You can add more logic here to initialize the game with the selected level
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
+        game.setGenerateurMap(mapGenerator);
+        game.setController(controller);
+        controller.setGame(game);
+        game.prepare2();
+        stage.setScene(scene);
+
+
+    }
+
+    @FXML
+    public void onClickHard(ActionEvent actionEvent) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap3(1080,720);
+        mapGenerator.genererMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) buttonLevel3.getScene().getWindow();
+        BombermanController controller = loader.getController();
+
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
+        game.setGenerateurMap(mapGenerator);
+        game.setController(controller);
+        controller.setGame(game);
+        game.prepare3();
+        stage.setScene(scene);
+
     }
 }

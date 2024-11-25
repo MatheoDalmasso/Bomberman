@@ -293,11 +293,11 @@ class Sprite {
 
 ### TP n°5
 
-| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)            |
-| ------------------------------------------- |------------------------------| ---------- |----------------------|
-| Instance du `SpriteStore`                   | Singleton                    |            | Mathias              |
-| Bonus de bombe                              | Fabrique abstraite           |            | Benjamin             |
-| Bonus d'invulnérabilité                     | Fabrique abstraite           |            | Benjamin             |
-| Bonus de point de vie                       | Fabrique abstraite           |            | Benjamin             |
-| Apparition aléatoire d'un bonus             | Fabrique abstraite           |            | Benjamin             |
-| Gestion des différents niveaux              | Composite                    |            | Matheo/Simon/Mathias |
+| Fonctionnalité                              | Patron de conception utilisé   | Terminée ? | Auteur(s)            |
+| ------------------------------------------- |--------------------------------| ---------- |----------------------|
+| Instance du `SpriteStore`                   | Singleton                      |            | Mathias              |
+| Bonus de bombe                              | Fabrique abstraite             |            | Benjamin             |
+| Bonus d'invulnérabilité                     | Fabrique abstraite             |            | Benjamin             |
+| Bonus de point de vie                       | Fabrique abstraite             |            | Benjamin             |
+| Apparition aléatoire d'un bonus             | Fabrique abstraite             |            | Benjamin             |
+| Gestion des différents niveaux              | Fabrique abstraite / Composite |            | Matheo/Simon/Mathias |
