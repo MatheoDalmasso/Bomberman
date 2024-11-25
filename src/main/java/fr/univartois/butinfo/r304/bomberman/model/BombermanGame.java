@@ -272,17 +272,31 @@ public final class BombermanGame {
      */
     private GameMap createMap1() {
         GenerateurMap map = new GenerateurMap1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
         return map.genererMap();
+
     }
 
     private GameMap createMap2() {
         GenerateurMap map = new GenerateurMap2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
         return map.genererMap();
     }
 
     private GameMap createMap3() {
         GenerateurMap map = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
         return map.genererMap();
+    }
+
+    private int difficultyLevel;
+
+    public void setDifficultyLevel(int difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
+
+    public int getDifficultyLevel() {
+        return difficultyLevel;
     }
 
     /**

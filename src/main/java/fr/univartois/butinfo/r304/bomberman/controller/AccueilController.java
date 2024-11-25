@@ -38,7 +38,9 @@ public class AccueilController {
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
+        game.setDifficultyLevel(1);
         controller.setGame(game);
+        controller.setStage(stage);
         game.prepare1();
         stage.setScene(scene);
 
@@ -58,11 +60,11 @@ public class AccueilController {
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
+        game.setDifficultyLevel(2);
         controller.setGame(game);
+        controller.setStage(stage);
         game.prepare2();
         stage.setScene(scene);
-
-
     }
 
     @FXML
@@ -79,7 +81,9 @@ public class AccueilController {
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
+        game.setDifficultyLevel(3);
         controller.setGame(game);
+        controller.setStage(stage);
         game.prepare3();
         stage.setScene(scene);
 
