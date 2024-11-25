@@ -138,6 +138,7 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        GetGameInstance.setInstance(this); // Donne l'instance de BombermanGame
     }
 
     /**
