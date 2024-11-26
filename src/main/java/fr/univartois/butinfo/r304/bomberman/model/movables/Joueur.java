@@ -125,6 +125,11 @@ public class Joueur extends AbstractMovable {
         bombs.add(bombe);
     }
 
+    @Override
+    public void addBomb(Bombe bomb) {
+        bombs.add(bomb);
+    }
+
     /**
      * Supprime une bombe de la liste des bombes.
      *
