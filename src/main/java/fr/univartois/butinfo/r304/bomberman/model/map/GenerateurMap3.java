@@ -2,9 +2,10 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import java.util.Random;
 
-public class GenerateurMap3 extends GenerateurMap{
+public class GenerateurMap3 extends GenerateurMap {
 
     private final Random random;
+
     /**
      * Crée un générateur de carte de jeu.
      *
@@ -30,7 +31,7 @@ public class GenerateurMap3 extends GenerateurMap{
         } else {
             return new Cell(spriteStore.getSprite("lawn"));
         }
-        return new Cell(new Wall(state));
+        return new Cell(new Wall(state, j * spriteStore.getSpriteSize(), i * spriteStore.getSpriteSize()));
     }
 
     private boolean isBorder(int i, int j) {
