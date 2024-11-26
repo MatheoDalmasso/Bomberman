@@ -1,0 +1,83 @@
+/* styles.css */
+.root {
+    -fx-background-color: #f0f8ff; /* AliceBlue background color */
+    -fx-padding: 30;
+}
+
+.label-title {
+    -fx-font-size: 30px; /* Increased font size */
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e90ff; /* DodgerBlue text color */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0.5, 0, 0); /* Drop shadow effect */
+}
+
+.label-subtitle {
+    -fx-font-size: 20px; /* Increased font size */
+    -fx-font-weight: bold;
+    -fx-text-fill: #4682b4; /* SteelBlue text color */
+}
+
+.label-text {
+    -fx-font-size: 18px; /* Increased font size */
+    -fx-text-fill: #696969; /* DimGray text color */
+}
+
+.button-easy {
+    -fx-font-size: 18px; /* Increased font size */
+    -fx-background-color: #32cd32; /* LimeGreen background color */
+    -fx-text-fill: #fff;
+    -fx-border-color: #228b22; /* ForestGreen border color */
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.button-easy:hover {
+    -fx-background-color: #228b22; /* Darker green on hover */
+    -fx-cursor:hand;
+}
+
+.button-medium {
+    -fx-font-size: 18px; /* Increased font size */
+    -fx-background-color: #ffa500; /* Orange background color */
+    -fx-text-fill: #fff;
+    -fx-border-color: #ff8c00; /* DarkOrange border color */
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.button-medium:hover {
+    -fx-background-color: #ff8c00; /* Darker orange on hover */
+    -fx-cursor:hand;
+}
+
+.button-hard {
+    -fx-font-size: 18px; /* Increased font size */
+    -fx-background-color: #ff4500; /* OrangeRed background color */
+    -fx-text-fill: #fff;
+    -fx-border-color: #b22222; /* FireBrick border color */
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.button-hard:hover {
+    -fx-background-color: #b22222; /* Darker red on hover */
+    -fx-cursor:hand;
+}
+
+.button-impossible {
+    -fx-font-size: 18px; /* Increased font size */
+    -fx-background-color: #8a2be2; /* BlueViolet background color */
+    -fx-text-fill: #fff;
+    -fx-border-color: #4b0082; /* Indigo border color */
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand; /* Pointer cursor */
+}
+
+.button-impossible:hover {
+    -fx-background-color: #4b0082; /* Darker violet on hover */
+}

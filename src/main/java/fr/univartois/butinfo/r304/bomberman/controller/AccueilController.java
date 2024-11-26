@@ -27,6 +27,9 @@ public class AccueilController {
     public Button buttonLevel3;
 
     @FXML
+    public Button buttonLevel4;
+
+    @FXML
     public void onClickEasy(ActionEvent actionEvent) throws IOException {
         GenerateurMap mapGenerator = new GenerateurMap1(1080,720);
         mapGenerator.genererMap();
@@ -89,5 +92,8 @@ public class AccueilController {
         game.prepare3();
         stage.setScene(scene);
 
+    }
+
+    public void onClickImpossible(ActionEvent actionEvent) {
     }
 }
