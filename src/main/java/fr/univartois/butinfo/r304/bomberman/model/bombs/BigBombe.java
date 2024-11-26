@@ -176,7 +176,7 @@ public class BigBombe extends AbstractMovable implements IBombe {
         if (state instanceof BrickWallState) {
             adjacentCell.getWall().degrade();
             IWallState crackedState = adjacentCell.getWall().getState();
-            Cell cellWallReplace = new Cell(new Wall(crackedState));
+            Cell cellWallReplace = new Cell(new Wall(crackedState, adjacentCell.getWall().getPositionX(), adjacentCell.getWall().getPositionY()));
             adjacentCell.replaceBy(cellWallReplace);
         } else {
             adjacentCell.getWall().degrade();
