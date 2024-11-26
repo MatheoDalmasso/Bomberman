@@ -264,6 +264,10 @@ public final class BombermanGame {
         gameMap = createMap3();
         controller.prepare(gameMap);
     }
+    public void prepare4() {
+        gameMap = createMap4();
+        controller.prepare(gameMap);
+    }
 
     /**
      * Crée la carte du jeu, en respectant les dimensions de la fenêtre.
@@ -285,6 +289,12 @@ public final class BombermanGame {
 
     private GameMap createMap3() {
         GenerateurMap map = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
+        return map.genererMap();
+    }
+
+    private GameMap createMap4() {
+        GenerateurMap map = new GenerateurMap4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
         startBombTimer();
         return map.genererMap();
     }
@@ -312,6 +322,9 @@ public final class BombermanGame {
                 break;
             case 3:
                 prepare3();
+                break;
+            case 4:
+                prepare4();
                 break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
@@ -344,7 +357,7 @@ public final class BombermanGame {
             PersonnageEnnemi ennemi;
             if (difficultyLevel == 1) {
                 ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-            } else if (difficultyLevel == 3) {
+            } else if (difficultyLevel == 3 || difficultyLevel == 4) {
                 ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
             } else {
                 // Default to random movement for other levels
@@ -355,7 +368,7 @@ public final class BombermanGame {
                 initialLife = 1;
             } else if (difficultyLevel == 2) {
                 initialLife = 2;
-            } else if (difficultyLevel == 3) {
+            } else if (difficultyLevel == 3 || difficultyLevel == 4) {
                 initialLife = 3;
             } else {
                 initialLife = 2; // Valeur par défaut si le niveau de difficulté n'est pas spécifié
