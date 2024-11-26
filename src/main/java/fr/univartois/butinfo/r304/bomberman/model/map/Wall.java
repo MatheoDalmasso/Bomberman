@@ -33,14 +33,19 @@ public final class Wall {
      */
     private IWallState state;
 
+    private int positionX;
+    private int positionY;
+
 
     /**
      * Crée une nouvelle instance de Wall.
      *
      * @param state Le sprite représentant le mur sur la carte.
      */
-    public Wall(IWallState state) {
+    public Wall(IWallState state, int positionX, int positionY) {
         this.state = state;
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     /**
@@ -59,6 +64,14 @@ public final class Wall {
      */
     public IWallState getState() {
         return state;
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
     }
 
 

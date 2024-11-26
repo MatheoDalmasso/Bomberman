@@ -4,6 +4,7 @@
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 
 /**
@@ -76,6 +77,11 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
      */
     public int getPv() {
         return pv;
+    }
+
+    @Override
+    public void addBomb(Bombe bomb) {
+        //
     }
 
     /**

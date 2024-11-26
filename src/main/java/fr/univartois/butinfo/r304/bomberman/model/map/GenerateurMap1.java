@@ -5,6 +5,7 @@ import java.util.Random;
 public class GenerateurMap1 extends GenerateurMap {
 
     private final Random random;
+
     /**
      * Crée un générateur de carte de jeu.
      *
@@ -30,7 +31,7 @@ public class GenerateurMap1 extends GenerateurMap {
         } else {
             return new Cell(spriteStore.getSprite("lawn"));
         }
-        return new Cell(new Wall(state));
+        return new Cell(new Wall(state, j * spriteStore.getSpriteSize(), i * spriteStore.getSpriteSize()));
     }
 
     private boolean isBorder(int i, int j) {

@@ -135,6 +135,7 @@ public final class BombermanGame {
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        GetGameInstance.setInstance(this); // Donne l'instance de BombermanGame
     }
 
     /**
@@ -256,10 +257,12 @@ public final class BombermanGame {
         gameMap = createMap1();
         controller.prepare(gameMap);
     }
+
     public void prepare2() {
         gameMap = createMap2();
         controller.prepare(gameMap);
     }
+
     public void prepare3() {
         gameMap = createMap3();
         controller.prepare(gameMap);
