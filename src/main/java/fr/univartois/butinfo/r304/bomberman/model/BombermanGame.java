@@ -350,7 +350,17 @@ public final class BombermanGame {
                 // Default to random movement for other levels
                 ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
             }
-            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, 6); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
+            int initialLife;
+            if (difficultyLevel == 1) {
+                initialLife = 1;
+            } else if (difficultyLevel == 2) {
+                initialLife = 2;
+            } else if (difficultyLevel == 3) {
+                initialLife = 3;
+            } else {
+                initialLife = 2; // Valeur par défaut si le niveau de difficulté n'est pas spécifié
+            }
+            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, initialLife);
             ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(ennemiAvecSante);
             spawnMovable(ennemiAvecSante);
