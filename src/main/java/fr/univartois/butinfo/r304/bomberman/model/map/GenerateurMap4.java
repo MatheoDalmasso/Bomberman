@@ -38,6 +38,6 @@ public class GenerateurMap4 extends GenerateurMap{
     }
 
     private boolean isWallPosition(int i, int j) {
-        return i % 3 == 0 && j % 3 == 0;
+        return random.nextInt(100) < 15;
     }
 }

@@ -94,6 +94,25 @@ public class AccueilController {
 
     }
 
-    public void onClickImpossible(ActionEvent actionEvent) {
+    @FXML
+    public void onClickImpossible(ActionEvent actionEvent) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap4(1080,720);
+        mapGenerator.genererMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) buttonLevel4.getScene().getWindow();
+        BombermanController controller = loader.getController();
+
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
+        game.setGenerateurMap(mapGenerator);
+        game.setController(controller);
+        game.setDifficultyLevel(4);
+        controller.setGame(game);
+        controller.setStage(stage);
+        game.prepare4();
+        stage.setScene(scene);
+
     }
 }

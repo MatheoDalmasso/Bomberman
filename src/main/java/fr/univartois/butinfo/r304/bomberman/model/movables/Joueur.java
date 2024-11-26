@@ -7,6 +7,7 @@ import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
+import fr.univartois.butinfo.r304.bomberman.model.map.Lava;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.beans.property.IntegerProperty;
@@ -76,10 +77,11 @@ public class Joueur extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof PersonnageEnnemi || other instanceof EnemyWithLife || other instanceof Explosion) {
+        if (other instanceof PersonnageEnnemi || other instanceof EnemyWithLife || other instanceof Explosion || other instanceof Lava) {
             takeDamage(1);
         }
     }
+
 
     /**
      * Permet de render invincible le joueur.
@@ -242,6 +244,7 @@ public class Joueur extends AbstractMovable {
      * @param pointsDeVie Le montant à retirer aux points de vie.
      */
     public void decrementPointsDeVie(int pointsDeVie) {
+
         this.pointsDeVie.set(this.pointsDeVie.get() - pointsDeVie);
     }
 
