@@ -15,7 +15,7 @@
     <Label styleClass="label-text" text="2. Press space to drop a bomb." />
     <Label styleClass="label-text" text="3. Kill all enemies to win the game (you need to kill them with your bombs)." />
     <Label styleClass="label-text" text="4. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls)." />
-    <Label styleClass="label-text" text="5. There are 3 levels of difficulty. Easy, medium and hard." />
+    <Label styleClass="label-text" text="5. There are 4 levels of difficulty. Easy, medium, hard and impossible." />
 
     <!-- Sélection du niveau -->
     <Label styleClass="label-subtitle" text="Choose your level :" />
@@ -23,5 +23,6 @@
         <Button fx:id="buttonLevel1" onAction="#onClickEasy" styleClass="button-easy" text="Easy" />
         <Button fx:id="buttonLevel2" onAction="#onClickMedium" styleClass="button-medium" text="Medium" />
         <Button fx:id="buttonLevel3" onAction="#onClickHard" styleClass="button-hard" text="Hard" />
+        <Button fx:id="buttonLevel4" onAction="#onClickImpossible" styleClass="button-impossible" text="Impossible" />
     </HBox>
 </VBox>
