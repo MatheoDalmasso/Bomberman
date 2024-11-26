@@ -2,10 +2,13 @@ package fr.univartois.butinfo.r304.bomberman.controller;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.map.*;
+import fr.univartois.butinfo.r304.bomberman.model.movables.DeplacementAleatoire;
+import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -25,20 +28,7 @@ public class AccueilController {
 
     @FXML
     public void onClickEasy(ActionEvent actionEvent) throws IOException {
-        startGame(new GenerateurMap1(1080, 720), 1);
-    }
-
-    @FXML
-    public void onClickMedium(ActionEvent actionEvent) throws IOException {
-        startGame(new GenerateurMap2(1080, 720), 2);
-    }
-
-    @FXML
-    public void onClickHard(ActionEvent actionEvent) throws IOException {
-        startGame(new GenerateurMap3(1080, 720), 3);
-    }
-
-    private void startGame(GenerateurMap mapGenerator, int level) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap1(1080,720);
         mapGenerator.genererMap();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
@@ -47,36 +37,57 @@ public class AccueilController {
         BombermanController controller = loader.getController();
 
         BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
-        controller.setStage(stage);
+        game.setDifficultyLevel(1);
         controller.setGame(game);
-
-        switch (level) {
-            case 1:
-                game.prepare1();
-                break;
-            case 2:
-                game.prepare2();
-                break;
-            case 3:
-                game.prepare3();
-                break;
-        }
-
+        controller.setStage(stage);
+        game.prepare1();
         stage.setScene(scene);
 
-        switch (level) {
-            case 1:
-                game.start(1);
-                break;
-            case 2:
-                game.start(2);
-                break;
-            case 3:
-                game.start(3);
-                break;
-        }
+    }
+
+    @FXML
+    public void onClickMedium(ActionEvent actionEvent) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap2(1080,720);
+        mapGenerator.genererMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) buttonLevel2.getScene().getWindow();
+        BombermanController controller = loader.getController();
+
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
+        game.setGenerateurMap(mapGenerator);
+        game.setController(controller);
+        game.setDifficultyLevel(2);
+        controller.setGame(game);
+        controller.setStage(stage);
+        game.prepare2();
+        stage.setScene(scene);
+    }
+
+    @FXML
+    public void onClickHard(ActionEvent actionEvent) throws IOException {
+        GenerateurMap mapGenerator = new GenerateurMap3(1080,720);
+        mapGenerator.genererMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) buttonLevel3.getScene().getWindow();
+        BombermanController controller = loader.getController();
+
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3);
+
+        game.setGenerateurMap(mapGenerator);
+        game.setController(controller);
+        game.setDifficultyLevel(3);
+        controller.setGame(game);
+        controller.setStage(stage);
+        game.prepare3();
+        stage.setScene(scene);
 
     }
 }

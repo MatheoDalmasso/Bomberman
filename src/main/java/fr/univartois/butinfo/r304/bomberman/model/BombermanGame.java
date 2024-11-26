@@ -30,7 +30,6 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -152,8 +151,8 @@ public final class BombermanGame {
      * Incrémente le nombre de bombes restantes du joueur.
      */
     private void incrementBombCount() {
-        addBombToPlayer();
         remainingBombs.set(remainingBombs.get() + 1);
+        addBombToPlayer();
     }
 
     /**
@@ -273,19 +272,32 @@ public final class BombermanGame {
      */
     private GameMap createMap1() {
         GenerateurMap map = new GenerateurMap1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
         return map.genererMap();
+
     }
 
     private GameMap createMap2() {
         GenerateurMap map = new GenerateurMap2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
         return map.genererMap();
     }
 
     private GameMap createMap3() {
         GenerateurMap map = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+        startBombTimer();
         return map.genererMap();
     }
 
+    private int difficultyLevel;
+
+    public void setDifficultyLevel(int difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
+
+    public int getDifficultyLevel() {
+        return difficultyLevel;
+    }
 
     /**
      * Démarre la partie de Bomberman.
@@ -327,22 +339,31 @@ public final class BombermanGame {
             player.addBombe(bomb);
         }
 
-        int x = RANDOM.nextInt(2);
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            if (x == 0) {
-                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 6); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
-                ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
-                movableObjects.add(ennemiAvecSante);
-                spawnMovable(ennemiAvecSante);
+            PersonnageEnnemi ennemi;
+            if (difficultyLevel == 1) {
+                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
+            } else if (difficultyLevel == 3) {
+                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
             } else {
-                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
-                ennemiAleatoire.setVerticalSpeed(DEFAULT_SPEED);
-                movableObjects.add(ennemiAleatoire);
-                spawnMovable(ennemiAleatoire);
+                // Default to random movement for other levels
+                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
             }
-
+            int initialLife;
+            if (difficultyLevel == 1) {
+                initialLife = 1;
+            } else if (difficultyLevel == 2) {
+                initialLife = 2;
+            } else if (difficultyLevel == 3) {
+                initialLife = 3;
+            } else {
+                initialLife = 2; // Valeur par défaut si le niveau de difficulté n'est pas spécifié
+            }
+            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, initialLife);
+            ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(ennemiAvecSante);
+            spawnMovable(ennemiAvecSante);
         }
     }
 
@@ -424,13 +445,19 @@ public final class BombermanGame {
             int spriteSize = spriteStore.getSpriteSize();
             int mapWidth = getWidth();
             int mapHeight = getHeight();
-            if (randomBomb < 2) {
+
+            // Interdire les BigBombe et FakeBombe dans le niveau 1
+            if (difficultyLevel == 1 && randomBomb < 2) {
+                randomBomb = 4; // Changer la valeur pour éviter de créer une BigBombe ou FakeBombe
+            }
+
+            if (randomBomb < 2 && difficultyLevel > 1) {
                 if (playerX > spriteSize && playerX < (mapWidth - spriteSize * 2) && playerY > spriteSize && playerY < (mapHeight - spriteSize * 2)) {
                     BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
                     dropBomb(bomb);
                     player.getBombs().removeFirst();
                 }
-            } else if (randomBomb == 3) {
+            } else if (randomBomb == 3 && difficultyLevel > 1) {
                 FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
                 dropBomb(bomb);
                 player.getBombs().removeFirst();
