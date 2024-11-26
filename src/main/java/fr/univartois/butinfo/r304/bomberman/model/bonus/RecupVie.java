@@ -21,14 +21,14 @@ public class RecupVie extends AbstractMovable implements IWallState {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected RecupVie(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public RecupVie(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof Joueur joueur) {
-            joueur.addLife(); // Methode qui ajout la vie à mettre dans imovable
+            joueur.addLife(1); // Methode qui ajout la vie à mettre dans imovable
             game.removeMovable(this);
         }
     }

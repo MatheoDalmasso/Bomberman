@@ -27,7 +27,6 @@ import javafx.beans.property.ObjectProperty;
  * de se déplacer.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public interface IMovable {
@@ -105,7 +104,6 @@ public interface IMovable {
      * Donne la propriété de cet objet liée au fait qu'il a été ou non consommé.
      *
      * @return La propriété de cet objet liée au fait qu'il a été ou non consommé.
-     *
      * @see #isConsumed()
      */
     BooleanProperty isConsumedProperty();
@@ -131,7 +129,19 @@ public interface IMovable {
      */
     void setVerticalSpeed(double speed);
 
+    /**
+     * Ajoute une bombe au joueur
+     *
+     * @param bomb la bombe à ajouter
+     */
     void addBomb(Bombe bomb);
+
+    /**
+     * Ajoute de la vie au joueur
+     *
+     * @param life Le nombre de vies à ajouter
+     */
+    void addLife(int life);
 
     /**
      * Donne la vitesse verticale de cet objet.
@@ -166,11 +176,10 @@ public interface IMovable {
      * écoulé depuis son dernier déplacement et sa vitesse actuelle.
      *
      * @param timeDelta Le temps écoulé depuis le dernier déplacement de cet objet (en
-     *        millisecondes).
-     *
+     *                  millisecondes).
      * @return Si l'objet a pu être déplacé.
-     *         Si ce n'est pas le cas, il a atteint le bord de la fenêtre, et est donc
-     *         bloqué.
+     * Si ce n'est pas le cas, il a atteint le bord de la fenêtre, et est donc
+     * bloqué.
      */
     boolean move(long timeDelta);
 
@@ -179,7 +188,6 @@ public interface IMovable {
      * {@link IMovable}.
      *
      * @param other L'objet avec lequel la collision doit être vérifiée.
-     *
      * @return Si cet objet est entré en collision avec {@code other}.
      */
     boolean isCollidingWith(IMovable other);

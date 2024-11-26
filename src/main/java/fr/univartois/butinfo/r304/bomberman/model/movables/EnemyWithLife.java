@@ -81,7 +81,12 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
 
     @Override
     public void addBomb(Bombe bomb) {
-        //
+        // Fait rien pour les ennemies avec la vie
+    }
+
+    @Override
+    public void addLife(int life) {
+        // Fait rien pour les ennemies avec la vie
     }
 
     /**

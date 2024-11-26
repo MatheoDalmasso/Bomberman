@@ -130,6 +130,11 @@ public class Joueur extends AbstractMovable {
         bombs.add(bomb);
     }
 
+    @Override
+    public void addLife(int life) {
+        setPointsDeVie(getPointsDeVie() + life);
+    }
+
     /**
      * Supprime une bombe de la liste des bombes.
      *

@@ -6,8 +6,11 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
 import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupBombe;
+import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupVie;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
+
+import java.util.Random;
 
 /**
  * Classe représentant l'état d'un mur en brique fissuré.
@@ -34,10 +37,16 @@ public class CrackedBrickWallState implements IWallState {
     @Override
     public void degrade(Wall wall) {
         game = GetGameInstance.getInstance();
-        RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
-        game.addMovable(recupBombe);
-
-        wall.setState(recupBombe);
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
+            game.addMovable(recupBombe);
+            wall.setState(recupBombe);
+        } else {
+            RecupVie recupVie = new RecupVie(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("heartPlus"));
+            game.addMovable(recupVie);
+            wall.setState(recupVie);
+        }
     }
 
     /**
