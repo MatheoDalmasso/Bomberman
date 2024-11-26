@@ -2,6 +2,8 @@ package fr.univartois.butinfo.r304.bomberman.controller;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.map.*;
+import fr.univartois.butinfo.r304.bomberman.model.movables.DeplacementAleatoire;
+import fr.univartois.butinfo.r304.bomberman.model.movables.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
