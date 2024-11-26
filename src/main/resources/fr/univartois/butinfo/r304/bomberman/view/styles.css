@@ -66,3 +66,18 @@
     -fx-background-color: #b22222; /* Darker red on hover */
     -fx-cursor:hand;
 }
+
+.button-impossible {
+    -fx-font-size: 18px; /* Increased font size */
+    -fx-background-color: #8a2be2; /* BlueViolet background color */
+    -fx-text-fill: #fff;
+    -fx-border-color: #4b0082; /* Indigo border color */
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand; /* Pointer cursor */
+}
+
+.button-impossible:hover {
+    -fx-background-color: #4b0082; /* Darker violet on hover */
+}
