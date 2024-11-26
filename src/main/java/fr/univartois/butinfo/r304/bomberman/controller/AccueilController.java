@@ -46,7 +46,7 @@ public class AccueilController {
         game.setDifficultyLevel(1);
         controller.setGame(game);
         controller.setStage(stage);
-        game.prepare1();
+        game.prepare(1);
         stage.setScene(scene);
 
     }
@@ -68,7 +68,7 @@ public class AccueilController {
         game.setDifficultyLevel(2);
         controller.setGame(game);
         controller.setStage(stage);
-        game.prepare2();
+        game.prepare(2);
         stage.setScene(scene);
     }
 
@@ -89,7 +89,7 @@ public class AccueilController {
         game.setDifficultyLevel(3);
         controller.setGame(game);
         controller.setStage(stage);
-        game.prepare3();
+        game.prepare(3);
         stage.setScene(scene);
 
     }

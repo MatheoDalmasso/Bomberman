@@ -122,6 +122,11 @@ public final class BombermanGame {
     private IGenerateurMap generateurMap; // NOSONAR
 
     /**
+     *  Le niveau de difficulté
+     */
+    private int difficultyLevel;
+
+    /**
      * Crée une nouvelle instance de BombermanGame.
      *
      * @param gameWidth   La largeur de la carte du jeu.
@@ -162,24 +167,6 @@ public final class BombermanGame {
     private void addBombToPlayer() {
         Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
         player.addBombe(bomb);
-    }
-
-    private void showGameRules() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Rules");
-        alert.setHeaderText("Welcome to Bomberman!");
-        alert.setContentText("""
-                Rules:
-                1. Use arrow keys to move your character or use z, q, s, d.
-                2. Press space to drop a bomb.
-                3. Kill all enemies to win the game (you need to kill them with your bombs. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls).
-                4. If you lose one life, you will be invulnerable for 5 seconds.
-                5. Every 15 seconds, we will give you 1 bomb.
-
-                Good luck!
-                """);
-        alert.showAndWait();
-        startBombTimer();
     }
 
 
@@ -250,21 +237,21 @@ public final class BombermanGame {
         return height;
     }
 
-    /**
-     * Prépare une partie de Bomberman avant qu'elle ne démarre.
-     */
-    public void prepare1() {
-        gameMap = createMap1();
-        controller.prepare(gameMap);
-    }
 
-    public void prepare2() {
-        gameMap = createMap2();
-        controller.prepare(gameMap);
-    }
-
-    public void prepare3() {
-        gameMap = createMap3();
+    public void prepare(int difficultyLevel) {
+        switch (difficultyLevel) {
+            case 1:
+                gameMap = createMap(1);
+                break;
+            case 2:
+                gameMap = createMap(2);
+                break;
+            case 3:
+                gameMap = createMap(3);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+        }
         controller.prepare(gameMap);
     }
 
@@ -273,26 +260,26 @@ public final class BombermanGame {
      *
      * @return La carte du jeu ayant été créée.
      */
-    private GameMap createMap1() {
-        GenerateurMap map = new GenerateurMap1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
-        startBombTimer();
-        return map.genererMap();
 
+    private GameMap createMap(int difficultyLevel) {
+        switch (difficultyLevel) {
+            case 1:
+                GenerateurMap map = new GenerateurMap1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                startBombTimer();
+                return map.genererMap();
+            case 2:
+                GenerateurMap map2 = new GenerateurMap2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                startBombTimer();
+                return map2.genererMap();
+            case 3:
+                GenerateurMap map3 = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                startBombTimer();
+                return map3.genererMap();
+            default:
+                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+        }
     }
 
-    private GameMap createMap2() {
-        GenerateurMap map = new GenerateurMap2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
-        startBombTimer();
-        return map.genererMap();
-    }
-
-    private GameMap createMap3() {
-        GenerateurMap map = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
-        startBombTimer();
-        return map.genererMap();
-    }
-
-    private int difficultyLevel;
 
     public void setDifficultyLevel(int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
@@ -308,13 +295,13 @@ public final class BombermanGame {
     public void start(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
-                prepare1();
+                prepare(1);
                 break;
             case 2:
-                prepare2();
+                prepare(2);
                 break;
             case 3:
-                prepare3();
+                prepare(3);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
