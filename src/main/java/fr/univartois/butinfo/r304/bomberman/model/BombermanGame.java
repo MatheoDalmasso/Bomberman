@@ -26,14 +26,10 @@ import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.*;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
-import javafx.util.Duration;
 
 import java.util.List;
 import java.util.Random;
@@ -144,12 +140,12 @@ public final class BombermanGame {
     /**
      * Démarre le timer de recupération des bombes.
      */
-    private void startBombTimer() {
-        Timeline bombTimer;
-        bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
-        bombTimer.setCycleCount(Animation.INDEFINITE);
-        bombTimer.play();
-    }
+//    private void startBombTimer() {
+//        Timeline bombTimer;
+//        bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
+//        bombTimer.setCycleCount(Animation.INDEFINITE);
+//        bombTimer.play();
+//    }
 
     /**
      * Incrémente le nombre de bombes restantes du joueur.
@@ -182,7 +178,7 @@ public final class BombermanGame {
                 Good luck!
                 """);
         alert.showAndWait();
-        startBombTimer();
+//        startBombTimer();
     }
 
 

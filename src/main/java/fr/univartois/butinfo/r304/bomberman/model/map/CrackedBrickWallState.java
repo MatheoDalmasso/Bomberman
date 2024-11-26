@@ -36,6 +36,7 @@ public class CrackedBrickWallState implements IWallState {
         game = GetGameInstance.getInstance();
         RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
         game.addMovable(recupBombe);
+
         wall.setState(recupBombe);
     }
 

@@ -8,10 +8,12 @@ import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 public class RecupBombe extends AbstractMovable implements IWallState {
 
     private Bombe bombe;
+    private SpriteStore spriteStore = new SpriteStore();
 
 
     /**
@@ -24,7 +26,7 @@ public class RecupBombe extends AbstractMovable implements IWallState {
      */
     public RecupBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
-        bombe = new Bombe(game, xPosition, yPosition, sprite, 4000);
+        bombe = new Bombe(game, xPosition, yPosition, spriteStore.getSprite("bomb"), 4000);
     }
 
     @Override
