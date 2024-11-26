@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univartois.butinfo.r304.bomberman.controller.AccueilController">
+    <!-- Titre -->
+    <Label styleClass="label-title" text="Welcome to Bomberman" />
+
+    <!-- Règles du jeu -->
+    <Label styleClass="label-subtitle" text="Game rules :" />
+    <Label styleClass="label-text" text="1. Use arrow keys to move your character or use z, q, s, d." />
+    <Label styleClass="label-text" text="2. Press space to drop a bomb." />
+    <Label styleClass="label-text" text="3. Kill all enemies to win the game (you need to kill them with your bombs)." />
+    <Label styleClass="label-text" text="4. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls)." />
+    <Label styleClass="label-text" text="5. There are 3 levels of difficulty. Easy, medium and hard." />
+
+    <!-- Sélection du niveau -->
+    <Label styleClass="label-subtitle" text="Choose your level :" />
+    <HBox alignment="CENTER" spacing="10">
+        <Button fx:id="buttonLevel1" onAction="#onClickEasy" styleClass="button-easy" text="Easy" />
+        <Button fx:id="buttonLevel2" onAction="#onClickMedium" styleClass="button-medium" text="Medium" />
+        <Button fx:id="buttonLevel3" onAction="#onClickHard" styleClass="button-hard" text="Hard" />
+    </HBox>
+</VBox>
