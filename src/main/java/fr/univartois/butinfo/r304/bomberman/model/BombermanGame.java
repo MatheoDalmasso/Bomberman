@@ -92,6 +92,8 @@ public final class BombermanGame {
      */
     private int nbEnemies;
 
+    private int nbBoss;
+
     /**
      * Le nombre d'ennemis restant dans le jeu.
      */
@@ -130,11 +132,12 @@ public final class BombermanGame {
      *                    {@link Sprite} du jeu.
      * @param nbEnemies   Le nombre d'ennemis dans le jeu.
      */
-    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies) {
+    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies, int nbBoss) {
         this.width = gameWidth;
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        this.nbBoss = nbBoss;
     }
 
     /**
@@ -354,30 +357,28 @@ public final class BombermanGame {
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            PersonnageEnnemi ennemi;
-            if (difficultyLevel == 1) {
-                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-            } else if (difficultyLevel == 3 || difficultyLevel == 4) {
-                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
-            } else {
-                // Default to random movement for other levels
-                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-            }
+            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
             int initialLife;
             if (difficultyLevel == 1) {
                 initialLife = 1;
-            } else if (difficultyLevel == 2) {
-                initialLife = 2;
-            } else if (difficultyLevel == 3 || difficultyLevel == 4) {
-                initialLife = 3;
             } else {
-                initialLife = 2; // Valeur par défaut si le niveau de difficulté n'est pas spécifié
+                initialLife = 2;
             }
             IMovable ennemiAvecSante = new EnemyWithLife(ennemi, initialLife);
             ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(ennemiAvecSante);
             spawnMovable(ennemiAvecSante);
         }
+
+        // On crée ensuite les boss sur la carte.
+        for (int i = 0; i < nbBoss; i++) {
+            PersonnageEnnemi boss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("sorcier"), new DeplacementIntelligent(player));
+            IMovable bossAvecSante = new EnemyWithLife(boss, 5);
+            bossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(bossAvecSante);
+            spawnMovable(bossAvecSante);
+        }
+
     }
 
 
