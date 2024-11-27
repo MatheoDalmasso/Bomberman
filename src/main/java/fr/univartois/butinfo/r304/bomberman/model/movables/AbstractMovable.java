@@ -368,6 +368,10 @@ public abstract class AbstractMovable implements IMovable {
         // Ne fait rien, cette méthode est implémenté dans joueur
     }
 
+    public void addLife(int life) {
+        // Ne fait rien, cette méthode est implémenté dans joueur
+    }
+
     /*
      * (non-Javadoc)
      *
