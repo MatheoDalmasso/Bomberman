@@ -116,18 +116,11 @@ public class Joueur extends AbstractMovable {
         state.takeDamage(this, damage);
     }
 
-    /**
-     * Ajoute une bombe à la liste des bombes.
-     *
-     * @param bombe La bombe à ajouter.
-     */
-    public void addBombe(Bombe bombe) {
-        bombs.add(bombe);
-    }
 
     @Override
     public void addBomb(Bombe bomb) {
         bombs.add(bomb);
+
     }
 
     @Override

@@ -85,6 +85,9 @@ public final class BombermanGame {
      */
     private Joueur player;
 
+    /**
+     * Le nombre de bombes restantes du joueur.
+     */
     private final IntegerProperty remainingBombs = new SimpleIntegerProperty(DEFAULT_BOMBS);
 
     /**
@@ -161,7 +164,7 @@ public final class BombermanGame {
      */
     private void addBombToPlayer() {
         Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
-        player.addBombe(bomb);
+        player.addBomb(bomb);
     }
 
     private void showGameRules() {
@@ -339,7 +342,7 @@ public final class BombermanGame {
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
             Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
-            player.addBombe(bomb);
+            player.addBomb(bomb);
         }
 
         // On crée ensuite les ennemis sur la carte.
