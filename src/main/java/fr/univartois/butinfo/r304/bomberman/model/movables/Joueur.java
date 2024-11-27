@@ -120,7 +120,6 @@ public class Joueur extends AbstractMovable {
     @Override
     public void addBomb(Bombe bomb) {
         bombs.add(bomb);
-
     }
 
     @Override

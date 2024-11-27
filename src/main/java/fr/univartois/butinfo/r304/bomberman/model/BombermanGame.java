@@ -154,7 +154,7 @@ public final class BombermanGame {
     /**
      * Incrémente le nombre de bombes restantes du joueur.
      */
-    private void incrementBombCount() {
+    public void incrementBombCount() {
         remainingBombs.set(remainingBombs.get() + 1);
         addBombToPlayer();
     }
