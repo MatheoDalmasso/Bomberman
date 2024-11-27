@@ -6,16 +6,21 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
 import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupBombe;
+import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupInvincibilite;
+import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupVie;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
+
+import java.util.Random;
 
 /**
  * Classe représentant l'état d'un mur en brique fissuré.
  */
 public class CrackedBrickWallState implements IWallState {
     private final Sprite sprite;
-    private BombermanGame game;
+    private BombermanGame game = GetGameInstance.getInstance();
     private SpriteStore spriteStore = new SpriteStore();
+    private Random random = new Random();
 
     /**
      * Crée un nouvel état de mur en brique fissuré.
@@ -33,11 +38,20 @@ public class CrackedBrickWallState implements IWallState {
      */
     @Override
     public void degrade(Wall wall) {
-        game = GetGameInstance.getInstance();
-        RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
-        game.addMovable(recupBombe);
-
-        wall.setState(recupBombe);
+        int chance = random.nextInt(100);
+        if (chance < 40) {
+            RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
+            game.addMovable(recupBombe);
+            wall.setState(recupBombe);
+        } else if (chance < 55) {
+            RecupVie recupVie = new RecupVie(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("heartPlus"));
+            game.addMovable(recupVie);
+            wall.setState(recupVie);
+        } else if (chance < 60) {
+            RecupInvincibilite recupInvincibilite = new RecupInvincibilite(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("Invincibility-stars"));
+            game.addMovable(recupInvincibilite);
+            wall.setState(recupInvincibilite);
+        }
     }
 
     /**
