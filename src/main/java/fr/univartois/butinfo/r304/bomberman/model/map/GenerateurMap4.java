@@ -1,10 +1,14 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
+import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
+
 import java.util.Random;
 
 public class GenerateurMap4 extends GenerateurMap{
 
     private final Random random;
+
+    private BombermanGame game;
     /**
      * Crée un générateur de carte de jeu.
      *
@@ -20,9 +24,9 @@ public class GenerateurMap4 extends GenerateurMap{
     protected Cell generateCell(int i, int j) {
         IWallState state;
         if (isBorder(i, j)) {
-            state = new WallInvincibleState(spriteStore.getSprite("lave"));
+            state = new Lava(spriteStore.getSprite("lave"), game, i, j);
         } else if (isWallPosition(i, j)) {
-            state = new WallInvincibleState(spriteStore.getSprite("lave"));
+            state = new Lava(spriteStore.getSprite("lave"), game, i, j);
         } else if (random.nextInt(100) < 30) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
         } else if (random.nextInt(100) < 15) {
