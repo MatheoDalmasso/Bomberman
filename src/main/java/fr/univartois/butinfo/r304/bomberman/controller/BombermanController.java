@@ -48,6 +48,7 @@ public final class BombermanController implements IBombermanController {
 
     private static final int GAME_WIDTH = 1080;
     private static final int GAME_HEIGHT = 720;
+    private static final int CELL_SIZE = 32;
 
     /**
      * La partie du jeu Bomberman en cours.
@@ -149,6 +150,8 @@ public final class BombermanController implements IBombermanController {
                 backgroundPane.add(view, column, row);
             }
         }
+        backgroundPane.setLayoutX((GAME_WIDTH - map.getWidth() * CELL_SIZE) / 2);
+        backgroundPane.setLayoutY((GAME_HEIGHT - map.getHeight() * CELL_SIZE) / 2);
 
     }
 
@@ -184,7 +187,7 @@ public final class BombermanController implements IBombermanController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/accueil.fxml"));
             Parent viewContent = fxmlLoader.load();
-            Scene scene = new Scene(viewContent, stage.getWidth(), stage.getHeight());
+            Scene scene = new Scene(viewContent, GAME_WIDTH, GAME_HEIGHT);
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
