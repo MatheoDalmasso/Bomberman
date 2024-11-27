@@ -5,8 +5,7 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
-import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupBombe;
-import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupVie;
+import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupInvincibilite;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
@@ -38,14 +37,20 @@ public class CrackedBrickWallState implements IWallState {
     public void degrade(Wall wall) {
         game = GetGameInstance.getInstance();
         Random random = new Random();
-        if (random.nextBoolean()) {
-            RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
-            game.addMovable(recupBombe);
-            wall.setState(recupBombe);
-        } else {
-            RecupVie recupVie = new RecupVie(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("heartPlus"));
-            game.addMovable(recupVie);
-            wall.setState(recupVie);
+//        if (random.nextBoolean()) {
+//            RecupBombe recupBombe = new RecupBombe(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("bombPlus"));
+//            game.addMovable(recupBombe);
+//            wall.setState(recupBombe);
+//        } else {
+//            RecupVie recupVie = new RecupVie(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("heartPlus"));
+//            game.addMovable(recupVie);
+//            wall.setState(recupVie);
+//        }
+
+        if (true) {
+            RecupInvincibilite recupInvincibilite = new RecupInvincibilite(game, wall.getPositionX(), wall.getPositionY(), spriteStore.getSprite("Invincibility-stars"));
+            game.addMovable(recupInvincibilite);
+            wall.setState(recupInvincibilite);
         }
     }
 

@@ -19,14 +19,15 @@ public class RecupInvincibilite extends AbstractMovable implements IWallState {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected RecupInvincibilite(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public RecupInvincibilite(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
     @Override
     public void collidedWith(IMovable other) {
         if (other instanceof Joueur joueur) {
-            joueur.makePlayerInvulnerable(); // Méthode déjà dans la classe joueur
+            joueur.makePlayerInvulnerable(); // Méthode déjà dans la classe
+            game.removeMovable(this);
         }
     }
 
