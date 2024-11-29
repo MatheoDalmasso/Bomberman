@@ -24,9 +24,9 @@ public class GenerateurMap4 extends GenerateurMap{
     protected Cell generateCell(int i, int j) {
         IWallState state;
         if (isBorder(i, j)) {
-            state = new Lava(spriteStore.getSprite("lave"), game, i, j);
+            state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (isWallPosition(i, j)) {
-            state = new Lava(spriteStore.getSprite("lave"), game, i, j);
+            state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (random.nextInt(100) < 30) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
         } else if (random.nextInt(100) < 15) {

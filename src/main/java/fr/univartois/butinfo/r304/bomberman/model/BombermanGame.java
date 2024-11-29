@@ -94,6 +94,8 @@ public final class BombermanGame {
 
     private int nbBoss;
 
+    private int nbSousBoss;
+
     /**
      * Le nombre d'ennemis restant dans le jeu.
      */
@@ -132,12 +134,13 @@ public final class BombermanGame {
      *                    {@link Sprite} du jeu.
      * @param nbEnemies   Le nombre d'ennemis dans le jeu.
      */
-    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies, int nbBoss) {
+    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies, int nbBoss, int nbSousBoss) {
         this.width = gameWidth;
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
         this.nbBoss = nbBoss;
+        this.nbSousBoss = nbSousBoss;
     }
 
     /**
@@ -357,14 +360,8 @@ public final class BombermanGame {
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-            int initialLife;
-            if (difficultyLevel == 1) {
-                initialLife = 1;
-            } else {
-                initialLife = 2;
-            }
-            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, initialLife);
+            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("skeleton"), new DeplacementAleatoire());
+            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, 1);
             ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(ennemiAvecSante);
             spawnMovable(ennemiAvecSante);
@@ -377,6 +374,15 @@ public final class BombermanGame {
             bossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(bossAvecSante);
             spawnMovable(bossAvecSante);
+        }
+
+        // On crée ensuite les boss sur la carte.
+        for (int i = 0; i < nbSousBoss; i++) {
+            PersonnageEnnemi sousboss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("yeti"), new DeplacementIntelligent(player));
+            IMovable sousBossAvecSante = new EnemyWithLife(sousboss, 3);
+            sousBossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(sousBossAvecSante);
+            spawnMovable(sousBossAvecSante);
         }
 
     }

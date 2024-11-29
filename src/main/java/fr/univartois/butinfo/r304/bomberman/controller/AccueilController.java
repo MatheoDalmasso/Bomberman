@@ -39,7 +39,7 @@ public class AccueilController {
         Stage stage = (Stage) buttonLevel1.getScene().getWindow();
         BombermanController controller = loader.getController();
 
-        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3,0);
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3,0,0);
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
@@ -61,7 +61,7 @@ public class AccueilController {
         Stage stage = (Stage) buttonLevel2.getScene().getWindow();
         BombermanController controller = loader.getController();
 
-        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3,0);
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3,0,1);
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
@@ -82,7 +82,7 @@ public class AccueilController {
         Stage stage = (Stage) buttonLevel3.getScene().getWindow();
         BombermanController controller = loader.getController();
 
-        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 3,0);
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 5,0,2);
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
@@ -104,7 +104,7 @@ public class AccueilController {
         Stage stage = (Stage) buttonLevel4.getScene().getWindow();
         BombermanController controller = loader.getController();
 
-        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 10,1);
+        BombermanGame game = new BombermanGame(1080, 720, new SpriteStore(), 8,1, 3);
 
         game.setGenerateurMap(mapGenerator);
         game.setController(controller);
