@@ -13,7 +13,7 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 public class RecupBombe extends AbstractMovable implements IWallState {
 
     private Bombe bombe;
-    private SpriteStore spriteStore = new SpriteStore();
+    private SpriteStore spriteStore = SpriteStore.getInstance();
 
 
     /**

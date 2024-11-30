@@ -11,7 +11,7 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 public class RecupVie extends AbstractMovable implements IWallState {
 
-    private SpriteStore spriteStore = new SpriteStore();
+    private SpriteStore spriteStore = SpriteStore.getInstance();
 
     /**
      * Crée une nouvelle instance de AbstractMovable.

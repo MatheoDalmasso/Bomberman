@@ -260,6 +260,7 @@ public final class BombermanGame {
             case 4:
                 gameMap = createMap(4);
                 controller.prepare(gameMap);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
         }

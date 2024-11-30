@@ -19,7 +19,7 @@ import java.util.Random;
 public class CrackedBrickWallState implements IWallState {
     private final Sprite sprite;
     private BombermanGame game = GetGameInstance.getInstance();
-    private SpriteStore spriteStore = new SpriteStore();
+    private SpriteStore spriteStore = SpriteStore.getInstance();
     private Random random = new Random();
 
     /**
