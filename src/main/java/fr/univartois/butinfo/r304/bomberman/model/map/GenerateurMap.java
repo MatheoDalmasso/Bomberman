@@ -11,7 +11,7 @@ import java.util.Random;
 public abstract class GenerateurMap implements IGenerateurMap {
     private final int height;
     private final int width;
-    private SpriteStore spriteStore = new SpriteStore();
+    protected SpriteStore spriteStore;
     private Stage stage;
     private final Random random;
 
@@ -51,7 +51,7 @@ public abstract class GenerateurMap implements IGenerateurMap {
      * @param j La position en largeur.
      * @return La cellule générée.
      */
-     protected abstract Cell generateCell(int i, int j);
+    protected abstract Cell generateCell(int i, int j);
 
     /**
      * Vérifie si une position est sur la bordure de la carte.

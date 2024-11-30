@@ -29,7 +29,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Alert;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -129,7 +128,7 @@ public final class BombermanGame {
     private IGenerateurMap generateurMap; // NOSONAR
 
     /**
-     *  Le niveau de difficulté
+     * Le niveau de difficulté
      */
     private int difficultyLevel;
 
@@ -320,7 +319,7 @@ public final class BombermanGame {
                 prepare(3);
                 break;
             case 4:
-                prepare4();
+                prepare(4);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
