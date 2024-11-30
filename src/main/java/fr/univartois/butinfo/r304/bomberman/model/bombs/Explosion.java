@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class Explosion extends AbstractMovable {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackageName());
-    private long dureeExplosion;
+    private final long dureeExplosion;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.

@@ -7,8 +7,8 @@ import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.BrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class Bomb extends AbstractMovable implements IBomb {
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackage().getName());
     private long delai;
-    private SpriteStore spriteStore = SpriteStore.getInstance();
+    private final SpriteStore spriteStore = SpriteStore.getInstance();
     private long startTime = -1;
 
 
@@ -211,7 +211,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * Vérifie si cet objet est égal à un autre objet.
      *
-     * @param obj L'objet à comparer.
+     * @param obj L'objet a comparé.
      * @return Si cet objet est égal à l'autre objet.
      */
     @Override

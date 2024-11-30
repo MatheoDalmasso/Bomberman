@@ -1,13 +1,13 @@
-package fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator;
+package fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.MapGeneratorGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.CrackedBrickWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.WallInvincibleState;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGeneratorGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.BrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.CrackedBrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.WallInvincibleState;
 
 import java.util.Random;
 

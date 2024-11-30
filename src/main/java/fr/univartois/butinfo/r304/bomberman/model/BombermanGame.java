@@ -17,16 +17,16 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.BigBomb;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.FakeBomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.IMapGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.MapGeneratorGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator1;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator2;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator3;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator4;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.IMapGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGeneratorGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator1;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator2;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator3;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator4;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.InteligentMovement;
@@ -103,11 +103,11 @@ public final class BombermanGame {
     /**
      * Le nombre d'ennemis initialement dans le jeu.
      */
-    private int nbEnemies;
+    private final int nbEnemies;
 
-    private int nbBoss;
+    private final int nbBoss;
 
-    private int nbSousBoss;
+    private final int nbSousBoss;
 
     /**
      * Le nombre d'ennemis restant dans le jeu.
@@ -550,7 +550,7 @@ public final class BombermanGame {
      * @param movable L'objet mobile dont la cellule doit être récupérée.
      * @return La cellule occupée par l'objet mobile.
      */
-    protected Cell getCellOf(IMovable movable) {
+    private Cell getCellOf(IMovable movable) {
         // On commence par récupérer la position du centre de l'objet.
         int midX = movable.getX() + (movable.getWidth() / 2);
         int midY = movable.getY() + (movable.getHeight() / 2);

@@ -29,7 +29,7 @@ public class Player extends AbstractMovable {
     /**
      * Le sprite store.
      */
-    private SpriteStore spriteStore;
+    private final SpriteStore spriteStore;
 
     /**
      * L'état du joueur.
@@ -39,22 +39,22 @@ public class Player extends AbstractMovable {
     /**
      * score du joueur.
      */
-    private IntegerProperty score;
+    private final IntegerProperty score;
 
     /**
      * Points de vie du joueur.
      */
-    private IntegerProperty pointsDeVie;
+    private final IntegerProperty pointsDeVie;
 
     /**
      * Nombre de bombes du joueur.
      */
-    private IntegerProperty nbBombe;
+    private final IntegerProperty nbBombe;
 
     /**
      * Liste des bombes du joueur.
      */
-    private ObservableList<Bomb> bombs;
+    private final ObservableList<Bomb> bombs;
 
 
     /**

@@ -16,7 +16,7 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     /**
      * L'ennemi à décorer.
      */
-    private PersonnageEnnemi ennemi;
+    private final PersonnageEnnemi ennemi;
     /**
      * Les points de vie de l'ennemi.
      */

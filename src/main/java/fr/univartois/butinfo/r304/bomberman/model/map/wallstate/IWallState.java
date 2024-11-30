@@ -1,7 +1,7 @@
 /**
  * Package de définition de l'interface IWallState
  */
-package fr.univartois.butinfo.r304.bomberman.model.map.wallState;
+package fr.univartois.butinfo.r304.bomberman.model.map.wallstate;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;

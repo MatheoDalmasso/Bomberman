@@ -1,16 +1,16 @@
-package fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator;
+package fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.MapGeneratorGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.CrackedBrickWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.WallInvincibleState;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGeneratorGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.BrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.CrackedBrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.WallInvincibleState;
 
 import java.util.Random;
 
-public class MapGeneratorGenerator3 extends MapGeneratorGenerator {
+public class MapGeneratorGenerator1 extends MapGeneratorGenerator {
 
     private final Random random;
 
@@ -20,9 +20,9 @@ public class MapGeneratorGenerator3 extends MapGeneratorGenerator {
      * @param height La hauteur de la carte à générer.
      * @param width  La largeur de la carte à générer.
      */
-    public MapGeneratorGenerator3(int height, int width) {
+    public MapGeneratorGenerator1(int height, int width) {
         super(height, width);
-        random = new Random();
+        this.random = new Random();
     }
 
     @Override
@@ -32,9 +32,9 @@ public class MapGeneratorGenerator3 extends MapGeneratorGenerator {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (isWallPosition(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (random.nextInt(100) < 30) {
+        } else if (random.nextInt(100) < 6) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
-        } else if (random.nextInt(100) < 15) {
+        } else if (random.nextInt(100) < 3) {
             state = new CrackedBrickWallState(spriteStore.getSprite("cracked-bricks"));
         } else {
             return new Cell(spriteStore.getSprite("lawn"));
@@ -47,8 +47,7 @@ public class MapGeneratorGenerator3 extends MapGeneratorGenerator {
     }
 
     private boolean isWallPosition(int i, int j) {
-        int centerX = getWidth() / 2;
-        int centerY = getHeight() / 2;
-        return (i >= centerY - 5 && i < centerY + 5) && (j >= centerX - 5 && j < centerX + 5);
+        return i % 3 == 0 && j % 3 == 0;
     }
+
 }

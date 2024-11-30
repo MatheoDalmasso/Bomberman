@@ -13,7 +13,7 @@ public class InteligentMovement implements IMovementStrategy {
     /**
      * Le joueur pour lequel l'ennemi doit se déplacer.
      */
-    private Player player; // Permet de recup la pos du player
+    private final Player player; // Permet de recup la pos du player
 
     /**
      * Temps de mouvement d'un ennemi.

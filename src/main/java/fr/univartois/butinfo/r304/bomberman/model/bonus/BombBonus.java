@@ -4,7 +4,7 @@ import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
@@ -12,8 +12,8 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 public class BombBonus extends AbstractMovable implements IWallState {
 
-    private Bomb bomb;
-    private SpriteStore spriteStore = SpriteStore.getInstance();
+    private final Bomb bomb;
+    private final SpriteStore spriteStore = SpriteStore.getInstance();
 
 
     /**

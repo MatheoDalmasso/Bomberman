@@ -1,7 +1,7 @@
 /**
  * Package qui contient les classes du modèle représentant la carte du jeu.
  */
-package fr.univartois.butinfo.r304.bomberman.model.map.wallState;
+package fr.univartois.butinfo.r304.bomberman.model.map.wallstate;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;

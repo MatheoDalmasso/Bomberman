@@ -1,7 +1,7 @@
 /**
  * Cette classe représente une bombe qui n'explose pas.
  */
-package fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb;
+package fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;

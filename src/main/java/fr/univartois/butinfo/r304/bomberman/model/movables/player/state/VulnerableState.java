@@ -12,7 +12,7 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
  */
 public class VulnerableState implements PlayerState {
 
-    private BombermanGame game = GetGameInstance.getInstance();
+    private final BombermanGame game = GetGameInstance.getInstance();
 
     /**
      * Permet de faire prendre des dégâts au joueur

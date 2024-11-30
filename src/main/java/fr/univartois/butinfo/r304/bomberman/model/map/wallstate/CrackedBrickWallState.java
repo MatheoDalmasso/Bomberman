@@ -1,7 +1,7 @@
 /**
  * Package contenant les classes du modèle représentant la carte du jeu.
  */
-package fr.univartois.butinfo.r304.bomberman.model.map.wallState;
+package fr.univartois.butinfo.r304.bomberman.model.map.wallstate;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
@@ -19,9 +19,9 @@ import java.util.Random;
  */
 public class CrackedBrickWallState implements IWallState {
     private final Sprite sprite;
-    private BombermanGame game = GetGameInstance.getInstance();
-    private SpriteStore spriteStore = SpriteStore.getInstance();
-    private Random random = new Random();
+    private final BombermanGame game = GetGameInstance.getInstance();
+    private final SpriteStore spriteStore = SpriteStore.getInstance();
+    private final Random random = new Random();
 
     /**
      * Crée un nouvel état de mur en brique fissuré.
