@@ -48,17 +48,17 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    public static final Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
      */
-    public static final int DEFAULT_SPEED = 75;
+    private static final int DEFAULT_SPEED = 75;
 
     /**
      * Le nombre de bombes initialement disponibles pour le joueur.
      */
-    public static final int DEFAULT_BOMBS = 5;
+    private static final int DEFAULT_BOMBS = 5;
 
     /**
      * La largeur de la carte du jeu (en pixels).
@@ -94,6 +94,10 @@ public final class BombermanGame {
      * Le nombre d'ennemis initialement dans le jeu.
      */
     private int nbEnemies;
+
+    private int nbBoss;
+
+    private int nbSousBoss;
 
     /**
      * Le nombre d'ennemis restant dans le jeu.
@@ -138,11 +142,13 @@ public final class BombermanGame {
      *                    {@link Sprite} du jeu.
      * @param nbEnemies   Le nombre d'ennemis dans le jeu.
      */
-    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies) {
+    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies, int nbBoss, int nbSousBoss) {
         this.width = gameWidth;
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        this.nbBoss = nbBoss;
+        this.nbSousBoss = nbSousBoss;
         GetGameInstance.setInstance(this); // Donne l'instance de BombermanGame
     }
 
@@ -252,6 +258,9 @@ public final class BombermanGame {
             case 3:
                 gameMap = createMap(3);
                 break;
+            case 4:
+                gameMap = createMap(4);
+                controller.prepare(gameMap);
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
         }
@@ -278,6 +287,10 @@ public final class BombermanGame {
                 GenerateurMap map3 = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map3.genererMap();
+            case 4:
+                GenerateurMap map4 = new GenerateurMap4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                startBombTimer();
+                return map4.genererMap();
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
         }
@@ -305,6 +318,9 @@ public final class BombermanGame {
                 break;
             case 3:
                 prepare(3);
+                break;
+            case 4:
+                prepare4();
                 break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
@@ -334,30 +350,31 @@ public final class BombermanGame {
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            PersonnageEnnemi ennemi;
-            if (difficultyLevel == 1) {
-                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-            } else if (difficultyLevel == 3) {
-                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
-            } else {
-                // Default to random movement for other levels
-                ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-            }
-            int initialLife;
-            if (difficultyLevel == 1) {
-                initialLife = 1;
-            } else if (difficultyLevel == 2) {
-                initialLife = 2;
-            } else if (difficultyLevel == 3) {
-                initialLife = 3;
-            } else {
-                initialLife = 2; // Valeur par défaut si le niveau de difficulté n'est pas spécifié
-            }
-            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, initialLife);
+            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("skeleton"), new DeplacementAleatoire());
+            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, 1);
             ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(ennemiAvecSante);
             spawnMovable(ennemiAvecSante);
         }
+
+        // On crée ensuite les boss sur la carte.
+        for (int i = 0; i < nbBoss; i++) {
+            PersonnageEnnemi boss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("sorcier"), new DeplacementIntelligent(player));
+            IMovable bossAvecSante = new EnemyWithLife(boss, 5);
+            bossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(bossAvecSante);
+            spawnMovable(bossAvecSante);
+        }
+
+        // On crée ensuite les boss sur la carte.
+        for (int i = 0; i < nbSousBoss; i++) {
+            PersonnageEnnemi sousboss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("yeti"), new DeplacementIntelligent(player));
+            IMovable sousBossAvecSante = new EnemyWithLife(sousboss, 3);
+            sousBossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(sousBossAvecSante);
+            spawnMovable(sousBossAvecSante);
+        }
+
     }
 
 

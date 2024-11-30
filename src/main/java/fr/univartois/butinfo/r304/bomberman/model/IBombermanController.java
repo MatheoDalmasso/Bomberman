@@ -43,6 +43,7 @@ public interface IBombermanController {
      */
     void prepare(GameMap map);
 
+
     /**
      * Lie le score du joueur à son affichage dans la vue.
      *
