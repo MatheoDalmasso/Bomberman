@@ -11,7 +11,7 @@ import java.util.Random;
 public abstract class GenerateurMap implements IGenerateurMap {
     private final int height;
     private final int width;
-    SpriteStore spriteStore = new SpriteStore();
+    private SpriteStore spriteStore = new SpriteStore();
     private Stage stage;
     private final Random random;
 

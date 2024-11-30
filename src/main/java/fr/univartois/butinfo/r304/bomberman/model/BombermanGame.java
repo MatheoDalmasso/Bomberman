@@ -48,17 +48,17 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    public static final Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
      */
-    public static final int DEFAULT_SPEED = 75;
+    private static final int DEFAULT_SPEED = 75;
 
     /**
      * Le nombre de bombes initialement disponibles pour le joueur.
      */
-    public static final int DEFAULT_BOMBS = 5;
+    private static final int DEFAULT_BOMBS = 5;
 
     /**
      * La largeur de la carte du jeu (en pixels).
@@ -262,14 +262,17 @@ public final class BombermanGame {
         gameMap = createMap1();
         controller.prepare(gameMap);
     }
+
     public void prepare2() {
         gameMap = createMap2();
         controller.prepare(gameMap);
     }
+
     public void prepare3() {
         gameMap = createMap3();
         controller.prepare(gameMap);
     }
+
     public void prepare4() {
         gameMap = createMap4();
         controller.prepare(gameMap);
