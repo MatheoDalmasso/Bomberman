@@ -14,7 +14,6 @@ public class BombBonus extends AbstractMovable implements IWallState {
     private final Bomb bomb;
     private final SpriteStore spriteStore = SpriteStore.getInstance();
 
-
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
@@ -31,7 +30,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
     @Override
     public void collidedWith(IMovable other) {
         if (other.isPlayer()) {
-            addBomb(bomb);
+            game.getPlayer().addBomb(bomb);
             game.removeMovable(this);
         }
     }

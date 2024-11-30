@@ -163,6 +163,10 @@ public final class BombermanGame {
         bombTimer.play();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     /**
      * Incrémente le nombre de bombes restantes du joueur.
      */

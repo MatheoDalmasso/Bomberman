@@ -5,13 +5,9 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 public class LifeBonus extends AbstractMovable implements IWallState {
-
-    private final SpriteStore spriteStore = SpriteStore.getInstance();
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -27,8 +23,8 @@ public class LifeBonus extends AbstractMovable implements IWallState {
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Player player) {
-            player.addLife(1); // Methode qui ajout la vie à mettre dans imovable
+        if (other.isPlayer()) {
+            game.getPlayer().addLife(1); // Methode qui ajout la vie à mettre dans imovable
             game.removeMovable(this);
         }
     }

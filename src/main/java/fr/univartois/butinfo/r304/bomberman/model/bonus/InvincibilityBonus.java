@@ -5,7 +5,6 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 public class InvincibilityBonus extends AbstractMovable implements IWallState {
@@ -25,8 +24,8 @@ public class InvincibilityBonus extends AbstractMovable implements IWallState {
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Player player) {
-            player.makePlayerInvulnerable(); // Méthode déjà dans la classe
+        if (other.isPlayer()) {
+            game.getPlayer().makePlayerInvulnerable(); // Méthode déjà dans la classe
             game.removeMovable(this);
         }
     }
