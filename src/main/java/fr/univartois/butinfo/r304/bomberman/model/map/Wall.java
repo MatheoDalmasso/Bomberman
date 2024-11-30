@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
+import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 /**
@@ -33,8 +34,8 @@ public final class Wall {
      */
     private IWallState state;
 
-    private int positionX;
-    private int positionY;
+    private final int positionX;
+    private final int positionY;
 
 
     /**

@@ -6,7 +6,7 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.logging.LogManager;
@@ -16,8 +16,8 @@ import java.util.logging.Logger;
  * Cette classe représente une explosion dans le jeu Bomberman.
  */
 public class Explosion extends AbstractMovable {
-    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
-    private long dureeExplosion;
+    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackageName());
+    private final long dureeExplosion;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -27,7 +27,7 @@ public class Explosion extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         this.dureeExplosion = System.currentTimeMillis();
     }

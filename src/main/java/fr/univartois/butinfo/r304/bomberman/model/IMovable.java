@@ -16,7 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -134,7 +134,7 @@ public interface IMovable {
      *
      * @param bomb la bombe à ajouter
      */
-    void addBomb(Bombe bomb);
+    void addBomb(Bomb bomb);
 
     /**
      * Ajoute de la vie au joueur

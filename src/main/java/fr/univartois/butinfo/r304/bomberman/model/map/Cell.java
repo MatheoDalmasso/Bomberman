@@ -24,7 +24,6 @@ import javafx.beans.property.SimpleObjectProperty;
  * La classe {@link Cell} représente une cellule de la carte du jeu du Bomberman.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public class Cell {
@@ -50,14 +49,12 @@ public class Cell {
      */
     private final ObjectProperty<Wall> wallProperty = new SimpleObjectProperty<>();
 
-    private final ObjectProperty<Brick> brickProperty = new SimpleObjectProperty<>();
-
 
     /**
      * Crée une nouvelle instance de Cell.
      * La cellule créée est initialement vide.
      *
-     * @param row La ligne où se trouve la cellule sur la carte.
+     * @param row    La ligne où se trouve la cellule sur la carte.
      * @param column La colonne où se trouve la cellule sur la carte.
      */
     public Cell(int row, int column) {
@@ -82,11 +79,6 @@ public class Cell {
     public Cell(Wall wall) {
         this.wallProperty.set(wall);
         this.spriteProperty.set(wall.getSprite());
-    }
-
-    protected Cell(Brick brick) {
-        this.brickProperty.set(brick);
-        this.spriteProperty.set(brick.getSprite());
     }
 
 
@@ -164,9 +156,6 @@ public class Cell {
         return wallProperty.get();
     }
 
-    public Brick getBrick() {
-        return brickProperty.get();
-    }
 
     /**
      * Donne la propriété contenant le mur présent sur cette cellule sur la carte.
@@ -175,10 +164,6 @@ public class Cell {
      */
     public ObjectProperty<Wall> getWallProperty() {
         return wallProperty;
-    }
-
-    public ObjectProperty<Brick> getBrickProperty() {
-        return brickProperty;
     }
 
 

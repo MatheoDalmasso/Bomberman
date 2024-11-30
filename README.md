@@ -274,8 +274,8 @@ class Sprite {
 |----------------------------------------|------------|-----------|
 | Représentation des ennemis             | ✅          | Benjamin  |
 | Intégration des ennemis dans la partie | ✅          | Benjamin  |
-| Représentation du joueur               | ✅          | Mathias   |
-| Intégration du joueur dans la partie   | ✅          | Mathias   |
+| Représentation du player               | ✅          | Mathias   |
+| Intégration du player dans la partie   | ✅          | Mathias   |
 | Représentation des bombes et explosion | ✅          | Mathéo    |
 | Intégration des bombes dans la partie  | ✅          | Mathéo    |
 | Création de la carte du jeu            | ✅          | Simon     |
@@ -285,19 +285,19 @@ class Sprite {
 | Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)          |
 |---------------------------------------------|------------------------------|------------|--------------------|
 | Variantes de déplacement des ennemis        | Stratégie                    | ✅          | Benjamin           |
-| Gestion des points de vie (ennemis, joueur) | Décorateur                   | ✅          | Mathias / Benjamin |
-| Invulnérabilité du joueur                   | Etat                         | ✅          | Mathias            |
-| Solidité des murs                           | Etat                         | ✅           | Simon / Matheo     |
+| Gestion des points de vie (ennemis, player) | Décorateur                   | ✅          | Mathias / Benjamin |
+| Invulnérabilité du player                   | Etat                         | ✅          | Mathias            |
+| Solidité des murs                           | Etat                         | ✅          | Simon / Matheo     |
 | Variantes de génération pour la carte       | Fabrique abstraite           | ✅          | Simon              |
 | Différents types de bombes                  | Fabrique abstraite           | ✅          | Matheo             |
 
 ### TP n°5
 
-| Fonctionnalité                              | Patron de conception utilisé   | Terminée ? | Auteur(s)            |
-| ------------------------------------------- |--------------------------------| ---------- |----------------------|
-| Instance du `SpriteStore`                   | Singleton                      |            | Mathias              |
-| Bonus de bombe                              | Fabrique abstraite             |            | Benjamin             |
-| Bonus d'invulnérabilité                     | Fabrique abstraite             |            | Benjamin             |
-| Bonus de point de vie                       | Fabrique abstraite             |            | Benjamin             |
-| Apparition aléatoire d'un bonus             | Fabrique abstraite             |            | Benjamin             |
-| Gestion des différents niveaux              | Fabrique abstraite / Composite |            | Matheo/Simon/Mathias |
+| Fonctionnalité                  | Patron de conception utilisé   | Terminée ? | Auteur(s)            |
+|---------------------------------|--------------------------------|------------|----------------------|
+| Instance du `SpriteStore`       | Singleton                      |            | Mathias              |
+| Bonus de bombe                  | Fabrique abstraite             |            | Benjamin             |
+| Bonus d'invulnérabilité         | Fabrique abstraite             |            | Benjamin             |
+| Bonus de point de vie           | Fabrique abstraite             |            | Benjamin             |
+| Apparition aléatoire d'un bonus | Fabrique abstraite             |            | Benjamin             |
+| Gestion des différents niveaux  | Fabrique abstraite / Composite |            | Matheo/Simon/Mathias |
