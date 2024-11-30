@@ -2,13 +2,18 @@ package fr.univartois.butinfo.r304.bomberman.model.bonus;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
-public class RecupInvincibilite extends AbstractMovable implements IWallState {
+public class BombBonus extends AbstractMovable implements IWallState {
+
+    private Bomb bomb;
+    private SpriteStore spriteStore = SpriteStore.getInstance();
 
 
     /**
@@ -19,14 +24,15 @@ public class RecupInvincibilite extends AbstractMovable implements IWallState {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public RecupInvincibilite(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public BombBonus(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        bomb = new Bomb(game, xPosition, yPosition, spriteStore.getSprite("bomb"), 4000);
     }
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Joueur joueur) {
-            joueur.makePlayerInvulnerable(); // Méthode déjà dans la classe
+        if (other instanceof Player player) {
+            player.addBomb(bomb);
             game.removeMovable(this);
         }
     }
@@ -43,6 +49,6 @@ public class RecupInvincibilite extends AbstractMovable implements IWallState {
 
     @Override
     public void degrade(Wall wall) {
-        //
+        // Ne fais rien après la dégradation
     }
 }

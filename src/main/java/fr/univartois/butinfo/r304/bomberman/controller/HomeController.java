@@ -1,11 +1,11 @@
 package fr.univartois.butinfo.r304.bomberman.controller;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.GenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap1;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap2;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap3;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap4;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.MapGeneratorGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator1;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator2;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator3;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator4;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AccueilController {
+public class HomeController {
 
     SpriteStore spriteStore = SpriteStore.getInstance();
 
@@ -34,7 +34,7 @@ public class AccueilController {
 
     @FXML
     public void onClickEasy(ActionEvent actionEvent) throws IOException {
-        GenerateurMap mapGenerator = new GenerateurMap1(1080, 720);
+        MapGeneratorGenerator mapGenerator = new MapGeneratorGenerator1(1080, 720);
         mapGenerator.genererMap();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
@@ -56,7 +56,7 @@ public class AccueilController {
 
     @FXML
     public void onClickMedium(ActionEvent actionEvent) throws IOException {
-        GenerateurMap mapGenerator = new GenerateurMap2(1080, 720);
+        MapGeneratorGenerator mapGenerator = new MapGeneratorGenerator2(1080, 720);
         mapGenerator.genererMap();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
@@ -77,7 +77,7 @@ public class AccueilController {
 
     @FXML
     public void onClickHard(ActionEvent actionEvent) throws IOException {
-        GenerateurMap mapGenerator = new GenerateurMap3(1080, 720);
+        MapGeneratorGenerator mapGenerator = new MapGeneratorGenerator3(1080, 720);
         mapGenerator.genererMap();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
@@ -99,7 +99,7 @@ public class AccueilController {
 
     @FXML
     public void onClickImpossible(ActionEvent actionEvent) throws IOException {
-        GenerateurMap mapGenerator = new GenerateurMap4(1080, 720);
+        MapGeneratorGenerator mapGenerator = new MapGeneratorGenerator4(1080, 720);
         mapGenerator.genererMap();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));

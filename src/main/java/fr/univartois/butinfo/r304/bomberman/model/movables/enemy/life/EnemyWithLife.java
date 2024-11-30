@@ -1,10 +1,10 @@
 /**
  * Classe EnemyWithLife : permet de gérer la vie d'un ennemi.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life;
 
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractIMovableDecorator;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
@@ -82,7 +82,7 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     }
 
     @Override
-    public void addBomb(Bombe bomb) {
+    public void addBomb(Bomb bomb) {
         // Fait rien pour les ennemies avec la vie
     }
 

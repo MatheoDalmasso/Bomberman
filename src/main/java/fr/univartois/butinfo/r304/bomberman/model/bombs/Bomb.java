@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 /**
  * Cette classe représente une bombe dans le jeu Bomberman.
  */
-public class Bombe extends AbstractMovable implements IBombe {
-    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackage().getName());
+public class Bomb extends AbstractMovable implements IBomb {
+    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackage().getName());
     private long delai;
     private SpriteStore spriteStore = SpriteStore.getInstance();
     private long startTime = -1;
@@ -34,7 +34,7 @@ public class Bombe extends AbstractMovable implements IBombe {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public Bombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
+    public Bomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
         this.delai = delai;
     }

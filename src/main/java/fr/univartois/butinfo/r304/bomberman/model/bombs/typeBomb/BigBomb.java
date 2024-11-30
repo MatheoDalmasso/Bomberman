@@ -1,12 +1,12 @@
 /**
- * La classe BigBombe représente une bombe de grande taille.
+ * La classe BigBomb représente une bombe de grande taille.
  */
 package fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.IBombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.IBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
@@ -18,9 +18,9 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import java.util.Objects;
 
 /**
- * La classe BigBombe représente une bombe de grande taille.
+ * La classe BigBomb représente une bombe de grande taille.
  */
-public class BigBombe extends AbstractMovable implements IBombe {
+public class BigBomb extends AbstractMovable implements IBomb {
 
     /**
      * Le délai avant l'explosion
@@ -46,7 +46,7 @@ public class BigBombe extends AbstractMovable implements IBombe {
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      * @param delai     Le délai avant l'explosion
      */
-    public BigBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
+    public BigBomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
         this.delai = delai;
     }
@@ -193,7 +193,7 @@ public class BigBombe extends AbstractMovable implements IBombe {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof IBombe) {
+        if (other instanceof IBomb) {
             explode();
         }
     }
@@ -225,7 +225,7 @@ public class BigBombe extends AbstractMovable implements IBombe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        BigBombe bigBombe = (BigBombe) o;
+        BigBomb bigBombe = (BigBomb) o;
         return delai == bigBombe.delai && startTime == bigBombe.startTime && Objects.equals(spriteStore, bigBombe.spriteStore);
     }
 

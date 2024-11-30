@@ -1,16 +1,16 @@
 /**
- * Classe DeplacementAleatoire : permet de déplacer un personnage ennemi de manière aléatoire.
+ * Classe RandomMovement : permet de déplacer un personnage ennemi de manière aléatoire.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
 
 import java.util.Random;
 
 /**
- * Classe DeplacementAleatoire : permet de déplacer un personnage ennemi de manière aléatoire.
+ * Classe RandomMovement : permet de déplacer un personnage ennemi de manière aléatoire.
  */
-public class DeplacementAleatoire implements DeplacementStrategy {
+public class RandomMovement implements IMovementStrategy {
     /**
      * Le générateur de nombres aléatoires.
      */

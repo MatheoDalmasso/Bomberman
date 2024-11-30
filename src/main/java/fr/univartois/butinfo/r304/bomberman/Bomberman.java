@@ -28,7 +28,6 @@ import java.io.IOException;
  * La classe Bomberman permet de lancer l'implantation en JavaFX du jeu Bomberman.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public final class Bomberman extends Application {
@@ -55,7 +54,7 @@ public final class Bomberman extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        // Load the AccueilController view
+        // Load the HomeController view
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/accueil.fxml"));
         Parent viewContent = fxmlLoader.load();
 
@@ -71,7 +70,6 @@ public final class Bomberman extends Application {
      * Exécute l'application JavaFX du jeu Bomberman.
      *
      * @param args Les arguments de la ligne de commande (dont on ne tient pas compte).
-     *
      * @see #launch(String...)
      */
     public static void main(String[] args) {

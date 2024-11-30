@@ -1,16 +1,16 @@
 /**
- * Classe Joueur : permet de gérer le joueur.
+ * Classe Player : permet de gérer le joueur.
  */
 package fr.univartois.butinfo.r304.bomberman.model.movables.player;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.map.Lava;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.InvulnerableState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.PlayerState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.VulnerableState;
@@ -22,9 +22,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Classe Joueur : permet de gérer le joueur.
+ * Classe Player : permet de gérer le joueur.
  */
-public class Joueur extends AbstractMovable {
+public class Player extends AbstractMovable {
 
     /**
      * Le sprite store.
@@ -54,7 +54,7 @@ public class Joueur extends AbstractMovable {
     /**
      * Liste des bombes du joueur.
      */
-    private ObservableList<Bombe> bombs;
+    private ObservableList<Bomb> bombs;
 
 
     /**
@@ -65,7 +65,7 @@ public class Joueur extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         this.spriteStore = SpriteStore.getInstance();
         this.state = new VulnerableState();
@@ -126,7 +126,7 @@ public class Joueur extends AbstractMovable {
 
 
     @Override
-    public void addBomb(Bombe bomb) {
+    public void addBomb(Bomb bomb) {
         bombs.add(bomb);
     }
 
@@ -140,7 +140,7 @@ public class Joueur extends AbstractMovable {
      *
      * @return le nombre de bombes restantes.
      */
-    public ObservableList<Bombe> getBombs() {
+    public ObservableList<Bomb> getBombs() {
         return bombs;
     }
 

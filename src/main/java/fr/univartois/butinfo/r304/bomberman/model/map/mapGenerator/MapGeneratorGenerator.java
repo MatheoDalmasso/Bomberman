@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap;
+package fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 /**
- * La classe {@link GenerateurMap} permet de générer une carte de jeu.
+ * La classe {@link MapGeneratorGenerator} permet de générer une carte de jeu.
  */
-public abstract class GenerateurMap implements IGenerateurMap {
+public abstract class MapGeneratorGenerator implements IMapGenerator {
     private final int height;
     private final int width;
     protected SpriteStore spriteStore = SpriteStore.getInstance();
@@ -23,7 +23,7 @@ public abstract class GenerateurMap implements IGenerateurMap {
      * @param height La hauteur de la carte à générer.
      * @param width  La largeur de la carte à générer.
      */
-    public GenerateurMap(int height, int width) {
+    public MapGeneratorGenerator(int height, int width) {
         this.height = height;
         this.width = width;
         this.random = new Random();

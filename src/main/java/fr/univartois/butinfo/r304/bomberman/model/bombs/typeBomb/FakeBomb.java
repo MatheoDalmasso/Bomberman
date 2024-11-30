@@ -5,7 +5,7 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.IBombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.IBomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Cette classe représente une bombe qui n'explose pas.
  */
-public class FakeBombe extends AbstractMovable implements IBombe {
+public class FakeBomb extends AbstractMovable implements IBomb {
     private long delai;
     private long startTime = -1;
 
@@ -26,7 +26,7 @@ public class FakeBombe extends AbstractMovable implements IBombe {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public FakeBombe(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
+    public FakeBomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai) {
         super(game, xPosition, yPosition, sprite);
         this.delai = delai;
     }
@@ -101,7 +101,7 @@ public class FakeBombe extends AbstractMovable implements IBombe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        FakeBombe fakeBombe = (FakeBombe) o;
+        FakeBomb fakeBombe = (FakeBomb) o;
         return delai == fakeBombe.delai && startTime == fakeBombe.startTime;
     }
 

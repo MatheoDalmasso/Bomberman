@@ -7,8 +7,8 @@ import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement.DeplacementStrategy;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.IMovementStrategy;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 /**
@@ -19,7 +19,7 @@ public class PersonnageEnnemi extends AbstractMovable {
     /**
      * La stratégie de déplacement du personnage ennemi.
      */
-    private DeplacementStrategy deplacementStrategy; //Instance du patron de conception Strategy
+    private IMovementStrategy IMovementStrategy; //Instance du patron de conception Strategy
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -29,18 +29,18 @@ public class PersonnageEnnemi extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite, DeplacementStrategy deplacementStrategy) {
+    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite, IMovementStrategy IMovementStrategy) {
         super(game, xPosition, yPosition, sprite);
-        this.deplacementStrategy = deplacementStrategy;
+        this.IMovementStrategy = IMovementStrategy;
     }
 
     /**
      * Permet de mettre la stratégie de déplacement du personnage ennemi.
      *
-     * @param deplacementStrategy La stratégie de déplacement du personnage ennemi.
+     * @param IMovementStrategy La stratégie de déplacement du personnage ennemi.
      */
-    public void setDeplacementStrategy(DeplacementStrategy deplacementStrategy) {
-        this.deplacementStrategy = deplacementStrategy;
+    public void setDeplacementStrategy(IMovementStrategy IMovementStrategy) {
+        this.IMovementStrategy = IMovementStrategy;
     }
 
     /**
@@ -50,7 +50,7 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public boolean move(long delta) {
-        deplacementStrategy.deplacer(this, delta);
+        IMovementStrategy.deplacer(this, delta);
         return true;
     }
 

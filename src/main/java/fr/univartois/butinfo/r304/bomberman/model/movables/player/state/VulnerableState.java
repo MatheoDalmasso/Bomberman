@@ -5,7 +5,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 
 /**
  * Classe qui gère l'état vulnérable du joueur
@@ -21,7 +21,7 @@ public class VulnerableState implements PlayerState {
      * @param damage Les dégâts à infliger
      */
     @Override
-    public void takeDamage(Joueur player, int damage) {
+    public void takeDamage(Player player, int damage) {
         player.decrementPointsDeVie(damage);
         if (player.getPointsDeVie() <= 0) {
             game.playerIsDead();
@@ -36,7 +36,7 @@ public class VulnerableState implements PlayerState {
      * @param player Le joueur à mettre à jour
      */
     @Override
-    public void updateAppearance(Joueur player) {
+    public void updateAppearance(Player player) {
         player.setSprite(player.getSpriteStore().getSprite("agent"));
     }
 }

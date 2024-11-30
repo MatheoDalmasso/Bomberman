@@ -5,13 +5,11 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
-public class RecupVie extends AbstractMovable implements IWallState {
+public class InvincibilityBonus extends AbstractMovable implements IWallState {
 
-    private SpriteStore spriteStore = SpriteStore.getInstance();
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -21,14 +19,14 @@ public class RecupVie extends AbstractMovable implements IWallState {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public RecupVie(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public InvincibilityBonus(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Joueur joueur) {
-            joueur.addLife(1); // Methode qui ajout la vie à mettre dans imovable
+        if (other instanceof Player player) {
+            player.makePlayerInvulnerable(); // Méthode déjà dans la classe
             game.removeMovable(this);
         }
     }
@@ -45,6 +43,6 @@ public class RecupVie extends AbstractMovable implements IWallState {
 
     @Override
     public void degrade(Wall wall) {
-        // Ne fait Rien
+        //
     }
 }

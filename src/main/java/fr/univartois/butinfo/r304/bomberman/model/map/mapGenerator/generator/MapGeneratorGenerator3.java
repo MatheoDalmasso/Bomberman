@@ -1,8 +1,8 @@
-package fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen;
+package fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.GenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.MapGeneratorGenerator;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallState.CrackedBrickWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
@@ -10,7 +10,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.wallState.WallInvincibleSt
 
 import java.util.Random;
 
-public class GenerateurMap3 extends GenerateurMap {
+public class MapGeneratorGenerator3 extends MapGeneratorGenerator {
 
     private final Random random;
 
@@ -20,7 +20,7 @@ public class GenerateurMap3 extends GenerateurMap {
      * @param height La hauteur de la carte à générer.
      * @param width  La largeur de la carte à générer.
      */
-    public GenerateurMap3(int height, int width) {
+    public MapGeneratorGenerator3(int height, int width) {
         super(height, width);
         random = new Random();
     }

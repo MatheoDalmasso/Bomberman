@@ -18,7 +18,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.*;
 import javafx.scene.shape.Rectangle;
@@ -364,7 +364,7 @@ public abstract class AbstractMovable implements IMovable {
         return this;
     }
 
-    public void addBomb(Bombe bomb) {
+    public void addBomb(Bomb bomb) {
         // Ne fait rien, cette méthode est implémenté dans joueur
     }
 

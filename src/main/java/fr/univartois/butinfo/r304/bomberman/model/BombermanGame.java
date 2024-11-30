@@ -16,22 +16,22 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.BigBombe;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.FakeBombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.BigBomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.GenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.IGenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap1;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap2;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap3;
-import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap4;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.IMapGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.MapGeneratorGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator1;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator2;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator3;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapGenerator.generator.MapGeneratorGenerator4;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement.DeplacementAleatoire;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement.DeplacementIntelligent;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.InteligentMovement;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.RandomMovement;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.Animation;
@@ -93,7 +93,7 @@ public final class BombermanGame {
     /**
      * Le personnage du joueur.
      */
-    private Joueur player;
+    private Player player;
 
     /**
      * Le nombre de bombes restantes du joueur.
@@ -136,7 +136,7 @@ public final class BombermanGame {
     /**
      * Le générateur de la carte du jeu.
      */
-    private IGenerateurMap generateurMap; // NOSONAR
+    private IMapGenerator generateurMap; // NOSONAR
 
     /**
      * Le niveau de difficulté
@@ -184,7 +184,7 @@ public final class BombermanGame {
      * Ajoute une bombe au joueur.
      */
     private void addBombToPlayer() {
-        Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
+        Bomb bomb = new Bomb(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
         player.addBomb(bomb);
     }
 
@@ -225,7 +225,7 @@ public final class BombermanGame {
         this.controller = controller;
     }
 
-    public void setGenerateurMap(IGenerateurMap generateurMap) {
+    public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;
     }
 
@@ -287,19 +287,19 @@ public final class BombermanGame {
     private GameMap createMap(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
-                GenerateurMap map = new GenerateurMap1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGeneratorGenerator map = new MapGeneratorGenerator1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map.genererMap();
             case 2:
-                GenerateurMap map2 = new GenerateurMap2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGeneratorGenerator map2 = new MapGeneratorGenerator2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map2.genererMap();
             case 3:
-                GenerateurMap map3 = new GenerateurMap3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGeneratorGenerator map3 = new MapGeneratorGenerator3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map3.genererMap();
             case 4:
-                GenerateurMap map4 = new GenerateurMap4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGeneratorGenerator map4 = new MapGeneratorGenerator4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map4.genererMap();
             default:
@@ -349,19 +349,19 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this, 0, 0, spriteStore.getSprite("guy"));
+        player = new Player(this, 0, 0, spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
+            Bomb bomb = new Bomb(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
             player.addBomb(bomb);
         }
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("skeleton"), new DeplacementAleatoire());
+            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("skeleton"), new RandomMovement());
             IMovable ennemiAvecSante = new EnemyWithLife(ennemi, 1);
             ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(ennemiAvecSante);
@@ -370,7 +370,7 @@ public final class BombermanGame {
 
         // On crée ensuite les boss sur la carte.
         for (int i = 0; i < nbBoss; i++) {
-            PersonnageEnnemi boss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("sorcier"), new DeplacementIntelligent(player));
+            PersonnageEnnemi boss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("sorcier"), new InteligentMovement(player));
             IMovable bossAvecSante = new EnemyWithLife(boss, 5);
             bossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(bossAvecSante);
@@ -379,7 +379,7 @@ public final class BombermanGame {
 
         // On crée ensuite les boss sur la carte.
         for (int i = 0; i < nbSousBoss; i++) {
-            PersonnageEnnemi sousboss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("yeti"), new DeplacementIntelligent(player));
+            PersonnageEnnemi sousboss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("yeti"), new InteligentMovement(player));
             IMovable sousBossAvecSante = new EnemyWithLife(sousboss, 3);
             sousBossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(sousBossAvecSante);
@@ -467,23 +467,23 @@ public final class BombermanGame {
             int mapWidth = getWidth();
             int mapHeight = getHeight();
 
-            // Interdire les BigBombe et FakeBombe dans le niveau 1
+            // Interdire les BigBomb et FakeBomb dans le niveau 1
             if (difficultyLevel == 1 && randomBomb < 2) {
-                randomBomb = 4; // Changer la valeur pour éviter de créer une BigBombe ou FakeBombe
+                randomBomb = 4; // Changer la valeur pour éviter de créer une BigBomb ou FakeBomb
             }
 
             if (randomBomb < 2 && difficultyLevel > 1) {
                 if (playerX > spriteSize && playerX < (mapWidth - spriteSize * 2) && playerY > spriteSize && playerY < (mapHeight - spriteSize * 2)) {
-                    BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
+                    BigBomb bomb = new BigBomb(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
                     dropBomb(bomb);
                     player.getBombs().removeFirst();
                 }
             } else if (randomBomb == 3 && difficultyLevel > 1) {
-                FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
+                FakeBomb bomb = new FakeBomb(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
                 dropBomb(bomb);
                 player.getBombs().removeFirst();
             } else {
-                Bombe bomb = player.getBombs().removeFirst();
+                Bomb bomb = player.getBombs().removeFirst();
                 dropBomb(bomb);
             }
         }
@@ -495,7 +495,7 @@ public final class BombermanGame {
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(Bombe bomb) {
+    public void dropBomb(Bomb bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
@@ -505,11 +505,11 @@ public final class BombermanGame {
     }
 
     /**
-     * Dépose une BigBombe sur la tuile où se trouve le joueur
+     * Dépose une BigBomb sur la tuile où se trouve le joueur
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(BigBombe bomb) {
+    public void dropBomb(BigBomb bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
@@ -520,11 +520,11 @@ public final class BombermanGame {
     }
 
     /**
-     * Dépose une FakeBombe sur la tuile où se trouve le joueur
+     * Dépose une FakeBomb sur la tuile où se trouve le joueur
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(FakeBombe bomb) {
+    public void dropBomb(FakeBomb bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());

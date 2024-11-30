@@ -1,19 +1,19 @@
 /**
- * Classe DeplacementIntelligent : permet de déplacer un personnage ennemi de manière intelligente.
+ * Classe InteligentMovement : permet de déplacer un personnage ennemi de manière intelligente.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 
 /**
- * Classe DeplacementIntelligent : permet de déplacer un personnage ennemi de manière intelligente.
+ * Classe InteligentMovement : permet de déplacer un personnage ennemi de manière intelligente.
  */
-public class DeplacementIntelligent implements DeplacementStrategy {
+public class InteligentMovement implements IMovementStrategy {
     /**
      * Le joueur pour lequel l'ennemi doit se déplacer.
      */
-    private Joueur player; // Permet de recup la pos du player
+    private Player player; // Permet de recup la pos du player
 
     /**
      * Temps de mouvement d'un ennemi.
@@ -31,11 +31,11 @@ public class DeplacementIntelligent implements DeplacementStrategy {
     private static final double SPEED = DISTANCE_PIXELS_DU_MOUVEMENT / TEMPS_MOUVEMENT * 1000;
 
     /**
-     * Crée une nouvelle instance de DeplacementIntelligent.
+     * Crée une nouvelle instance de InteligentMovement.
      *
      * @param player Le joueur pour lequel l'ennemi doit se déplacer.
      */
-    public DeplacementIntelligent(Joueur player) {
+    public InteligentMovement(Player player) {
         this.player = player;
     }
 
