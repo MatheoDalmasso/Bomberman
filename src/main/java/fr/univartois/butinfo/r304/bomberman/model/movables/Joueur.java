@@ -61,7 +61,7 @@ public class Joueur extends AbstractMovable {
      */
     public Joueur(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
-        this.spriteStore = new SpriteStore();
+        this.spriteStore = SpriteStore.getInstance();
         this.state = new VulnerableState();
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);

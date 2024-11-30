@@ -28,7 +28,7 @@ public class BigBombe extends AbstractMovable implements IBombe {
     /**
      * Le SpriteStore
      */
-    private SpriteStore spriteStore = new SpriteStore();
+    private SpriteStore spriteStore = SpriteStore.getInstance();
 
     /**
      * Le temps de début
