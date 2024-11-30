@@ -1,7 +1,9 @@
 /**
  * Interface DeplacementStrategy : permet de déplacer un personnage ennemi.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement;
+
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
 
 /**
  * La méthode de déplacement d'un personnage ennemi.

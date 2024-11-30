@@ -3,9 +3,9 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractIMovableDecorator;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.Joueur;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 public class Lava extends AbstractMovable implements IWallState {
@@ -29,7 +29,7 @@ public class Lava extends AbstractMovable implements IWallState {
 
     @Override
     public void collidedWith(IMovable other) {
-        if(other instanceof Joueur joueur) {
+        if (other instanceof Joueur joueur) {
             joueur.takeDamage(1);
         }
     }

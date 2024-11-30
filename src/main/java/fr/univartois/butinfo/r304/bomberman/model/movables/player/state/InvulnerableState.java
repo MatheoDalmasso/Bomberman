@@ -1,8 +1,9 @@
 /**
  * Classe InvulnerableState : permet de gérer l'état invulnérable du joueur.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
 
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 

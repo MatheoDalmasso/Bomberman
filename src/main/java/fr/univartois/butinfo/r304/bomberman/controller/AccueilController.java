@@ -1,7 +1,11 @@
 package fr.univartois.butinfo.r304.bomberman.controller;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
-import fr.univartois.butinfo.r304.bomberman.model.map.*;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.GenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap1;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap2;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap3;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap4;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

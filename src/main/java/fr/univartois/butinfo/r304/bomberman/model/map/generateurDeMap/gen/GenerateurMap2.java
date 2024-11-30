@@ -1,8 +1,16 @@
-package fr.univartois.butinfo.r304.bomberman.model.map;
+package fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen;
+
+import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.GenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.CrackedBrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.WallInvincibleState;
 
 import java.util.Random;
 
-public class GenerateurMap1 extends GenerateurMap {
+public class GenerateurMap2 extends GenerateurMap {
 
     private final Random random;
 
@@ -12,7 +20,7 @@ public class GenerateurMap1 extends GenerateurMap {
      * @param height La hauteur de la carte à générer.
      * @param width  La largeur de la carte à générer.
      */
-    public GenerateurMap1(int height, int width) {
+    public GenerateurMap2(int height, int width) {
         super(height, width);
         this.random = new Random();
     }
@@ -24,9 +32,9 @@ public class GenerateurMap1 extends GenerateurMap {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (isWallPosition(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (random.nextInt(100) < 6) {
+        } else if (random.nextInt(100) < 15) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
-        } else if (random.nextInt(100) < 3) {
+        } else if (random.nextInt(100) < 7) {
             state = new CrackedBrickWallState(spriteStore.getSprite("cracked-bricks"));
         } else {
             return new Cell(spriteStore.getSprite("lawn"));
@@ -41,5 +49,4 @@ public class GenerateurMap1 extends GenerateurMap {
     private boolean isWallPosition(int i, int j) {
         return i % 3 == 0 && j % 3 == 0;
     }
-
 }

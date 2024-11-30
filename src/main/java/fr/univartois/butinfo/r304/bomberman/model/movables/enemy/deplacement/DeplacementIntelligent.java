@@ -1,7 +1,10 @@
 /**
  * Classe DeplacementIntelligent : permet de déplacer un personnage ennemi de manière intelligente.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement;
+
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
 
 /**
  * Classe DeplacementIntelligent : permet de déplacer un personnage ennemi de manière intelligente.

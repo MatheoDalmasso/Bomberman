@@ -16,11 +16,22 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import fr.univartois.butinfo.r304.bomberman.model.bombs.BigBombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.FakeBombe;
-import fr.univartois.butinfo.r304.bomberman.model.map.*;
-import fr.univartois.butinfo.r304.bomberman.model.movables.*;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.BigBombe;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb.FakeBombe;
+import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
+import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.GenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.IGenerateurMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap1;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap2;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap3;
+import fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap.gen.GenerateurMap4;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement.DeplacementAleatoire;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement.DeplacementIntelligent;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.Animation;

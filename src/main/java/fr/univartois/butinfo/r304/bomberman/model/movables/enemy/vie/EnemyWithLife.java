@@ -1,11 +1,13 @@
 /**
  * Classe EnemyWithLife : permet de gérer la vie d'un ennemi.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie;
 
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
+import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractIMovableDecorator;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
 
 /**
  * Classe EnemyWithLife : permet de gérer la vie d'un ennemi.

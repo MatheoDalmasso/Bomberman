@@ -6,7 +6,7 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.logging.LogManager;
@@ -27,7 +27,7 @@ public class Explosion extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         this.dureeExplosion = System.currentTimeMillis();
     }

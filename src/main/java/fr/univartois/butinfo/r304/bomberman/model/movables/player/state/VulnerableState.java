@@ -1,12 +1,18 @@
 /**
  * Classe qui gère l'état vulnérable du joueur
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
+
+import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
+import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
 
 /**
  * Classe qui gère l'état vulnérable du joueur
  */
 public class VulnerableState implements PlayerState {
+
+    private BombermanGame game = GetGameInstance.getInstance();
 
     /**
      * Permet de faire prendre des dégâts au joueur
@@ -18,7 +24,7 @@ public class VulnerableState implements PlayerState {
     public void takeDamage(Joueur player, int damage) {
         player.decrementPointsDeVie(damage);
         if (player.getPointsDeVie() <= 0) {
-            player.game.playerIsDead();
+            game.playerIsDead();
         } else {
             player.makePlayerInvulnerable();
         }

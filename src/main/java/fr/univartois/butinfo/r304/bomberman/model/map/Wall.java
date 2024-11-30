@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 /**

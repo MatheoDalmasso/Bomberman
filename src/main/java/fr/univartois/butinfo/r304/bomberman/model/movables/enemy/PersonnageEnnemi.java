@@ -1,11 +1,14 @@
 /**
  * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.enemy;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
+import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.deplacement.DeplacementStrategy;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 /**

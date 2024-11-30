@@ -1,7 +1,9 @@
 /**
  * Package PlayerState
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
+
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Joueur;
 
 /**
  * Interface PlayerState : permet de gérer l'état du joueur

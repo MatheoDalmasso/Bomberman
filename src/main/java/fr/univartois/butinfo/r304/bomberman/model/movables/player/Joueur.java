@@ -1,13 +1,19 @@
 /**
  * Classe Joueur : permet de gérer le joueur.
  */
-package fr.univartois.butinfo.r304.bomberman.model.movables;
+package fr.univartois.butinfo.r304.bomberman.model.movables.player;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.map.Lava;
+import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.vie.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.InvulnerableState;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.PlayerState;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.VulnerableState;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.beans.property.IntegerProperty;

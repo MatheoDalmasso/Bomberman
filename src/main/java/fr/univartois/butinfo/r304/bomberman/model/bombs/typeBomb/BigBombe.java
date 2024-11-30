@@ -1,14 +1,16 @@
 /**
  * La classe BigBombe représente une bombe de grande taille.
  */
-package fr.univartois.butinfo.r304.bomberman.model.bombs;
+package fr.univartois.butinfo.r304.bomberman.model.bombs.typeBomb;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.map.BrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.IBombe;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.BrickWallState;
+import fr.univartois.butinfo.r304.bomberman.model.map.wallState.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;

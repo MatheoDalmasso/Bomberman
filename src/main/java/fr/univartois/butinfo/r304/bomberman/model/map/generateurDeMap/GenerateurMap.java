@@ -1,5 +1,7 @@
-package fr.univartois.butinfo.r304.bomberman.model.map;
+package fr.univartois.butinfo.r304.bomberman.model.map.generateurDeMap;
 
+import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
+import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.stage.Stage;
 

@@ -1,13 +1,14 @@
 /**
  * Package contenant les classes du modèle représentant la carte du jeu.
  */
-package fr.univartois.butinfo.r304.bomberman.model.map;
+package fr.univartois.butinfo.r304.bomberman.model.map.wallState;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.GetGameInstance;
 import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupBombe;
 import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupInvincibilite;
 import fr.univartois.butinfo.r304.bomberman.model.bonus.RecupVie;
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
