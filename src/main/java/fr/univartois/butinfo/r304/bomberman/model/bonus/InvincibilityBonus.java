@@ -42,6 +42,61 @@ public class InvincibilityBonus extends AbstractMovable implements IWallState {
     }
 
     @Override
+    public boolean isEnemy() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return true;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return false;
+    }
+
+    @Override
     public void degrade(Wall wall) {
         //
     }

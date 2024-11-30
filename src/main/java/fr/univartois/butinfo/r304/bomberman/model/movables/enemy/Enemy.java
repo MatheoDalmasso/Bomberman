@@ -5,7 +5,6 @@ package fr.univartois.butinfo.r304.bomberman.model.movables.enemy;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.IMovementStrategy;
@@ -71,13 +70,13 @@ public class Enemy extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Enemy) {
+        if (other.isEnemy()) {
             hitEnemy();
         }
         if (!(this.getClass().isAssignableFrom(EnemyWithLife.class))) {
             // Decorateur le fait
         } else {
-            if (other instanceof Explosion) {
+            if (other.isExplosion()) {
                 explode();
             }
         }
@@ -97,6 +96,61 @@ public class Enemy extends AbstractMovable {
     @Override
     public void hitEnemy() {
         // Si un ennemi rentre en collision avec un autre ennemi, il ne se passe rien
+    }
+
+    @Override
+    public boolean isEnemy() {
+        return true;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return false;
     }
 
     /**

@@ -7,7 +7,6 @@ import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.BrickWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
@@ -159,7 +158,7 @@ public class Bomb extends AbstractMovable implements IBomb {
      * @param cell         la cellule
      */
     private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
-        if (state instanceof BrickWallState) {
+        if (state.getSprite().getImage().getUrl().equals(spriteStore.getSprite("bricks").getImage().getUrl())) {
             adjacentCell.getWall().degrade();
             IWallState crackedState = adjacentCell.getWall().getState();
             Cell cellWallReplace = new Cell(new Wall(crackedState, adjacentCell.getWall().getPositionX(), adjacentCell.getWall().getPositionY()));
@@ -177,7 +176,7 @@ public class Bomb extends AbstractMovable implements IBomb {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Explosion) {
+        if (other.isExplosion()) {
             this.explode();
         }
     }
@@ -196,6 +195,61 @@ public class Bomb extends AbstractMovable implements IBomb {
     @Override
     public void hitEnemy() {
         LOGGER.info("La bombe a touché un ennemi");
+    }
+
+    @Override
+    public boolean isEnemy() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return true;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return false;
     }
 
     /**

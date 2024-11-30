@@ -90,6 +90,61 @@ public class FakeBomb extends AbstractMovable implements IBomb {
         //
     }
 
+    @Override
+    public boolean isEnemy() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return true;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return false;
+    }
+
     /**
      * Check si un objet est egal à un autre
      *

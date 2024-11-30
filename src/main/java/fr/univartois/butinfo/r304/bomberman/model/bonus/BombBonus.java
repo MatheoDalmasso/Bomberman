@@ -6,7 +6,6 @@ import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
@@ -31,8 +30,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Player player) {
-            player.addBomb(bomb);
+        if (other.isPlayer()) {
+            addBomb(bomb);
             game.removeMovable(this);
         }
     }
@@ -45,6 +44,61 @@ public class BombBonus extends AbstractMovable implements IWallState {
     @Override
     public void hitEnemy() {
         //
+    }
+
+    @Override
+    public boolean isEnemy() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return true;
     }
 
     @Override
