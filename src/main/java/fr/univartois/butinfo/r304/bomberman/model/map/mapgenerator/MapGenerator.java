@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 /**
- * La classe {@link MapGeneratorGenerator} permet de générer une carte de jeu.
+ * La classe {@link MapGenerator} permet de générer une carte de jeu.
  */
-public abstract class MapGeneratorGenerator implements IMapGenerator {
+public abstract class MapGenerator implements IMapGenerator {
     private final int height;
     private final int width;
     protected SpriteStore spriteStore = SpriteStore.getInstance();
@@ -23,7 +23,7 @@ public abstract class MapGeneratorGenerator implements IMapGenerator {
      * @param height La hauteur de la carte à générer.
      * @param width  La largeur de la carte à générer.
      */
-    public MapGeneratorGenerator(int height, int width) {
+    public MapGenerator(int height, int width) {
         this.height = height;
         this.width = width;
         this.random = new Random();

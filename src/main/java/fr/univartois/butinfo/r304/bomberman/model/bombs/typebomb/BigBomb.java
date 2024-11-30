@@ -107,6 +107,7 @@ public class BigBomb extends AbstractMovable implements IBomb {
         game.addMovable(explosion);
     }
 
+
     /**
      * Crée des explosions adjacentes
      */

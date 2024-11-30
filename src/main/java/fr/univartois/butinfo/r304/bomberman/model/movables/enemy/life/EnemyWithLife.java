@@ -7,7 +7,7 @@ import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractIMovableDecorator;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 
 /**
  * Classe EnemyWithLife : permet de gérer la vie d'un ennemi.
@@ -16,7 +16,7 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     /**
      * L'ennemi à décorer.
      */
-    private final PersonnageEnnemi ennemi;
+    private final Enemy ennemi;
     /**
      * Les points de vie de l'ennemi.
      */
@@ -33,7 +33,7 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
      * @param ennemi L'ennemi à décorer.
      * @param pv     Les points de vie de l'ennemi.
      */
-    public EnemyWithLife(PersonnageEnnemi ennemi, int pv) {
+    public EnemyWithLife(Enemy ennemi, int pv) {
         super(ennemi);
         this.ennemi = ennemi;
         this.pv = pv;
@@ -46,7 +46,7 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof PersonnageEnnemi) {
+        if (other instanceof Enemy) {
             hitEnemy();
         }
         if (other instanceof Explosion && System.currentTimeMillis() - lastHitTime >= 5000) {

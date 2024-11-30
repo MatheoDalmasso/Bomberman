@@ -16,18 +16,19 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.IMapGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGeneratorGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator1;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator2;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator3;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGeneratorGenerator4;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator1;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator2;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator3;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator4;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.InteligentMovement;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.RandomMovement;
@@ -84,50 +85,40 @@ public final class BombermanGame {
      * L'instance de {@link ISpriteStore} permettant de créer les {@link Sprite} du jeu.
      */
     private final ISpriteStore spriteStore;
-
-    /**
-     * La carte du jeu.
-     */
-    private GameMap gameMap;
-
-    /**
-     * Le personnage du joueur.
-     */
-    private Player player;
-
     /**
      * Le nombre de bombes restantes du joueur.
      */
     private final IntegerProperty remainingBombs = new SimpleIntegerProperty(DEFAULT_BOMBS);
-
     /**
      * Le nombre d'ennemis initialement dans le jeu.
      */
     private final int nbEnemies;
-
     private final int nbBoss;
-
     private final int nbSousBoss;
-
+    /**
+     * La liste des objets pouvant se déplacer dans le jeu.
+     */
+    private final List<IMovable> movableObjects = new CopyOnWriteArrayList<>();
+    /**
+     * L'animation du jeu, qui s'assure que les différents objets se déplacent.
+     */
+    private final AnimationTimer animation = new BombermanAnimation(movableObjects);
+    /**
+     * La carte du jeu.
+     */
+    private GameMap gameMap;
+    /**
+     * Le personnage du joueur.
+     */
+    private Player player;
     /**
      * Le nombre d'ennemis restant dans le jeu.
      */
     private int remainingEnemies;
 
     /**
-     * La liste des objets pouvant se déplacer dans le jeu.
-     */
-    private final List<IMovable> movableObjects = new CopyOnWriteArrayList<>();
-
-    /**
-     * L'animation du jeu, qui s'assure que les différents objets se déplacent.
-     */
-    private final AnimationTimer animation = new BombermanAnimation(movableObjects);
-
-    /**
      * Le nombre de bombes restant au joueur.
      */
-
     /**
      * Le contrôleur du jeu.
      */
@@ -287,19 +278,19 @@ public final class BombermanGame {
     private GameMap createMap(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
-                MapGeneratorGenerator map = new MapGeneratorGenerator1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGenerator map = new MapGenerator1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map.genererMap();
             case 2:
-                MapGeneratorGenerator map2 = new MapGeneratorGenerator2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGenerator map2 = new MapGenerator2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map2.genererMap();
             case 3:
-                MapGeneratorGenerator map3 = new MapGeneratorGenerator3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGenerator map3 = new MapGenerator3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map3.genererMap();
             case 4:
-                MapGeneratorGenerator map4 = new MapGeneratorGenerator4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                MapGenerator map4 = new MapGenerator4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
                 startBombTimer();
                 return map4.genererMap();
             default:
@@ -307,13 +298,12 @@ public final class BombermanGame {
         }
     }
 
+    public int getDifficultyLevel() {
+        return difficultyLevel;
+    }
 
     public void setDifficultyLevel(int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
-    }
-
-    public int getDifficultyLevel() {
-        return difficultyLevel;
     }
 
     /**
@@ -361,7 +351,7 @@ public final class BombermanGame {
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            PersonnageEnnemi ennemi = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("skeleton"), new RandomMovement());
+            Enemy ennemi = new Enemy(this, 0, 0, spriteStore.getSprite("skeleton"), new RandomMovement());
             IMovable ennemiAvecSante = new EnemyWithLife(ennemi, 1);
             ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(ennemiAvecSante);
@@ -370,7 +360,7 @@ public final class BombermanGame {
 
         // On crée ensuite les boss sur la carte.
         for (int i = 0; i < nbBoss; i++) {
-            PersonnageEnnemi boss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("sorcier"), new InteligentMovement(player));
+            Enemy boss = new Enemy(this, 0, 0, spriteStore.getSprite("sorcier"), new InteligentMovement(player));
             IMovable bossAvecSante = new EnemyWithLife(boss, 5);
             bossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(bossAvecSante);
@@ -379,7 +369,7 @@ public final class BombermanGame {
 
         // On crée ensuite les boss sur la carte.
         for (int i = 0; i < nbSousBoss; i++) {
-            PersonnageEnnemi sousboss = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("yeti"), new InteligentMovement(player));
+            Enemy sousboss = new Enemy(this, 0, 0, spriteStore.getSprite("yeti"), new InteligentMovement(player));
             IMovable sousBossAvecSante = new EnemyWithLife(sousboss, 3);
             sousBossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(sousBossAvecSante);

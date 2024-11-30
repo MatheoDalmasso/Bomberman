@@ -9,7 +9,7 @@ import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.map.Lava;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.InvulnerableState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.PlayerState;
@@ -83,7 +83,7 @@ public class Player extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof PersonnageEnnemi || other instanceof EnemyWithLife || other instanceof Explosion || other instanceof Lava) {
+        if (other instanceof Enemy || other instanceof EnemyWithLife || other instanceof Explosion || other instanceof Lava) {
             takeDamage(1);
         }
     }

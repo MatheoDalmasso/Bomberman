@@ -1,5 +1,5 @@
 /**
- * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
+ * Classe Enemy : permet de gérer un personnage ennemi.
  */
 package fr.univartois.butinfo.r304.bomberman.model.movables.enemy;
 
@@ -12,9 +12,9 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.IMovem
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 /**
- * Classe PersonnageEnnemi : permet de gérer un personnage ennemi.
+ * Classe Enemy : permet de gérer un personnage ennemi.
  */
-public class PersonnageEnnemi extends AbstractMovable {
+public class Enemy extends AbstractMovable {
 
     /**
      * La stratégie de déplacement du personnage ennemi.
@@ -29,7 +29,7 @@ public class PersonnageEnnemi extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public PersonnageEnnemi(BombermanGame game, double xPosition, double yPosition, Sprite sprite, IMovementStrategy IMovementStrategy) {
+    public Enemy(BombermanGame game, double xPosition, double yPosition, Sprite sprite, IMovementStrategy IMovementStrategy) {
         super(game, xPosition, yPosition, sprite);
         this.IMovementStrategy = IMovementStrategy;
     }
@@ -71,7 +71,7 @@ public class PersonnageEnnemi extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof PersonnageEnnemi) {
+        if (other instanceof Enemy) {
             hitEnemy();
         }
         if (!(this.getClass().isAssignableFrom(EnemyWithLife.class))) {

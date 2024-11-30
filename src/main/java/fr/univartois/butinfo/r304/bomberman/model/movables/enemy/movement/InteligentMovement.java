@@ -3,7 +3,7 @@
  */
 package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement;
 
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.PersonnageEnnemi;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 
 /**
@@ -46,7 +46,7 @@ public class InteligentMovement implements IMovementStrategy {
      * @param delta  Le temps écoulé depuis le dernier déplacement de cet objet (en
      */
     @Override
-    public void deplacer(PersonnageEnnemi ennemi, long delta) {
+    public void deplacer(Enemy ennemi, long delta) {
         double xPlayer = player.getX();
         double yPlayer = player.getY();
 
