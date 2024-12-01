@@ -238,5 +238,4 @@ public interface IMovable {
     boolean isLifeBonus();
 
     boolean isBombBonus();
-
 }

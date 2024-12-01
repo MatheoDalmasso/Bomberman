@@ -6,7 +6,6 @@ package fr.univartois.butinfo.r304.bomberman.model.movables.enemy;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.IMovementStrategy;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
@@ -73,7 +72,7 @@ public class Enemy extends AbstractMovable {
         if (other.isEnemy()) {
             hitEnemy();
         }
-        if (!(this.getClass().isAssignableFrom(EnemyWithLife.class))) {
+        if (!(this.isEnemyWithLife())) {
             // Decorateur le fait
         } else {
             if (other.isExplosion()) {
