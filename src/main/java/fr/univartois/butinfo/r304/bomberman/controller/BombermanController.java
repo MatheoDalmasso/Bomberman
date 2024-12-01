@@ -47,9 +47,19 @@ import java.io.IOException;
  */
 public final class BombermanController implements IBombermanController {
 
-
+    /**
+     * La largeur (en pixels) de la fenêtre affichant le jeu.
+     */
     private static final int GAME_WIDTH = 1080;
+
+    /**
+     * La hauteur (en pixels) de la fenêtre affichant le jeu.
+     */
     private static final int GAME_HEIGHT = 720;
+
+    /**
+     * La taille (en pixels) d'une cellule de la carte du jeu.
+     */
     private static final int CELL_SIZE = 32;
 
     /**
@@ -185,6 +195,9 @@ public final class BombermanController implements IBombermanController {
         }
     }
 
+    /**
+     * Retourne au menu principal.
+     */
     public void returnToMainMenu() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/accueil.fxml"));

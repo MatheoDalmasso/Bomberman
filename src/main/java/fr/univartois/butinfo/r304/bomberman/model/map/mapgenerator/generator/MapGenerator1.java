@@ -10,8 +10,14 @@ import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.WallInvincibleSt
 
 import java.util.Random;
 
+/**
+ * La classe MapGenerator1 génère une carte pour le jeu Bomberman en utilisant une logique spécifique.
+ */
 public class MapGenerator1 extends MapGenerator {
 
+    /**
+     * Le générateur de nombres aléatoires utilisé pour générer la carte.
+     */
     private final Random random;
 
     /**
@@ -25,6 +31,13 @@ public class MapGenerator1 extends MapGenerator {
         this.random = new Random();
     }
 
+    /**
+     * Génère une cellule de la carte à la position spécifiée.
+     *
+     * @param i La position en y de la cellule.
+     * @param j La position en x de la cellule.
+     * @return La cellule générée.
+     */
     @Override
     protected Cell generateCell(int i, int j) {
         IWallState state;
@@ -42,12 +55,25 @@ public class MapGenerator1 extends MapGenerator {
         return new Cell(new Wall(state, j * spriteStore.getSpriteSize(), i * spriteStore.getSpriteSize()));
     }
 
+    /**
+     * Vérifie si la position spécifiée est une bordure de la carte.
+     *
+     * @param i La position en y.
+     * @param j La position en x.
+     * @return true si la position est une bordure, sinon false.
+     */
     private boolean isBorderOfMap(int i, int j) {
         return i == 0 || j == 0 || i == getHeight() - 1 || j == getWidth() - 1;
     }
 
+    /**
+     * Vérifie si la position spécifiée doit contenir un mur.
+     *
+     * @param i La position en y.
+     * @param j La position en x.
+     * @return true si la position doit contenir un mur, sinon false.
+     */
     private boolean isPositionAWall(int i, int j) {
         return i % 3 == 0 && j % 3 == 0;
     }
-
 }

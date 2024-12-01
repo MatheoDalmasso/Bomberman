@@ -42,6 +42,7 @@ public final class Bomberman extends Application {
      */
     private static final int GAME_HEIGHT = 720;
 
+
     /*
      * (non-Javadoc)
      *

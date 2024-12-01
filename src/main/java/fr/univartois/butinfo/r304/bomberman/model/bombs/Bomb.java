@@ -19,9 +19,22 @@ import java.util.logging.Logger;
  * Cette classe représente une bombe dans le jeu Bomberman.
  */
 public class Bomb extends AbstractMovable implements IBomb {
+    /**
+     * Le logger de la classe.
+     */
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackage().getName());
+    /**
+     * Le délai avant l'exp
+     * losion de la bombe.
+     */
     private long delai;
+    /**
+     * Le sprite store.
+     */
     private final SpriteStore spriteStore = SpriteStore.getInstance();
+    /**
+     * Le temps de début de la bombe.
+     */
     private long startTime = -1;
 
 
@@ -197,56 +210,98 @@ public class Bomb extends AbstractMovable implements IBomb {
         LOGGER.info("La bombe a touché un ennemi");
     }
 
+    /**
+     * Gère le fait que cette explosion a touché un joueur.
+     */
     @Override
     public boolean isEnemy() {
         return false;
     }
 
+    /**
+     * Gère le fait que cette explosion a touché un joueur.
+     */
     @Override
     public boolean isPlayer() {
         return false;
     }
 
+    /**
+     * Gère le fait que cette
+     * explosion a touché un joueur.
+     */
     @Override
     public boolean isExplosion() {
         return false;
     }
 
+    /**
+     * Ennemi avec vie
+     * @return
+     */
     @Override
     public boolean isEnemyWithLife() {
         return false;
     }
 
+    /**
+     * C'est de la lave
+     * @return
+     */
     @Override
     public boolean isLava() {
         return false;
     }
 
+    /**
+     * C'est une bombe
+     * @return
+     */
     @Override
     public boolean isBomb() {
         return true;
     }
 
+    /**
+     * C'est une fausse bombe
+     * @return
+     */
     @Override
     public boolean isFakeBomb() {
         return false;
     }
 
+    /**
+     * C'est une grosse bombe
+     * @return
+     */
     @Override
     public boolean isBigBomb() {
         return false;
     }
 
+    /**
+     * C'est un bonus invincible
+     * @return
+     */
     @Override
     public boolean isInvisibleBonus() {
         return false;
     }
 
+    /**
+     * C'est un bonus de vie
+     * @return
+     */
     @Override
     public boolean isLifeBonus() {
         return false;
     }
 
+    /**
+     * C'est un bonus de bombe
+     * @return
+     */
     @Override
     public boolean isBombBonus() {
         return false;

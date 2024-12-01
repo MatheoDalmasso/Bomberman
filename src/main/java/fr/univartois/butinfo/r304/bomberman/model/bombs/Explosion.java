@@ -15,7 +15,13 @@ import java.util.logging.Logger;
  * Cette classe représente une explosion dans le jeu Bomberman.
  */
 public class Explosion extends AbstractMovable {
+    /**
+     * Le logger de la classe.
+     */
     private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackageName());
+    /**
+     * La durée de l'explosion.
+     */
     private final long dureeExplosion;
 
     /**
@@ -76,56 +82,100 @@ public class Explosion extends AbstractMovable {
         LOGGER.info("L'explosion a touché un ennemi");
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est un ennemi.
+     * @return
+     */
     @Override
     public boolean isEnemy() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est un joueur.
+     * @return
+     */
     @Override
     public boolean isPlayer() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est une explosion.
+     * @return
+     */
     @Override
     public boolean isExplosion() {
         return true;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est un ennemi avec une vie.
+     * @return
+     */
     @Override
     public boolean isEnemyWithLife() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est de la lave.
+     * @return
+     */
     @Override
     public boolean isLava() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est une bombe.
+     * @return
+     */
     @Override
     public boolean isBomb() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est une fausse bombe.
+     * @return
+     */
     @Override
     public boolean isFakeBomb() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est une grosse bombe.
+     * @return
+     */
     @Override
     public boolean isBigBomb() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est un bonus invincible.
+     * @return
+     */
     @Override
     public boolean isInvisibleBonus() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est un bonus de vie.
+     * @return
+     */
     @Override
     public boolean isLifeBonus() {
         return false;
     }
 
+    /**
+     * Cette méthode permet de savoir si l'objet est un bonus de bombe.
+     * @return
+     */
     @Override
     public boolean isBombBonus() {
         return false;

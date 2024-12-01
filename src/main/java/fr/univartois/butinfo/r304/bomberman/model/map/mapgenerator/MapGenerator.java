@@ -49,10 +49,18 @@ public abstract class MapGenerator implements IMapGenerator {
      */
     protected abstract Cell generateCell(int i, int j);
 
+    /**
+     * Récupère la hauteur de la carte.
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Récupère la largeur de la carte.
+     * @return
+     */
     public int getWidth() {
         return width;
     }

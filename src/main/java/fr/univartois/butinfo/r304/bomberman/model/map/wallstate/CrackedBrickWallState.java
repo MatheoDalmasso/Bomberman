@@ -18,9 +18,21 @@ import java.util.Random;
  * Classe représentant l'état d'un mur en brique fissuré.
  */
 public class CrackedBrickWallState implements IWallState {
+    /**
+     * Le sprite représentant le mur en brique fissuré.
+     */
     private final Sprite sprite;
+    /**
+     * Le jeu Bomberman.
+     */
     private final BombermanGame game = GetGameInstance.getInstance();
+    /**
+     * Le magasin de sprites.
+     */
     private final SpriteStore spriteStore = SpriteStore.getInstance();
+    /**
+     * Le générateur de nombres aléatoires.
+     */
     private final Random random = new Random();
 
     /**

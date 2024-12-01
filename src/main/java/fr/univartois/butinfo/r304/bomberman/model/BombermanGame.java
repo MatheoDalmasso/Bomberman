@@ -79,7 +79,9 @@ public final class BombermanGame {
      */
     private final int height;
 
-
+    /**
+     * L'instance de {@link IMapFactory} permettant de créer les {@link GameMap} du jeu.
+     */
     private IMapFactory mapFactory;
 
     /**
@@ -94,7 +96,15 @@ public final class BombermanGame {
      * Le nombre d'ennemis initialement dans le jeu.
      */
     private final int nbEnemies;
+
+    /**
+     * Le nombre de boss initialement dans le jeu.
+     */
     private final int nbBoss;
+
+    /**
+     * Le nombre de sous boss initialement dans le jeu.
+     */
     private final int nbSousBoss;
     /**
      * La liste des objets pouvant se déplacer dans le jeu.
@@ -221,6 +231,11 @@ public final class BombermanGame {
         this.controller = controller;
     }
 
+    /**
+     * Donne le générateur de la carte du jeu.
+     *
+     * @return Le générateur de la carte du jeu.
+     */
     public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;
     }
@@ -256,7 +271,11 @@ public final class BombermanGame {
         return height;
     }
 
-
+    /**
+     * Prépare une nouvelle partie de Bomberman.
+     *
+     * @param difficultyLevel Le niveau de difficulté de la partie.
+     */
     public void prepare(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
@@ -283,7 +302,6 @@ public final class BombermanGame {
      *
      * @return La carte du jeu ayant été créée.
      */
-
     private GameMap createMap(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
@@ -308,10 +326,20 @@ public final class BombermanGame {
         return mapFactory.createMap();
     }
 
+    /**
+     * Donne le niveau de difficulté de la partie.
+     *
+     * @return Le niveau de difficulté de la partie.
+     */
     public int getDifficultyLevel() {
         return difficultyLevel;
     }
 
+    /**
+     * Modifie le niveau de difficulté de la partie.
+     *
+     * @param difficultyLevel Le nouveau niveau de difficulté de la partie.
+     */
     public void setDifficultyLevel(int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
