@@ -21,8 +21,12 @@ import fr.univartois.butinfo.r304.bomberman.model.IBombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import javafx.animation.PauseTransition;
 import javafx.beans.binding.IntegerExpression;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -30,6 +34,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.io.IOException;
 
 /**
  * La classe {@link BombermanController} fournit le contrôleur permettant de jouer au jeu
@@ -39,6 +46,11 @@ import javafx.stage.Stage;
  * @version 0.1.0
  */
 public final class BombermanController implements IBombermanController {
+
+
+    private static final int GAME_WIDTH = 1080;
+    private static final int GAME_HEIGHT = 720;
+    private static final int CELL_SIZE = 32;
 
     /**
      * La partie du jeu Bomberman en cours.
@@ -140,6 +152,9 @@ public final class BombermanController implements IBombermanController {
                 backgroundPane.add(view, column, row);
             }
         }
+        backgroundPane.setLayoutX((GAME_WIDTH - map.getWidth() * CELL_SIZE) / 2);
+        backgroundPane.setLayoutY((GAME_HEIGHT - map.getHeight() * CELL_SIZE) / 2);
+
     }
 
     /**
@@ -161,10 +176,23 @@ public final class BombermanController implements IBombermanController {
             // La partie démarre à la première touche appuyée.
             started = true;
             message.setVisible(false);
-            game.start();
+
+            // Démarre le jeu avec le niveau de difficulté approprié.
+            game.start(game.getDifficultyLevel());
         } else if (" ".equals(e.getCharacter())) {
             // La partie a commencé : il faut déposer une bombe.
             game.dropBomb();
+        }
+    }
+
+    public void returnToMainMenu() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/accueil.fxml"));
+            Parent viewContent = fxmlLoader.load();
+            Scene scene = new Scene(viewContent, GAME_WIDTH, GAME_HEIGHT);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -270,8 +298,14 @@ public final class BombermanController implements IBombermanController {
     public void gameOver(String endMessage) {
         started = false;
         message.setVisible(true);
-        message.setText(endMessage + "\nPRESS ANY KEY TO RESTART...");
+        message.setText(endMessage);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> returnToMainMenu());
+        pause.play();
     }
+
+
 
     /*
      * (non-Javadoc)

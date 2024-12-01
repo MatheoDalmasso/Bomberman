@@ -6,7 +6,6 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
 import java.util.logging.LogManager;
@@ -16,8 +15,8 @@ import java.util.logging.Logger;
  * Cette classe représente une explosion dans le jeu Bomberman.
  */
 public class Explosion extends AbstractMovable {
-    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bombe.class.getPackageName());
-    private long dureeExplosion;
+    private static final Logger LOGGER = LogManager.getLogManager().getLogger(Bomb.class.getPackageName());
+    private final long dureeExplosion;
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -27,7 +26,7 @@ public class Explosion extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
         this.dureeExplosion = System.currentTimeMillis();
     }
@@ -54,7 +53,7 @@ public class Explosion extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof EnemyWithLife) {
+        if (other.isEnemyWithLife()) {
             // Decorator le fait
         } else {
             other.explode();
@@ -75,6 +74,61 @@ public class Explosion extends AbstractMovable {
     @Override
     public void hitEnemy() {
         LOGGER.info("L'explosion a touché un ennemi");
+    }
+
+    @Override
+    public boolean isEnemy() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return false;
     }
 
     /**

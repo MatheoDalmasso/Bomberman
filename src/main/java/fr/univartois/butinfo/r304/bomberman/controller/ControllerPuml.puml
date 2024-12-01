@@ -1,0 +1,68 @@
+@startuml
+package controller {
+    class BombermanController {
+        - BombermanGame game
+        - Stage stage
+        - GridPane backgroundPane
+        - Pane movingPane
+        - Label score
+        - Label bombs
+        - Label life
+        - Label message
+        - boolean started
+        + void setStage(Stage stage)
+        + void setGame(BombermanGame game)
+        + void prepare(GameMap map)
+        - void createBackground(GameMap map)
+        - void addKeyListeners()
+        - void handleKeyTyped(KeyEvent e)
+        - void returnToMainMenu()
+        - void handleKeyPressed(KeyEvent e)
+        - void handleKeyReleased(KeyEvent e)
+        + void bindScore(IntegerExpression scoreProperty)
+        + void bindBombs(IntegerExpression bombsProperty)
+        + void bindLife(IntegerExpression lifeProperty)
+        + void addMovable(IMovable movable)
+        + void gameOver(String endMessage)
+        + void reset()
+    }
+
+    class HomeController {
+        - SpriteStore spriteStore
+        - Button buttonLevel1
+        - Button buttonLevel2
+        - Button buttonLevel3
+        - Button buttonLevel4
+        + void onClickEasy(ActionEvent actionEvent) throws IOException
+        + void onClickMedium(ActionEvent actionEvent) throws IOException
+        + void onClickHard(ActionEvent actionEvent) throws IOException
+        + void onClickImpossible(ActionEvent actionEvent) throws IOException
+    }
+
+    interface IBombermanController {
+        + void bindScore(IntegerExpression scoreProperty)
+        + void bindBombs(IntegerExpression bombsProperty)
+        + void bindLife(IntegerExpression lifeProperty)
+        + void addMovable(IMovable movable)
+        + void gameOver(String endMessage)
+        + void reset()
+    }
+}
+
+BombermanController --> BombermanGame
+BombermanController --> Stage
+BombermanController --> GridPane
+BombermanController --> Pane
+BombermanController --> Label
+BombermanController --> KeyEvent
+BombermanController --> IntegerExpression
+BombermanController --> IMovable
+BombermanController --> GameMap
+BombermanController ..|> IBombermanController
+
+HomeController --> SpriteStore
+HomeController --> Button
+HomeController --> ActionEvent
+HomeController --> IOException
+IOException --> Exception
+@enduml

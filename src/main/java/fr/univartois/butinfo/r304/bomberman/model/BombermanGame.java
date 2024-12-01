@@ -16,23 +16,30 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import fr.univartois.butinfo.r304.bomberman.model.bombs.BigBombe;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Bombe;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.FakeBombe;
+
+import fr.univartois.butinfo.r304.bomberman.controller.BombermanController;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.GenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.map.IGenerateurMap;
-import fr.univartois.butinfo.r304.bomberman.model.movables.*;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.IMapGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.factory.*;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator1;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator2;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator3;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator4;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.InteligentMovement;
+import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.RandomMovement;
+import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Alert;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -51,17 +58,17 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    public static final Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
      */
-    public static final int DEFAULT_SPEED = 75;
+    private static final int DEFAULT_SPEED = 75;
 
     /**
      * Le nombre de bombes initialement disponibles pour le joueur.
      */
-    public static final int DEFAULT_BOMBS = 5;
+    private static final int DEFAULT_BOMBS = 5;
 
     /**
      * La largeur de la carte du jeu (en pixels).
@@ -73,47 +80,47 @@ public final class BombermanGame {
      */
     private final int height;
 
+
+    private IMapFactory mapFactory;
+
     /**
      * L'instance de {@link ISpriteStore} permettant de créer les {@link Sprite} du jeu.
      */
     private final ISpriteStore spriteStore;
-
+    /**
+     * Le nombre de bombes restantes du joueur.
+     */
+    private final IntegerProperty remainingBombs = new SimpleIntegerProperty(DEFAULT_BOMBS);
+    /**
+     * Le nombre d'ennemis initialement dans le jeu.
+     */
+    private final int nbEnemies;
+    private final int nbBoss;
+    private final int nbSousBoss;
+    /**
+     * La liste des objets pouvant se déplacer dans le jeu.
+     */
+    private final List<IMovable> movableObjects = new CopyOnWriteArrayList<>();
+    /**
+     * L'animation du jeu, qui s'assure que les différents objets se déplacent.
+     */
+    private final AnimationTimer animation = new BombermanAnimation(movableObjects);
     /**
      * La carte du jeu.
      */
     private GameMap gameMap;
-
     /**
      * Le personnage du joueur.
      */
-    private Joueur player;
-
-    private final IntegerProperty remainingBombs = new SimpleIntegerProperty(DEFAULT_BOMBS);
-
-    /**
-     * Le nombre d'ennemis initialement dans le jeu.
-     */
-    private int nbEnemies;
-
+    private Player player;
     /**
      * Le nombre d'ennemis restant dans le jeu.
      */
     private int remainingEnemies;
 
     /**
-     * La liste des objets pouvant se déplacer dans le jeu.
-     */
-    private final List<IMovable> movableObjects = new CopyOnWriteArrayList<>();
-
-    /**
-     * L'animation du jeu, qui s'assure que les différents objets se déplacent.
-     */
-    private final AnimationTimer animation = new BombermanAnimation(movableObjects);
-
-    /**
      * Le nombre de bombes restant au joueur.
      */
-
     /**
      * Le contrôleur du jeu.
      */
@@ -122,7 +129,12 @@ public final class BombermanGame {
     /**
      * Le générateur de la carte du jeu.
      */
-    private IGenerateurMap generateurMap; // NOSONAR
+    private IMapGenerator generateurMap; // NOSONAR
+
+    /**
+     * Le niveau de difficulté
+     */
+    private int difficultyLevel;
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -133,11 +145,14 @@ public final class BombermanGame {
      *                    {@link Sprite} du jeu.
      * @param nbEnemies   Le nombre d'ennemis dans le jeu.
      */
-    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies) {
+    public BombermanGame(int gameWidth, int gameHeight, ISpriteStore spriteStore, int nbEnemies, int nbBoss, int nbSousBoss) {
         this.width = gameWidth;
         this.height = gameHeight;
         this.spriteStore = spriteStore;
         this.nbEnemies = nbEnemies;
+        this.nbBoss = nbBoss;
+        this.nbSousBoss = nbSousBoss;
+        GetGameInstance.setInstance(this); // Donne l'instance de BombermanGame
     }
 
     /**
@@ -150,38 +165,24 @@ public final class BombermanGame {
         bombTimer.play();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     /**
      * Incrémente le nombre de bombes restantes du joueur.
      */
-    private void incrementBombCount() {
-        addBombToPlayer();
+    public void incrementBombCount() {
         remainingBombs.set(remainingBombs.get() + 1);
+        addBombToPlayer();
     }
 
     /**
      * Ajoute une bombe au joueur.
      */
     private void addBombToPlayer() {
-        Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
-        player.addBombe(bomb);
-    }
-
-    private void showGameRules() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Rules");
-        alert.setHeaderText("Welcome to Bomberman!");
-        alert.setContentText("""
-                Rules:
-                1. Use arrow keys to move your character or use z, q, s, d.
-                2. Press space to drop a bomb.
-                3. Kill all enemies to win the game (you need to kill them with your bombs. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls).
-                4. If you lose one life, you will be invulnerable for 5 seconds.
-                5. Every 15 seconds, we will give you 1 bomb.
-
-                Good luck!
-                """);
-        alert.showAndWait();
-        startBombTimer();
+        Bomb bomb = new Bomb(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
+        player.addBomb(bomb);
     }
 
 
@@ -221,7 +222,7 @@ public final class BombermanGame {
         this.controller = controller;
     }
 
-    public void setGenerateurMap(IGenerateurMap generateurMap) {
+    public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;
     }
 
@@ -232,6 +233,10 @@ public final class BombermanGame {
      */
     public ISpriteStore getSpriteStore() {
         return spriteStore;
+    }
+
+    public void setMapFactory(IMapFactory mapFactory) {
+        this.mapFactory = mapFactory;
     }
 
     /**
@@ -252,12 +257,25 @@ public final class BombermanGame {
         return height;
     }
 
-    /**
-     * Prépare une partie de Bomberman avant qu'elle ne démarre.
-     */
-    public void prepare() {
-        showGameRules();
-        gameMap = createMap();
+
+    public void prepare(int difficultyLevel) {
+        switch (difficultyLevel) {
+            case 1:
+                gameMap = createMap(1);
+                break;
+            case 2:
+                gameMap = createMap(2);
+                break;
+            case 3:
+                gameMap = createMap(3);
+                break;
+            case 4:
+                gameMap = createMap(4);
+                controller.prepare(gameMap);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+        }
         controller.prepare(gameMap);
     }
 
@@ -266,20 +284,64 @@ public final class BombermanGame {
      *
      * @return La carte du jeu ayant été créée.
      */
-    private GameMap createMap() {
-        GenerateurMap map = new GenerateurMap(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
-        return map.genererMap();
+
+    private GameMap createMap(int difficultyLevel) {
+        switch (difficultyLevel) {
+            case 1:
+                setMapFactory(new MapFactory1(height , width, spriteStore));
+                startBombTimer();
+                break;
+            case 2:
+                setMapFactory(new MapFactory2(height , width, spriteStore));
+                startBombTimer();
+                break;
+            case 3:
+                setMapFactory(new MapFactory3(height , width, spriteStore));
+                startBombTimer();
+                break;
+            case 4:
+                setMapFactory(new MapFactory4(height , width, spriteStore));
+                startBombTimer();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+        }
+        return mapFactory.createMap();
+    }
+
+    public int getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(int difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
     }
 
     /**
      * Démarre la partie de Bomberman.
      */
-    public void start() {
-        prepare();
+    public void start(int difficultyLevel) {
+        switch (difficultyLevel) {
+            case 1:
+                prepare(1);
+                break;
+            case 2:
+                prepare(2);
+                break;
+            case 3:
+                prepare(3);
+                break;
+            case 4:
+                prepare(4);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+        }
         createMovables();
         initStatistics();
         animation.start();
     }
+
 
     /**
      * Crée les différents objets présents au début de la partie et pouvant se déplacer.
@@ -288,33 +350,43 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Joueur(this, 0, 0, spriteStore.getSprite("guy"));
+        player = new Player(this, 0, 0, spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            Bombe bomb = new Bombe(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
-            player.addBombe(bomb);
+            Bomb bomb = new Bomb(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"), 4000);
+            player.addBomb(bomb);
         }
 
-        int x = RANDOM.nextInt(2);
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            if (x == 0) {
-                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementAleatoire());
-                IMovable ennemiAvecSante = new EnemyWithLife(ennemiAleatoire, 6); //Faut rajouter l'invincibilité sinon il meurt vite ou un timer entre les dégats
-                ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
-                movableObjects.add(ennemiAvecSante);
-                spawnMovable(ennemiAvecSante);
-            } else {
-                PersonnageEnnemi ennemiAleatoire = new PersonnageEnnemi(this, 0, 0, spriteStore.getSprite("goblin"), new DeplacementIntelligent(player));
-                ennemiAleatoire.setVerticalSpeed(DEFAULT_SPEED);
-                movableObjects.add(ennemiAleatoire);
-                spawnMovable(ennemiAleatoire);
-            }
-
+            Enemy ennemi = new Enemy(this, 0, 0, spriteStore.getSprite("skeleton"), new RandomMovement());
+            IMovable ennemiAvecSante = new EnemyWithLife(ennemi, 1);
+            ennemiAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(ennemiAvecSante);
+            spawnMovable(ennemiAvecSante);
         }
+
+        // On crée ensuite les boss sur la carte.
+        for (int i = 0; i < nbBoss; i++) {
+            Enemy boss = new Enemy(this, 0, 0, spriteStore.getSprite("sorcier"), new InteligentMovement(player));
+            IMovable bossAvecSante = new EnemyWithLife(boss, 5);
+            bossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(bossAvecSante);
+            spawnMovable(bossAvecSante);
+        }
+
+        // On crée ensuite les boss sur la carte.
+        for (int i = 0; i < nbSousBoss; i++) {
+            Enemy sousboss = new Enemy(this, 0, 0, spriteStore.getSprite("yeti"), new InteligentMovement(player));
+            IMovable sousBossAvecSante = new EnemyWithLife(sousboss, 3);
+            sousBossAvecSante.setHorizontalSpeed(DEFAULT_SPEED);
+            movableObjects.add(sousBossAvecSante);
+            spawnMovable(sousBossAvecSante);
+        }
+
     }
 
 
@@ -395,18 +467,24 @@ public final class BombermanGame {
             int spriteSize = spriteStore.getSpriteSize();
             int mapWidth = getWidth();
             int mapHeight = getHeight();
-            if (randomBomb < 2) {
+
+            // Interdire les BigBomb et FakeBomb dans le niveau 1
+            if (difficultyLevel == 1 && randomBomb < 2) {
+                randomBomb = 4; // Changer la valeur pour éviter de créer une BigBomb ou FakeBomb
+            }
+
+            if (randomBomb < 2 && difficultyLevel > 1) {
                 if (playerX > spriteSize && playerX < (mapWidth - spriteSize * 2) && playerY > spriteSize && playerY < (mapHeight - spriteSize * 2)) {
-                    BigBombe bomb = new BigBombe(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
+                    BigBomb bomb = new BigBomb(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
                     dropBomb(bomb);
                     player.getBombs().removeFirst();
                 }
-            } else if (randomBomb == 3) {
-                FakeBombe bomb = new FakeBombe(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
+            } else if (randomBomb == 3 && difficultyLevel > 1) {
+                FakeBomb bomb = new FakeBomb(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
                 dropBomb(bomb);
                 player.getBombs().removeFirst();
             } else {
-                Bombe bomb = player.getBombs().removeFirst();
+                Bomb bomb = player.getBombs().removeFirst();
                 dropBomb(bomb);
             }
         }
@@ -418,7 +496,7 @@ public final class BombermanGame {
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(Bombe bomb) {
+    public void dropBomb(Bomb bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
@@ -428,11 +506,11 @@ public final class BombermanGame {
     }
 
     /**
-     * Dépose une BigBombe sur la tuile où se trouve le joueur
+     * Dépose une BigBomb sur la tuile où se trouve le joueur
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(BigBombe bomb) {
+    public void dropBomb(BigBomb bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
@@ -443,11 +521,11 @@ public final class BombermanGame {
     }
 
     /**
-     * Dépose une FakeBombe sur la tuile où se trouve le joueur
+     * Dépose une FakeBomb sur la tuile où se trouve le joueur
      *
      * @param bomb La bombe à déposer.
      */
-    public void dropBomb(FakeBombe bomb) {
+    public void dropBomb(FakeBomb bomb) {
         Cell cell = getCellOf(player);
 
         bomb.setX(cell.getColumn() * spriteStore.getSpriteSize());
@@ -473,7 +551,7 @@ public final class BombermanGame {
      * @param movable L'objet mobile dont la cellule doit être récupérée.
      * @return La cellule occupée par l'objet mobile.
      */
-    protected Cell getCellOf(IMovable movable) {
+    private Cell getCellOf(IMovable movable) {
         // On commence par récupérer la position du centre de l'objet.
         int midX = movable.getX() + (movable.getWidth() / 2);
         int midY = movable.getY() + (movable.getHeight() / 2);
@@ -539,7 +617,7 @@ public final class BombermanGame {
 
         if (remainingEnemies == 0) {
             // Tous les aliens ont été tués : la partie est terminée.
-            gameOver("YOU WIN!");
+            gameOver("YOU WIN! Returning to the main menu in 2 seconds...");
         }
     }
 
@@ -547,7 +625,7 @@ public final class BombermanGame {
      * Termine la partie lorsque le joueur est tué.
      */
     public void playerIsDead() {
-        gameOver("YOU HAVE BEEN KILLED!");
+        gameOver("YOU HAVE BEEN KILLED! Returning to the main menu in 2 seconds...");
     }
 
     /**

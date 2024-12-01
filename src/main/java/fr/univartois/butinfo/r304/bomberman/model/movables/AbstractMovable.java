@@ -18,6 +18,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.*;
 import javafx.scene.shape.Rectangle;
@@ -27,7 +28,6 @@ import javafx.scene.shape.Rectangle;
  * élémentaires pouvant se déplacer dans le jeu.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public abstract class AbstractMovable implements IMovable {
@@ -75,10 +75,10 @@ public abstract class AbstractMovable implements IMovable {
     /**
      * Crée une nouvelle instance de AbstractMovable.
      *
-     * @param game Le jeu dans lequel l'objet évolue.
+     * @param game      Le jeu dans lequel l'objet évolue.
      * @param xPosition La position en x initiale de l'objet.
      * @param yPosition La position en y initiale de l'objet.
-     * @param sprite L'instance de {@link Sprite} représentant l'objet.
+     * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
     protected AbstractMovable(BombermanGame game, double xPosition,
                               double yPosition, Sprite sprite) {
@@ -312,7 +312,6 @@ public abstract class AbstractMovable implements IMovable {
      *
      * @param x La nouvelle position en x de l'objet.
      * @param y La nouvelle position en y de l'objet.
-     *
      * @return Si la nouvelle position de l'objet est sur un mur.
      */
     private boolean isOnWall(int x, int y) {
@@ -363,6 +362,14 @@ public abstract class AbstractMovable implements IMovable {
     @Override
     public IMovable self() {
         return this;
+    }
+
+    public void addBomb(Bomb bomb) {
+        // Ne fait rien, cette méthode est implémenté dans joueur
+    }
+
+    public void addLife(int life) {
+        // Ne fait rien, cette méthode est implémenté dans joueur
     }
 
     /*

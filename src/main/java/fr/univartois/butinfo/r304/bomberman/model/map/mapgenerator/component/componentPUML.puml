@@ -1,0 +1,11 @@
+@startuml
+package component {
+
+    interface IMapComponent {
+        + void add(IMapComponent component);
+        + void remove(IMapComponent component);
+        + IMapComponent getChild(int index);
+        + void display();
+    }
+}
+@enduml

@@ -1,6 +1,6 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
+ * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,13 +9,14 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
+ * <p>
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -26,7 +27,6 @@ import javafx.beans.property.ObjectProperty;
  * de se déplacer.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public interface IMovable {
@@ -104,7 +104,6 @@ public interface IMovable {
      * Donne la propriété de cet objet liée au fait qu'il a été ou non consommé.
      *
      * @return La propriété de cet objet liée au fait qu'il a été ou non consommé.
-     *
      * @see #isConsumed()
      */
     BooleanProperty isConsumedProperty();
@@ -129,6 +128,20 @@ public interface IMovable {
      * @param speed La nouvelle vitesse verticale de cet objet (en pixels/s).
      */
     void setVerticalSpeed(double speed);
+
+    /**
+     * Ajoute une bombe au joueur
+     *
+     * @param bomb la bombe à ajouter
+     */
+    void addBomb(Bomb bomb);
+
+    /**
+     * Ajoute de la vie au joueur
+     *
+     * @param life Le nombre de vies à ajouter
+     */
+    void addLife(int life);
 
     /**
      * Donne la vitesse verticale de cet objet.
@@ -163,11 +176,10 @@ public interface IMovable {
      * écoulé depuis son dernier déplacement et sa vitesse actuelle.
      *
      * @param timeDelta Le temps écoulé depuis le dernier déplacement de cet objet (en
-     *        millisecondes).
-     *
+     *                  millisecondes).
      * @return Si l'objet a pu être déplacé.
-     *         Si ce n'est pas le cas, il a atteint le bord de la fenêtre, et est donc
-     *         bloqué.
+     * Si ce n'est pas le cas, il a atteint le bord de la fenêtre, et est donc
+     * bloqué.
      */
     boolean move(long timeDelta);
 
@@ -176,7 +188,6 @@ public interface IMovable {
      * {@link IMovable}.
      *
      * @param other L'objet avec lequel la collision doit être vérifiée.
-     *
      * @return Si cet objet est entré en collision avec {@code other}.
      */
     boolean isCollidingWith(IMovable other);
@@ -206,4 +217,25 @@ public interface IMovable {
      */
     IMovable self();
 
+    boolean isEnemy();
+
+    boolean isPlayer();
+
+    boolean isExplosion();
+
+    boolean isEnemyWithLife();
+
+    boolean isLava();
+
+    boolean isBomb();
+
+    boolean isFakeBomb();
+
+    boolean isBigBomb();
+
+    boolean isInvisibleBonus();
+
+    boolean isLifeBonus();
+
+    boolean isBombBonus();
 }

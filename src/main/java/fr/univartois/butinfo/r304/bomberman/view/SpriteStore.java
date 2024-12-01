@@ -34,10 +34,23 @@ import javafx.scene.image.Image;
 public final class SpriteStore implements ISpriteStore {
 
     /**
+     * Retourne l'instance unique de la classe {@link SpriteStore}.
+     */
+    private static final SpriteStore instance = new SpriteStore();
+
+    /**
      * La {@link Map} permettant de conserver en cache les différentes instances de
      * {@link Sprite} déjà chargées.
      */
     private final Map<String, Sprite> spriteCache = new HashMap<>();
+
+    private SpriteStore() {
+        // Constructeur privé pour empêcher l'instanciation de la classe.
+    }
+
+    public static SpriteStore getInstance() {
+        return instance;
+    }
 
     /*
      * (non-Javadoc)

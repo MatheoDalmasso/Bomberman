@@ -1,0 +1,49 @@
+@startuml
+package movement {
+
+  interface IMovementStrategy {
+    +deplacer(Enemy ennemi, long delta)
+  }
+
+  class InteligentMovement {
+    - Player player
+    - static final int TEMPS_MOUVEMENT
+    - static final double DISTANCE_PIXELS_DU_MOUVEMENT
+    - static final double SPEED
+    + InteligentMovement(Player player)
+    + deplacer(Enemy ennemi, long delta)
+  }
+
+  class RandomMovement {
+    - Random random
+    - int direction
+    - long debutMouvement
+    - static final int TEMPS_MOUVEMENT
+    - static final double DISTANCE_PIXELS_DU_MOUVEMENT
+    - static final double SPEED
+    + deplacer(Enemy ennemi, long delta)
+    - changeDirection()
+  }
+
+  InteligentMovement ..|> IMovementStrategy
+  RandomMovement ..|> IMovementStrategy
+
+  class Enemy {
+    +double getX()
+    +double getY()
+    +void setHorizontalSpeed(double speed)
+    +void setVerticalSpeed(double speed)
+    +boolean superMove(long delta)
+  }
+
+  class Player {
+    +double getX()
+    +double getY()
+  }
+
+  IMovementStrategy --> Enemy
+  InteligentMovement --> Player
+  Enemy --> IMovementStrategy : "strategy"
+}
+
+@enduml
