@@ -17,7 +17,7 @@ package mapgenerator {
         + int getHeight() ;
         + int getWidth();
     }
-    
+
 MapGenerator ..|> IMapGenerator
 
 
