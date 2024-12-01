@@ -12,4 +12,5 @@ public interface IBomb {
     void explode();
 
     void hitEnemy();
+
 }
