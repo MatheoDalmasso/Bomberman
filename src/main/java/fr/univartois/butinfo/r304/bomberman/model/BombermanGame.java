@@ -17,6 +17,7 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 
+import fr.univartois.butinfo.r304.bomberman.controller.BombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
@@ -36,10 +37,7 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.Random
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -81,6 +79,7 @@ public final class BombermanGame {
      * La hauteur de la carte du jeu (en pixels).
      */
     private final int height;
+
 
     private IMapFactory mapFactory;
 
@@ -618,7 +617,7 @@ public final class BombermanGame {
 
         if (remainingEnemies == 0) {
             // Tous les aliens ont été tués : la partie est terminée.
-            gameOver("YOU WIN!");
+            gameOver("YOU WIN! Returning to the main menu in 2 seconds...");
         }
     }
 
@@ -626,7 +625,7 @@ public final class BombermanGame {
      * Termine la partie lorsque le joueur est tué.
      */
     public void playerIsDead() {
-        gameOver("YOU HAVE BEEN KILLED!");
+        gameOver("YOU HAVE BEEN KILLED! Returning to the main menu in 2 seconds...");
     }
 
     /**
