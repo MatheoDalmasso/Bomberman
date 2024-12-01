@@ -32,13 +32,6 @@ import javafx.scene.image.Image;
  */
 public record Sprite(Image image) {
 
-    /**
-     * Crée une nouvelle instance de {@link Sprite}.
-     *
-     * @param image L'image associée à l'instance de {@link Sprite}.
-     */
-    public Sprite {
-    }
 
     /**
      * Donne la largeur de l'image associée, mesurée en nombre de pixels.
@@ -58,15 +51,6 @@ public record Sprite(Image image) {
         return (int) image.getHeight();
     }
 
-    /**
-     * Donne l'image associée à cette instance de {@link Sprite}.
-     *
-     * @return L'image associée à cette instance de {@link Sprite}.
-     */
-    @Override
-    public Image image() {
-        return image;
-    }
 
     /**
      * Dessine cette instance de {@link Sprite} sur un {@link GraphicsContext} donné.
