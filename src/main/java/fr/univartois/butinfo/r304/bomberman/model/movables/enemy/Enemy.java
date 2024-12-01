@@ -17,7 +17,7 @@ public class Enemy extends AbstractMovable {
     /**
      * La stratégie de déplacement du personnage ennemi.
      */
-    private IMovementStrategy IMovementStrategy; //Instance du patron de conception Strategy
+    private IMovementStrategy iMovementStrategy; //Instance du patron de conception Strategy
 
     /**
      * Crée une nouvelle instance de AbstractMovable.
@@ -27,18 +27,18 @@ public class Enemy extends AbstractMovable {
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    public Enemy(BombermanGame game, double xPosition, double yPosition, Sprite sprite, IMovementStrategy IMovementStrategy) {
+    public Enemy(BombermanGame game, double xPosition, double yPosition, Sprite sprite, IMovementStrategy iMovementStrategy) {
         super(game, xPosition, yPosition, sprite);
-        this.IMovementStrategy = IMovementStrategy;
+        this.iMovementStrategy = iMovementStrategy;
     }
 
     /**
      * Permet de mettre la stratégie de déplacement du personnage ennemi.
      *
-     * @param IMovementStrategy La stratégie de déplacement du personnage ennemi.
+     * @param iMovementStrategy La stratégie de déplacement du personnage ennemi.
      */
-    public void setDeplacementStrategy(IMovementStrategy IMovementStrategy) {
-        this.IMovementStrategy = IMovementStrategy;
+    public void setDeplacementStrategy(IMovementStrategy iMovementStrategy) {
+        this.iMovementStrategy = iMovementStrategy;
     }
 
     /**
@@ -48,7 +48,7 @@ public class Enemy extends AbstractMovable {
      */
     @Override
     public boolean move(long delta) {
-        IMovementStrategy.deplacer(this, delta);
+        iMovementStrategy.deplacer(this, delta);
         return true;
     }
 

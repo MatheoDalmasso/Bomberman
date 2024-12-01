@@ -1,9 +1,11 @@
 package fr.univartois.butinfo.r304.bomberman.view;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+
 import java.util.List;
 
 public class SpriteAnimator {
@@ -15,7 +17,7 @@ public class SpriteAnimator {
         this.frames = frames;
         this.currentFrameIndex = 0;
         this.animation = new Timeline(new KeyFrame(Duration.millis(frameDuration), event -> nextFrame()));
-        this.animation.setCycleCount(Timeline.INDEFINITE);
+        this.animation.setCycleCount(Animation.INDEFINITE);
     }
 
     private void nextFrame() {
