@@ -24,6 +24,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.IMapGenerator;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGenerator;
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.factory.*;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator1;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator2;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator3;
@@ -80,6 +81,8 @@ public final class BombermanGame {
      * La hauteur de la carte du jeu (en pixels).
      */
     private final int height;
+
+    private IMapFactory mapFactory;
 
     /**
      * L'instance de {@link ISpriteStore} permettant de créer les {@link Sprite} du jeu.
@@ -229,6 +232,10 @@ public final class BombermanGame {
         return spriteStore;
     }
 
+    public void setMapFactory(IMapFactory mapFactory) {
+        this.mapFactory = mapFactory;
+    }
+
     /**
      * Donne la largeur de la carte du jeu (en pixels).
      *
@@ -278,24 +285,25 @@ public final class BombermanGame {
     private GameMap createMap(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
-                MapGenerator map = new MapGenerator1(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                setMapFactory(new MapFactory1(height , width, spriteStore));
                 startBombTimer();
-                return map.genererMap();
+                break;
             case 2:
-                MapGenerator map2 = new MapGenerator2(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                setMapFactory(new MapFactory2(height , width, spriteStore));
                 startBombTimer();
-                return map2.genererMap();
+                break;
             case 3:
-                MapGenerator map3 = new MapGenerator3(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                setMapFactory(new MapFactory3(height , width, spriteStore));
                 startBombTimer();
-                return map3.genererMap();
+                break;
             case 4:
-                MapGenerator map4 = new MapGenerator4(height / getSpriteStore().getSpriteSize(), width / getSpriteStore().getSpriteSize());
+                setMapFactory(new MapFactory4(height , width, spriteStore));
                 startBombTimer();
-                return map4.genererMap();
+                break;
             default:
                 throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
         }
+        return mapFactory.createMap();
     }
 
     public int getDifficultyLevel() {
