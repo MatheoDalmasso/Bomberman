@@ -26,24 +26,18 @@ import javafx.scene.image.Image;
  * De cette manière, il est possible d'utiliser la même instance de {@link Sprite} pour
  * représenter plusieurs éléments similaires en même temps.
  *
+ * @param image L'image associée à cette instance de {@link Sprite}.
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
-public final class Sprite {
-
-    /**
-     * L'image associée à cette instance de {@link Sprite}.
-     */
-    private final Image image;
+public record Sprite(Image image) {
 
     /**
      * Crée une nouvelle instance de {@link Sprite}.
      *
      * @param image L'image associée à l'instance de {@link Sprite}.
      */
-    public Sprite(Image image) {
-        this.image = image;
+    public Sprite {
     }
 
     /**
@@ -69,7 +63,8 @@ public final class Sprite {
      *
      * @return L'image associée à cette instance de {@link Sprite}.
      */
-    public Image getImage() {
+    @Override
+    public Image image() {
         return image;
     }
 
@@ -77,8 +72,8 @@ public final class Sprite {
      * Dessine cette instance de {@link Sprite} sur un {@link GraphicsContext} donné.
      *
      * @param graphics Le {@link GraphicsContext} sur lequel dessiner l'image.
-     * @param x La position en x à laquelle l'image doit être dessinée.
-     * @param y La position en y à laquelle l'image doit être dessinée.
+     * @param x        La position en x à laquelle l'image doit être dessinée.
+     * @param y        La position en y à laquelle l'image doit être dessinée.
      */
     public void draw(GraphicsContext graphics, int x, int y) {
         graphics.drawImage(image, x, y);

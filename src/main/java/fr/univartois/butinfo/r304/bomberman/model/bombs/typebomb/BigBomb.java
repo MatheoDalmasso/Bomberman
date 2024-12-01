@@ -140,9 +140,9 @@ public class BigBomb extends AbstractMovable implements IBomb {
         Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
         Cell cell = game.getCellAt(adjacentX, adjacentY);
         Sprite sp = spriteStore.getSprite("bricks");
-        String urlBricks = sp.getImage().getUrl();
-        String urlCrackedBricks = spriteStore.getSprite("cracked-bricks").getImage().getUrl();
-        String urlWall = spriteStore.getSprite("wall").getImage().getUrl();
+        String urlBricks = sp.image().getUrl();
+        String urlCrackedBricks = spriteStore.getSprite("cracked-bricks").image().getUrl();
+        String urlWall = spriteStore.getSprite("wall").image().getUrl();
 
         if (isBrickWall(adjacentCell, urlBricks, urlCrackedBricks, urlWall)) {
             IWallState state = adjacentCell.getWall().getState();
@@ -161,9 +161,9 @@ public class BigBomb extends AbstractMovable implements IBomb {
      * @return true si la cellule est un mur en brique, false sinon
      */
     private boolean isBrickWall(Cell adjacentCell, String urlBricks, String urlCrackedBricks, String urlWall) {
-        return (adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlBricks) ||
-                adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlCrackedBricks)) &&
-                !adjacentCell.getWall().getSprite().getImage().getUrl().equals(urlWall);
+        return (adjacentCell.getWall().getSprite().image().getUrl().equals(urlBricks) ||
+                adjacentCell.getWall().getSprite().image().getUrl().equals(urlCrackedBricks)) &&
+                !adjacentCell.getWall().getSprite().image().getUrl().equals(urlWall);
     }
 
     /**
@@ -175,7 +175,7 @@ public class BigBomb extends AbstractMovable implements IBomb {
      * @param cell         la cellule
      */
     private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
-        if (state.getSprite().getImage().getUrl().equals(spriteStore.getSprite("bricks").getImage().getUrl())) {
+        if (state.getSprite().image().getUrl().equals(spriteStore.getSprite("bricks").image().getUrl())) {
             adjacentCell.getWall().degrade();
             IWallState crackedState = adjacentCell.getWall().getState();
             Cell cellWallReplace = new Cell(new Wall(crackedState, adjacentCell.getWall().getPositionX(), adjacentCell.getWall().getPositionY()));

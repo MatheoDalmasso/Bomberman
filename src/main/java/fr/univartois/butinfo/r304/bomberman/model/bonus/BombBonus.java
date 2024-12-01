@@ -9,6 +9,8 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
+import java.util.Objects;
+
 public class BombBonus extends AbstractMovable implements IWallState {
 
     private final Bomb bomb;
@@ -103,5 +105,19 @@ public class BombBonus extends AbstractMovable implements IWallState {
     @Override
     public void degrade(Wall wall) {
         // Ne fais rien après la dégradation
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        BombBonus bombBonus = (BombBonus) o;
+        return Objects.equals(bomb, bombBonus.bomb) && Objects.equals(spriteStore, bombBonus.spriteStore);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), bomb, spriteStore);
     }
 }

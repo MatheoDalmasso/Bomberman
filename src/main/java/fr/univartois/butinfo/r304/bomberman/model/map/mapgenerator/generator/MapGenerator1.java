@@ -28,9 +28,9 @@ public class MapGenerator1 extends MapGenerator {
     @Override
     protected Cell generateCell(int i, int j) {
         IWallState state;
-        if (isBorder(i, j)) {
+        if (isBorderOfMap(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (isWallPosition(i, j)) {
+        } else if (isPositionAWall(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (random.nextInt(100) < 6) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
@@ -42,11 +42,11 @@ public class MapGenerator1 extends MapGenerator {
         return new Cell(new Wall(state, j * spriteStore.getSpriteSize(), i * spriteStore.getSpriteSize()));
     }
 
-    private boolean isBorder(int i, int j) {
+    private boolean isBorderOfMap(int i, int j) {
         return i == 0 || j == 0 || i == getHeight() - 1 || j == getWidth() - 1;
     }
 
-    private boolean isWallPosition(int i, int j) {
+    private boolean isPositionAWall(int i, int j) {
         return i % 3 == 0 && j % 3 == 0;
     }
 

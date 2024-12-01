@@ -42,11 +42,6 @@ public final class Bomberman extends Application {
      */
     private static final int GAME_HEIGHT = 720;
 
-    /**
-     * Le nombre d'ennemis à combattre dans le jeu.
-     */
-    private static final int NB_ENEMIES = 3;
-
     /*
      * (non-Javadoc)
      *

@@ -18,7 +18,7 @@ public abstract class MapGenerator implements IMapGenerator {
      * @param height La hauteur de la carte à générer.
      * @param width  La largeur de la carte à générer.
      */
-    public MapGenerator(int height, int width) {
+    protected MapGenerator(int height, int width) {
         this.height = height;
         this.width = width;
     }
@@ -48,29 +48,6 @@ public abstract class MapGenerator implements IMapGenerator {
      * @return La cellule générée.
      */
     protected abstract Cell generateCell(int i, int j);
-
-    /**
-     * Vérifie si une position est sur la bordure de la carte.
-     *
-     * @param i La position en hauteur.
-     * @param j La position en largeur.
-     * @return true si la position est sur la bordure, false sinon.
-     */
-    private boolean isBorder(int i, int j) {
-        return i == 0 || j == 0 || i == height - 1 || j == width - 1;
-    }
-
-    /**
-     * Vérifie si une position doit contenir un mur.
-     *
-     * @param i La position en hauteur.
-     * @param j La position en largeur.
-     * @return true si la position doit contenir un mur, false sinon.
-     */
-    private boolean isWallPosition(int i, int j) {
-        return i % 3 == 0 && j % 3 == 0;
-    }
-
 
     public int getHeight() {
         return height;

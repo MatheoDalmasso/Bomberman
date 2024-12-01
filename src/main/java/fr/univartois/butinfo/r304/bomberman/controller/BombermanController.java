@@ -147,13 +147,13 @@ public final class BombermanController implements IBombermanController {
         for (int row = 0; row < map.getHeight(); row++) {
             for (int column = 0; column < map.getWidth(); column++) {
                 Cell cell = map.getAt(row, column);
-                ImageView view = new ImageView(cell.getSprite().getImage());
-                cell.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.getImage()));
+                ImageView view = new ImageView(cell.getSprite().image());
+                cell.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.image()));
                 backgroundPane.add(view, column, row);
             }
         }
-        backgroundPane.setLayoutX((GAME_WIDTH - map.getWidth() * CELL_SIZE) / 2);
-        backgroundPane.setLayoutY((GAME_HEIGHT - map.getHeight() * CELL_SIZE) / 2);
+        backgroundPane.setLayoutX((double) (GAME_WIDTH - map.getWidth() * CELL_SIZE) / 2);
+        backgroundPane.setLayoutY((double) (GAME_HEIGHT - map.getHeight() * CELL_SIZE) / 2);
 
     }
 
@@ -271,13 +271,13 @@ public final class BombermanController implements IBombermanController {
     @Override
     public void addMovable(IMovable movable) {
         // On affiche l'objet au bon endroit.
-        ImageView view = new ImageView(movable.getSprite().getImage());
+        ImageView view = new ImageView(movable.getSprite().image());
         view.xProperty().bind(movable.getXProperty());
         view.yProperty().bind(movable.getYProperty());
         movingPane.getChildren().add(view);
 
         // Lorsque le sprite de l'objet change, son image doit changer également.
-        movable.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.getImage()));
+        movable.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.image()));
 
         // Lorsque l'objet est consommé, il n'est plus affiché.
         movable.isConsumedProperty().addListener((p, o, n) -> {
@@ -304,7 +304,6 @@ public final class BombermanController implements IBombermanController {
         pause.setOnFinished(event -> returnToMainMenu());
         pause.play();
     }
-
 
 
     /*
