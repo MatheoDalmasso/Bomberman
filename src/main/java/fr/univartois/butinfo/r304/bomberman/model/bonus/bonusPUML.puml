@@ -87,7 +87,7 @@ package bonus {
         + boolean move(long delta)
         + void collidedWith(IMovable other)
     }
-    
+
     class SpriteStore {
         + static SpriteStore getInstance()
         + Sprite getSprite(String name)
