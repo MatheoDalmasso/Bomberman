@@ -1,0 +1,24 @@
+@startuml
+package mapgenerator {
+    interface IMapGenerator {
+        +  GameMap genererMap();
+    }
+
+    abstract class MapGenerator{
+        - int HEIGHT;
+        - int WIDTH;
+        # SpriteStore spriteStore;
+
+        + MapGenerator(int height, int width);
+        + GameMap genererMap();
+        # abstract Cell generateCell(int i, int j);
+        - boolean isBorder(int i, int j);
+        - boolean isWallPosition(int i, int j);
+        + int getHeight() ;
+        + int getWidth();
+    }
+    
+MapGenerator ..|> IMapGenerator
+
+
+@enduml
