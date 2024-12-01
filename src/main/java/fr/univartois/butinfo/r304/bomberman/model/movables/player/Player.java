@@ -6,11 +6,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables.player;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
-import fr.univartois.butinfo.r304.bomberman.model.map.Lava;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
-import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.InvulnerableState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.PlayerState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.state.VulnerableState;
@@ -83,7 +79,7 @@ public class Player extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Enemy || other instanceof EnemyWithLife || other instanceof Explosion || other instanceof Lava) {
+        if (other.isEnemy() || other.isEnemyWithLife() || other.isExplosion() || other.isLava()) {
             takeDamage(1);
         }
     }
@@ -161,6 +157,61 @@ public class Player extends AbstractMovable {
             game.playerIsDead();
         }
         takeDamage(1);
+    }
+
+    @Override
+    public boolean isEnemy() {
+        return false;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return true;
+    }
+
+    @Override
+    public boolean isExplosion() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnemyWithLife() {
+        return false;
+    }
+
+    @Override
+    public boolean isLava() {
+        return false;
+    }
+
+    @Override
+    public boolean isBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isFakeBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isBigBomb() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvisibleBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isLifeBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isBombBonus() {
+        return false;
     }
 
 

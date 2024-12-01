@@ -217,5 +217,25 @@ public interface IMovable {
      */
     IMovable self();
 
+    boolean isEnemy();
 
+    boolean isPlayer();
+
+    boolean isExplosion();
+
+    boolean isEnemyWithLife();
+
+    boolean isLava();
+
+    boolean isBomb();
+
+    boolean isFakeBomb();
+
+    boolean isBigBomb();
+
+    boolean isInvisibleBonus();
+
+    boolean isLifeBonus();
+
+    boolean isBombBonus();
 }
