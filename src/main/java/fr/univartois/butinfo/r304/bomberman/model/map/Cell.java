@@ -1,4 +1,13 @@
+package fr.univartois.butinfo.r304.bomberman.model.map;
+
+import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.component.IMapComponent;
+import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 /**
+ * La classe {@link Cell} représente une cellule de la carte du jeu du Bomberman.
+ *
  * Ce logiciel est distribué à des fins éducatives.
  * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
@@ -12,21 +21,10 @@
  * <p>
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
- */
-
-package fr.univartois.butinfo.r304.bomberman.model.map;
-
-import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-
-/**
- * La classe {@link Cell} représente une cellule de la carte du jeu du Bomberman.
  *
- * @author Romain Wallon
  * @version 0.1.0
  */
-public class Cell {
+public class Cell implements IMapComponent {
 
     /**
      * La ligne où se trouve cette cellule sur la carte.
@@ -48,7 +46,6 @@ public class Cell {
      * La propriété contenant le mur présent sur cette cellule sur la carte.
      */
     private final ObjectProperty<Wall> wallProperty = new SimpleObjectProperty<>();
-
 
     /**
      * Crée une nouvelle instance de Cell.
@@ -80,7 +77,6 @@ public class Cell {
         this.wallProperty.set(wall);
         this.spriteProperty.set(wall.getSprite());
     }
-
 
     /**
      * Donne la ligne où se trouve cette cellule sur la carte.
@@ -156,7 +152,6 @@ public class Cell {
         return wallProperty.get();
     }
 
-
     /**
      * Donne la propriété contenant le mur présent sur cette cellule sur la carte.
      *
@@ -166,7 +161,6 @@ public class Cell {
         return wallProperty;
     }
 
-
     /**
      * Remplace le contenu de cette cellule par celui d'une autre cellule.
      *
@@ -175,5 +169,25 @@ public class Cell {
     public void replaceBy(Cell cell) {
         spriteProperty.set(cell.getSprite());
         wallProperty.set(cell.getWall());
+    }
+
+    @Override
+    public void add(IMapComponent component) {
+        throw new UnsupportedOperationException("Cannot add to a leaf component");
+    }
+
+    @Override
+    public void remove(IMapComponent component) {
+        throw new UnsupportedOperationException("Cannot remove from a leaf component");
+    }
+
+    @Override
+    public IMapComponent getChild(int index) {
+        throw new UnsupportedOperationException("Cannot get child from a leaf component");
+    }
+
+    @Override
+    public void display() {
+        // Do nothing
     }
 }
