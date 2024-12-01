@@ -64,4 +64,5 @@ HomeController --> SpriteStore
 HomeController --> Button
 HomeController --> ActionEvent
 HomeController --> IOException
+IOException --> Exception
 @enduml

@@ -1,0 +1,47 @@
+@startuml
+package factory {
+    class MapFactory1 {
+        - int height
+        - int width
+        - ISpriteStore spriteStore
+        + MapFactory1(int height, int width, ISpriteStore spriteStore)
+        + GameMap createMap(String type)
+    }
+
+    class MapFactory2 {
+        - int height
+        - int width
+        - ISpriteStore spriteStore
+        + MapFactory2(int height, int width, ISpriteStore spriteStore)
+        + GameMap createMap(String type)
+    }
+
+    class MapFactory3 {
+            - int height
+            - int width
+            - ISpriteStore spriteStore
+            + MapFactory3(int height, int width, ISpriteStore spriteStore)
+            + GameMap createMap(String type)
+    }
+
+    class MapFactory4 {
+            - int height
+            - int width
+            - ISpriteStore spriteStore
+            + MapFactory4(int height, int width, ISpriteStore spriteStore)
+            + GameMap createMap(String type)
+        }
+
+
+
+    interface IMapFactory {
+        + GameMap createMap()
+    }
+}
+
+MapFactory1 ..|> IMapFactory
+MapFactory2 ..|> IMapFactory
+MapFactory3 ..|> IMapFactory
+MapFactory4 ..|> IMapFactory
+
+@enduml
