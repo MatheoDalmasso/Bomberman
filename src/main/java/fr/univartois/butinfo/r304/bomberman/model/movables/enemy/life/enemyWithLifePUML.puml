@@ -1,0 +1,62 @@
+@startuml
+package life {
+
+    class EnemyWithLife {
+        - Enemy ennemi
+        - int pv
+        - long lastHitTime = 0
+
+        + EnemyWithLife(Enemy ennemi, int pv)
+        + void collidedWith(IMovable other)
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + void decreasePv(int amount)
+        + int getPv()
+        + void addBomb(Bomb bomb)
+        + void addLife(int life)
+        + boolean move(long delta)
+    }
+
+    abstract class AbstractIMovableDecorator {
+        + AbstractIMovableDecorator(IMovable movable)
+        + abstract void collidedWith(IMovable other)
+        + abstract boolean move(long delta)
+    }
+
+    interface IMovable {
+        + void collidedWith(IMovable other)
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + void decreasePv(int amount)
+        + void addBomb(Bomb bomb)
+        + void addLife(int life)
+    }
+
+    class Enemy {
+        + boolean move(long delta)
+        + void explode()
+    }
+
+    EnemyWithLife --|> AbstractIMovableDecorator
+    AbstractIMovableDecorator ..|> IMovable
+    EnemyWithLife --> Enemy : ennemi
+}
+@enduml
