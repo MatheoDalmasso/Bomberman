@@ -41,9 +41,9 @@ public class MapGenerator4 extends MapGenerator {
     @Override
     protected Cell generateCell(int i, int j) {
         IWallState state;
-        if (isBorder(i, j)) {
+        if (isBorderOfMap(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (isWallPosition(i, j)) {
+        } else if (isPositionAWall()) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (random.nextInt(100) < 12) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
@@ -62,18 +62,16 @@ public class MapGenerator4 extends MapGenerator {
      * @param j La position en x.
      * @return true si la position est une bordure, sinon false.
      */
-    private boolean isBorder(int i, int j) {
+    private boolean isBorderOfMap(int i, int j) {
         return i == 0 || j == 0 || i == getHeight() - 1 || j == getWidth() - 1;
     }
 
     /**
      * Vérifie si la position spécifiée doit contenir un mur.
      *
-     * @param i La position en y.
-     * @param j La position en x.
      * @return true si la position doit contenir un mur, sinon false.
      */
-    private boolean isWallPosition(int i, int j) {
-        return i % 5 == 0 && j % 5 == 0;
+    private boolean isPositionAWall() {
+        return random.nextInt(100) < 15;
     }
 }

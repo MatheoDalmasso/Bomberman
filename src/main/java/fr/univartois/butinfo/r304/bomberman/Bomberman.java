@@ -42,15 +42,11 @@ public final class Bomberman extends Application {
      */
     private static final int GAME_HEIGHT = 720;
 
-    /**
-     * Le nombre d'ennemis à combattre dans le jeu.
-     */
-    private static final int NB_ENEMIES = 3;
 
-    /**
-     * Crée une partie du jeu Bomberman.
-     * @param stage
-     * @throws IOException
+    /*
+     * (non-Javadoc)
+     *
+     * @see javafx.application.Application#start(javafx.stage.Stage)
      */
     @Override
     public void start(Stage stage) throws IOException {

@@ -125,20 +125,22 @@ public final class BombermanController implements IBombermanController {
         addKeyListeners();
     }
 
-    /**
-     * Associe à ce contrôleur la partie du jeu Bomberman en cours.
+    /*
+     * (non-Javadoc)
      *
-     * @param game La partie en cours.
+     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#setGame(fr.
+     * univartois.butinfo.r304.bomberman.model.BombermanGame)
      */
     @Override
     public void setGame(BombermanGame game) {
         this.game = game;
     }
 
-    /**
-     * Prépare l'affichage du jeu avant que celui-ci ne démarre.
+    /*
+     * (non-Javadoc)
      *
-     * @param map La carte du jeu à afficher.
+     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#prepare(fr.
+     * univartois.butinfo.r304.bomberman.model.map.GameMap)
      */
     @Override
     public void prepare(GameMap map) {
@@ -155,13 +157,13 @@ public final class BombermanController implements IBombermanController {
         for (int row = 0; row < map.getHeight(); row++) {
             for (int column = 0; column < map.getWidth(); column++) {
                 Cell cell = map.getAt(row, column);
-                ImageView view = new ImageView(cell.getSprite().getImage());
-                cell.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.getImage()));
+                ImageView view = new ImageView(cell.getSprite().image());
+                cell.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.image()));
                 backgroundPane.add(view, column, row);
             }
         }
-        backgroundPane.setLayoutX((GAME_WIDTH - map.getWidth() * CELL_SIZE) / 2);
-        backgroundPane.setLayoutY((GAME_HEIGHT - map.getHeight() * CELL_SIZE) / 2);
+        backgroundPane.setLayoutX((double) (GAME_WIDTH - map.getWidth() * CELL_SIZE) / 2);
+        backgroundPane.setLayoutY((double) (GAME_HEIGHT - map.getHeight() * CELL_SIZE) / 2);
 
     }
 
@@ -237,47 +239,58 @@ public final class BombermanController implements IBombermanController {
         }
     }
 
-    /**
-     * Lie le score du joueur à son affichage dans la vue.
-     * @param scoreProperty La propriété stockant le score du joueur.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#bindScore(javafx.
+     * beans.binding.IntegerExpression)
      */
     @Override
     public void bindScore(IntegerExpression scoreProperty) {
         score.textProperty().bind(scoreProperty.asString());
     }
 
-    /**
-     * Lie le nombre de bombes du joueur à son affichage dans la vue.
-     * @param bombsProperty La propriété stockant le nombre de bombes.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#bindBombs(javafx.
+     * beans.binding.IntegerExpression)
      */
     @Override
     public void bindBombs(IntegerExpression bombsProperty) {
         bombs.textProperty().bind(bombsProperty.asString());
     }
 
-    /**
-     * Lie la vie du joueur à son affichage dans la vue.
-     * @param lifeProperty La propriété stockant la vie du joueur.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#bindLife(javafx.
+     * beans.binding.IntegerExpression)
      */
     @Override
     public void bindLife(IntegerExpression lifeProperty) {
         life.textProperty().bind(lifeProperty.asString());
     }
 
-    /**
-     * Ajoute un objet pouvant se déplacer dans le jeu, afin de pouvoir l'afficher.
-     * @param movable L'objet à aficher.
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#addMovable(fr.
+     * univartois.butinfo.r304.bomberman.model.IMovable)
      */
     @Override
     public void addMovable(IMovable movable) {
         // On affiche l'objet au bon endroit.
-        ImageView view = new ImageView(movable.getSprite().getImage());
+        ImageView view = new ImageView(movable.getSprite().image());
         view.xProperty().bind(movable.getXProperty());
         view.yProperty().bind(movable.getYProperty());
         movingPane.getChildren().add(view);
 
         // Lorsque le sprite de l'objet change, son image doit changer également.
-        movable.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.getImage()));
+        movable.getSpriteProperty().addListener((p, o, n) -> view.setImage(n.image()));
 
         // Lorsque l'objet est consommé, il n'est plus affiché.
         movable.isConsumedProperty().addListener((p, o, n) -> {
@@ -287,9 +300,12 @@ public final class BombermanController implements IBombermanController {
         });
     }
 
-    /**
-     * Affiche un message lorsque la partie est terminée.
-     * @param endMessage Le message à afficher.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#gameOver(java.lang.
+     * String)
      */
     @Override
     public void gameOver(String endMessage) {
@@ -303,8 +319,10 @@ public final class BombermanController implements IBombermanController {
     }
 
 
-    /**
-     * Réinitialise l'affichage, afin de préparer une nouvelle partie.
+    /*
+     * (non-Javadoc)
+     *
+     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#reset()
      */
     @Override
     public void reset() {

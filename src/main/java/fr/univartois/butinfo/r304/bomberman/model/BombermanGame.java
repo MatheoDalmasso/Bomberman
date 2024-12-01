@@ -17,19 +17,13 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 
-import fr.univartois.butinfo.r304.bomberman.controller.BombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.IMapGenerator;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGenerator;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.factory.*;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator1;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator2;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator3;
-import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator4;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life.EnemyWithLife;
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.InteligentMovement;
@@ -37,7 +31,10 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement.Random
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -64,6 +61,8 @@ public final class BombermanGame {
      * La vitesse de déplacement du joueur (en pixels/s).
      */
     private static final int DEFAULT_SPEED = 75;
+
+    private static final String INVALID_DIFFICULTY_LEVEL = "Invalid difficulty level: ";
 
     /**
      * Le nombre de bombes initialement disponibles pour le joueur.
@@ -293,7 +292,7 @@ public final class BombermanGame {
                 controller.prepare(gameMap);
                 break;
             default:
-                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+                throw new IllegalArgumentException(INVALID_DIFFICULTY_LEVEL + difficultyLevel);
         }
         controller.prepare(gameMap);
     }
@@ -306,23 +305,23 @@ public final class BombermanGame {
     private GameMap createMap(int difficultyLevel) {
         switch (difficultyLevel) {
             case 1:
-                setMapFactory(new MapFactory1(height , width, spriteStore));
+                setMapFactory(new MapFactory1(height, width, spriteStore));
                 startBombTimer();
                 break;
             case 2:
-                setMapFactory(new MapFactory2(height , width, spriteStore));
+                setMapFactory(new MapFactory2(height, width, spriteStore));
                 startBombTimer();
                 break;
             case 3:
-                setMapFactory(new MapFactory3(height , width, spriteStore));
+                setMapFactory(new MapFactory3(height, width, spriteStore));
                 startBombTimer();
                 break;
             case 4:
-                setMapFactory(new MapFactory4(height , width, spriteStore));
+                setMapFactory(new MapFactory4(height, width, spriteStore));
                 startBombTimer();
                 break;
             default:
-                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+                throw new IllegalArgumentException(INVALID_DIFFICULTY_LEVEL + difficultyLevel);
         }
         return mapFactory.createMap();
     }
@@ -363,7 +362,7 @@ public final class BombermanGame {
                 prepare(4);
                 break;
             default:
-                throw new IllegalArgumentException("Invalid difficulty level: " + difficultyLevel);
+                throw new IllegalArgumentException(INVALID_DIFFICULTY_LEVEL + difficultyLevel);
         }
         createMovables();
         initStatistics();

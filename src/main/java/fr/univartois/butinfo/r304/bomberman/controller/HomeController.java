@@ -22,6 +22,7 @@ public class HomeController {
      * Instance of the sprite store
      */
     SpriteStore spriteStore = SpriteStore.getInstance();
+    private static final String BOMBERMAN_FXML = "/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml";
 
     /**
      * Buttons for the different levels
@@ -57,7 +58,7 @@ public class HomeController {
         MapGenerator mapGenerator = new MapGenerator1(1080, 720);
         mapGenerator.genererMap();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
         Scene scene = new Scene(loader.load());
         Stage stage = (Stage) buttonLevel1.getScene().getWindow();
         BombermanController controller = loader.getController();
@@ -84,7 +85,7 @@ public class HomeController {
         MapGenerator mapGenerator = new MapGenerator2(1080, 720);
         mapGenerator.genererMap();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
         Scene scene = new Scene(loader.load());
         Stage stage = (Stage) buttonLevel2.getScene().getWindow();
         BombermanController controller = loader.getController();
@@ -110,7 +111,7 @@ public class HomeController {
         MapGenerator mapGenerator = new MapGenerator3(1080, 720);
         mapGenerator.genererMap();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
         Scene scene = new Scene(loader.load());
         Stage stage = (Stage) buttonLevel3.getScene().getWindow();
         BombermanController controller = loader.getController();
@@ -137,7 +138,7 @@ public class HomeController {
         MapGenerator mapGenerator = new MapGenerator4(1080, 720);
         mapGenerator.genererMap();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/bomberman.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
         Scene scene = new Scene(loader.load());
         Stage stage = (Stage) buttonLevel4.getScene().getWindow();
         BombermanController controller = loader.getController();
