@@ -1,0 +1,106 @@
+@startuml
+
+package enemy {
+    interface IMovementStrategy {
+        + deplacer(Enemy ennemi, long delta)
+    }
+
+    class InteligentMovement {
+        - Player player
+        - {static} final int TEMPS_MOUVEMENT
+        - {static} final double DISTANCE_PIXELS_DU_MOUVEMENT
+        - {static} final double SPEED
+        + InteligentMovement(Player player)
+        + deplacer(Enemy ennemi, long delta)
+    }
+
+    class RandomMovement {
+        - Random random
+        - int direction
+        - long debutMouvement
+        - {static} final int TEMPS_MOUVEMENT
+        - {static} final double DISTANCE_PIXELS_DU_MOUVEMENT
+        - {static} final double SPEED
+        + deplacer(Enemy ennemi, long delta)
+        - changeDirection()
+    }
+
+    InteligentMovement ..|> IMovementStrategy
+    RandomMovement ..|> IMovementStrategy
+
+    class Player {
+        + double getX()
+        + double getY()
+    }
+
+    InteligentMovement --> Player
+
+
+class Enemy {
+    + double getX()
+    + double getY()
+    + void setHorizontalSpeed(double speed)
+    + void setVerticalSpeed(double speed)
+    + boolean move(long delta)
+    + void collidedWith(IMovable other)
+    + void explode()
+    + boolean isEnemy()
+    + boolean isPlayer()
+    + boolean isExplosion()
+    + boolean isEnemyWithLife()
+    + boolean isLava()
+    + boolean isBomb()
+    + boolean isFakeBomb()
+    + boolean isBigBomb()
+    + boolean isInvisibleBonus()
+    + boolean isLifeBonus()
+    + boolean isBombBonus()
+    + void hitEnemy()
+}
+
+class EnemyWithLife {
+    - Enemy ennemi
+    - int pv
+    - long lastHitTime
+    + EnemyWithLife(Enemy ennemi, int pv)
+    + void collidedWith(IMovable other)
+    + void decreasePv(int amount)
+    + int getPv()
+    + boolean move(long delta)
+}
+
+abstract class AbstractIMovableDecorator {
+    + AbstractIMovableDecorator(IMovable movable)
+    + abstract void collidedWith(IMovable other)
+    + abstract boolean move(long delta)
+}
+
+interface IMovable {
+    + void collidedWith(IMovable other)
+    + boolean isEnemy()
+    + boolean isPlayer()
+    + boolean isExplosion()
+    + boolean isEnemyWithLife()
+    + boolean isLava()
+    + boolean isBomb()
+    + boolean isFakeBomb()
+    + boolean isBigBomb()
+    + boolean isInvisibleBonus()
+    + boolean isLifeBonus()
+    + boolean isBombBonus()
+    + void decreasePv(int amount)
+    + void addBomb(Bomb bomb)
+    + void addLife(int life)
+}
+
+EnemyWithLife --|> AbstractIMovableDecorator
+AbstractIMovableDecorator ..|> IMovable
+EnemyWithLife --> Enemy : "ennemi"
+}
+
+
+
+
+Enemy --> IMovementStrategy : "strategy"
+IMovementStrategy --> Enemy
+@enduml

@@ -1,25 +1,3 @@
-# *Bomberman* en JavaFX
-
-## Description
-
-Ce projet fournit une implantation de base du jeu *Bomberman* en *JavaFX*.
-Pour pouvoir développer votre propre implantation de ce projet, vous devez
-en créer une **divergence** en cliquant sur le bouton `Fork` en haut à droite
-de cette page.
-
-Lorsque ce sera fait, vous pourrez inviter les membres de votre groupe en tant
-que *Developer* pour vous permettre de travailler ensemble sur ce projet.
-
-## Consignes
-
-Vous pouvez retrouver ci-dessous les liens vers les sujets de TP vous guidant
-dans le développement de votre projet.
-
-- [Lancement du projet](https://gitlab.univ-artois.fr/enseignements-rwa/modules/but-2/r3-04/tp/-/tree/main/TP03)
-
-## Diagramme de classes
-
-```plantuml
 @startuml
 package bomberman{
 
@@ -692,42 +670,13 @@ package view {
     Sprite o-- "1" Image : has
 
 }
+
+
+
+
+
+
+
+
 }
 @enduml
-```
-
-## Tâches réalisées
-
-### TP n°3
-
-| Fonctionnalité                         | Terminée ? | Auteur(s) |
-|----------------------------------------|------------|-----------|
-| Représentation des ennemis             | ✅          | Benjamin  |
-| Intégration des ennemis dans la partie | ✅          | Benjamin  |
-| Représentation du player               | ✅          | Mathias   |
-| Intégration du player dans la partie   | ✅          | Mathias   |
-| Représentation des bombes et explosion | ✅          | Mathéo    |
-| Intégration des bombes dans la partie  | ✅          | Mathéo    |
-| Création de la carte du jeu            | ✅          | Simon     |
-
-### TP n°4
-
-| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)          |
-|---------------------------------------------|------------------------------|------------|--------------------|
-| Variantes de déplacement des ennemis        | Stratégie                    | ✅          | Benjamin           |
-| Gestion des points de vie (ennemis, player) | Décorateur                   | ✅          | Mathias / Benjamin |
-| Invulnérabilité du player                   | Etat                         | ✅          | Mathias            |
-| Solidité des murs                           | Etat                         | ✅          | Simon / Matheo     |
-| Variantes de génération pour la carte       | Fabrique abstraite           | ✅          | Simon              |
-| Différents types de bombes                  | Fabrique abstraite           | ✅          | Matheo             |
-
-### TP n°5
-
-| Fonctionnalité                  | Patron de conception utilisé   | Terminée ? | Auteur(s)            |
-|---------------------------------|--------------------------------|------------|----------------------|
-| Instance du `SpriteStore`       | Singleton                      |            | Mathias              |
-| Bonus de bombe                  | Fabrique abstraite             |            | Benjamin             |
-| Bonus d'invulnérabilité         | Fabrique abstraite             |            | Benjamin             |
-| Bonus de point de vie           | Fabrique abstraite             |            | Benjamin             |
-| Apparition aléatoire d'un bonus | Fabrique abstraite             |            | Benjamin             |
-| Gestion des différents niveaux  | Fabrique abstraite / Composite |            | Matheo/Simon/Mathias |

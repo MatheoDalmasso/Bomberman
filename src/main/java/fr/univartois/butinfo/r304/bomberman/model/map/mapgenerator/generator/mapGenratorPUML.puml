@@ -1,0 +1,41 @@
+@startuml
+package generator {
+    class MapGenerator1 {
+        - Random RANDOM
+        + MapGenerator1(int height, int width)
+        # Cell generateCell(int i, int j)
+        - isBorder(int i, int j)
+        - isWallPosition(int i, int j)
+    }
+
+    class MapGenerator2 {
+            - Random RANDOM
+            + MapGenerator2(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+    }
+
+    class MapGenerator3 {
+            - Random RANDOM
+            + MapGenerator3(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+    }
+
+    class MapGenerator4 {
+            - Random RANDOM
+            + MapGenerator4(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+    }
+
+MapGenerator1 --|> MapGenerator
+MapGenerator2 --|> MapGenerator
+MapGenerator3 --|> MapGenerator
+MapGenerator4 --|> MapGenerator
+
+
+@enduml

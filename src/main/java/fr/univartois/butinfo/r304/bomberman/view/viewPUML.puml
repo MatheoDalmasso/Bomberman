@@ -1,0 +1,46 @@
+@startuml
+
+package view {
+
+    interface ISpriteStore {
+        + getSprite(identifier: String): Sprite
+        + getSpriteSize(): int
+    }
+
+    class Sprite {
+        - image: Image
+        + Sprite(image: Image)
+        + getWidth(): int
+        + getHeight(): int
+        + getImage(): Image
+        + draw(graphics: GraphicsContext, x: int, y: int): void
+    }
+
+    class SpriteAnimator {
+        - frames: List<Image>
+        - currentFrameIndex: int
+        - animation: Timeline
+        + SpriteAnimator(frames: List<Image>, frameDuration: int)
+        - nextFrame(): void
+        + getCurrentFrame(): Image
+        + start(): void
+        + stop(): void
+    }
+
+    class SpriteStore {
+        - instance: SpriteStore
+        - spriteCache: Map<String, Sprite>
+        + getInstance(): SpriteStore
+        + getSprite(identifier: String): Sprite
+        - loadImage(name: String): Image
+    }
+
+    ISpriteStore <|.. SpriteStore
+    SpriteStore --* Sprite
+    SpriteAnimator --* Image
+
+    Sprite o-- "1" Image : has
+
+}
+
+@enduml

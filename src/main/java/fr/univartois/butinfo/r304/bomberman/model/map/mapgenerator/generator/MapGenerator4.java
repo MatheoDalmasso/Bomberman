@@ -1,6 +1,5 @@
 package fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator;
 
-import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.MapGenerator;
@@ -14,8 +13,6 @@ import java.util.Random;
 public class MapGenerator4 extends MapGenerator {
 
     private final Random random;
-
-    private BombermanGame game;
 
     /**
      * Crée un générateur de carte de jeu.

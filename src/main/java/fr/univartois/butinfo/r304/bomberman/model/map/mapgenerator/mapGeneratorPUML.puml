@@ -1,0 +1,82 @@
+@startuml
+package mapgenerator {
+
+    interface IMapGenerator {
+        + GameMap genererMap();
+    }
+
+    abstract class MapGenerator {
+        - int HEIGHT;
+        - int WIDTH;
+        # SpriteStore spriteStore;
+
+        + MapGenerator(int height, int width);
+        + GameMap genererMap();
+        # abstract Cell generateCell(int i, int j);
+        - boolean isBorder(int i, int j);
+        - boolean isWallPosition(int i, int j);
+        + int getHeight();
+        + int getWidth();
+    }
+
+    MapGenerator ..|> IMapGenerator
+
+    class MapGenerator1 {
+        - Random RANDOM
+        + MapGenerator1(int height, int width)
+        # Cell generateCell(int i, int j)
+        - isBorder(int i, int j)
+        - isWallPosition(int i, int j)
+    }
+
+    class MapGenerator2 {
+        - Random RANDOM
+        + MapGenerator2(int height, int width)
+        # Cell generateCell(int i, int j)
+        - isBorder(int i, int j)
+        - isWallPosition(int i, int j)
+    }
+
+    class MapGenerator3 {
+        - Random RANDOM
+        + MapGenerator3(int height, int width)
+        # Cell generateCell(int i, int j)
+        - isBorder(int i, int j)
+        - isWallPosition(int i, int j)
+    }
+
+    class MapGenerator4 {
+        - Random RANDOM
+        + MapGenerator4(int height, int width)
+        # Cell generateCell(int i, int j)
+        - isBorder(int i, int j)
+        - isWallPosition(int i, int j)
+    }
+
+    MapGenerator1 --|> MapGenerator
+    MapGenerator2 --|> MapGenerator
+    MapGenerator3 --|> MapGenerator
+    MapGenerator4 --|> MapGenerator
+
+    interface IMapFactory {
+        + GameMap createMap();
+    }
+
+    class MapFactory {
+        - int height;
+        - int width;
+        - SpriteStore spriteStore;
+
+        + MapFactory(int height, int width, SpriteStore spriteStore);
+        + GameMap createMap(String type);
+    }
+
+    MapFactory ..|> IMapFactory
+}
+
+MapFactory --> MapGenerator1
+MapFactory --> MapGenerator2
+MapFactory --> MapGenerator3
+MapFactory --> MapGenerator4
+
+@enduml

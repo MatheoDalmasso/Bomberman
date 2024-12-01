@@ -1,0 +1,171 @@
+@startuml
+package map {
+
+    package wallstate {
+        interface IWallState {
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        class WallInvincibleState implements IWallState {
+            - Sprite SPRITE
+            + WallInvincibleState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        class CrackedBrickWallState implements IWallState {
+            - Sprite SPRITE
+            - BombermanGame GAME
+            - SpriteStore SPRITESTORE
+            - Random RANDOM
+
+            + CrackedBrickWallState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        class BrickWallState implements IWallState {
+            - Sprite SPRITE
+            - SpriteStore SPRITESTORE
+            + BrickWallState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        Wall ..> IWallState : "state"
+    }
+
+    package mapgenerator {
+        interface IMapGenerator {
+            + GameMap genererMap();
+        }
+
+        abstract class MapGenerator {
+            - int HEIGHT
+            - int WIDTH
+            # SpriteStore spriteStore
+
+            + MapGenerator(int height, int width)
+            + GameMap genererMap()
+            # abstract Cell generateCell(int i, int j)
+            - boolean isBorder(int i, int j)
+            - boolean isWallPosition(int i, int j)
+            + int getHeight()
+            + int getWidth()
+        }
+
+        MapGenerator ..|> IMapGenerator
+
+        class MapGenerator1 {
+            - Random RANDOM
+            + MapGenerator1(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        class MapGenerator2 {
+            - Random RANDOM
+            + MapGenerator2(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        class MapGenerator3 {
+            - Random RANDOM
+            + MapGenerator3(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        class MapGenerator4 {
+            - Random RANDOM
+            + MapGenerator4(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        MapGenerator1 --|> MapGenerator
+        MapGenerator2 --|> MapGenerator
+        MapGenerator3 --|> MapGenerator
+        MapGenerator4 --|> MapGenerator
+
+        interface IMapFactory {
+            + GameMap createMap();
+        }
+
+        class MapFactory {
+            - int height
+            - int width
+            - SpriteStore spriteStore
+
+            + MapFactory(int height, int width, SpriteStore spriteStore)
+            + GameMap createMap(String type)
+        }
+
+        MapFactory ..|> IMapFactory
+        MapFactory o--> MapGenerator : utilise
+    }
+
+    class Wall {
+        - IWallState state
+        + void setState(IWallState state)
+        + void degrade()
+        + Sprite getSprite()
+    }
+
+    Wall --> IWallState : "state"
+
+    class GameMap {
+        + void addComponent(IMapComponent component)
+        + void displayComponents()
+    }
+
+    interface IMapComponent {
+        + void add(IMapComponent component)
+        + void remove(IMapComponent component)
+        + IMapComponent getChild(int index)
+        + void display()
+    }
+
+    class Cell {
+            - int row
+            - int column
+            - ObjectProperty<Sprite> spriteProperty
+            - ObjectProperty<Wall> wallProperty
+
+            + Cell(int row, int column)
+            + Cell(Sprite sprite)
+            + Cell(Wall wall)
+
+            + int getRow()
+            + int getColumn()
+            + int getWidth()
+            + int getHeight()
+            + boolean isEmpty()
+            + Sprite getSprite()
+            + ObjectProperty<Sprite> getSpriteProperty()
+            + Wall getWall()
+            + ObjectProperty<Wall> getWallProperty()
+            + void replaceBy(Cell cell)
+
+            + void add(IMapComponent component)
+            + void remove(IMapComponent component)
+            + IMapComponent getChild(int index)
+            + void display()
+        }
+
+    GameMap ..|> IMapComponent
+    MapFactory o--> GameMap : produit
+    MapFactory --> MapGenerator1
+    MapFactory --> MapGenerator2
+    MapFactory --> MapGenerator3
+    MapFactory --> MapGenerator4
+    Cell ..|> IMapComponent
+}
+
+@enduml

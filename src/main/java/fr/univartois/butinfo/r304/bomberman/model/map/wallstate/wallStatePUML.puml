@@ -1,0 +1,35 @@
+@startuml
+package wallstate {
+    interface IWallState {
+        + void degrade(Wall wall)
+        + Sprite getSprite()
+    }
+
+    class WallInvincibleState implements IWallState {
+            - Sprite SPRITE
+            + WallInvincibleState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+    }
+
+    class CrackedBrickWallState implements IWallState {
+               -  Sprite SPRITE;
+               -  BombermanGame GAME;
+               -  SpriteStore SPRITESTORE;
+               -  Random RANDOM;
+
+                + CrackedBrickWallState(Sprite sprite)
+                + void degrade(Wall wall)
+                + Sprite getSprite()
+    }
+
+    class BrickWallState implements IWallState {
+                - Sprite SPRITE
+                - SpriteStore SPRITESTORE
+                + BrickWallState(Sprite sprite)
+                + void degrade(Wall wall)
+                + Sprite getSprite()
+    }
+
+}
+@enduml

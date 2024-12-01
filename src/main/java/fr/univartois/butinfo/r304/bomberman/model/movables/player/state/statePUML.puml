@@ -1,0 +1,52 @@
+@startuml
+package "state" {
+
+    interface PlayerState {
+        + void takeDamage(Player player, int damage)
+        + void updateAppearance(Player player)
+    }
+
+    interface IPlayerState {
+        + void collideWith(Player player, IMovable other)
+        + void explode(Player player)
+    }
+
+    class InvulnerableState {
+        - {static} final int INVULNERABLE_DURATION = 3
+        + void takeDamage(Player player, int damage)
+        + void updateAppearance(Player player)
+        + {static} void makePlayerInvulnerable(Player player)
+    }
+
+    class VulnerableState {
+        - BombermanGame game = GetGameInstance.getInstance()
+        + void takeDamage(Player player, int damage)
+        + void updateAppearance(Player player)
+    }
+
+    class Player {
+        + void setState(PlayerState state)
+        + void decrementPointsDeVie(int damage)
+        + void setSprite(Sprite sprite)
+        + int getPointsDeVie()
+        + SpriteStore getSpriteStore()
+        + void makePlayerInvulnerable()
+    }
+
+    class BombermanGame {
+    }
+
+    class GetGameInstance {
+        + {static} BombermanGame getInstance()
+    }
+
+    PlayerState <|.. InvulnerableState
+    PlayerState <|.. VulnerableState
+    Player --> PlayerState
+    InvulnerableState --> Player
+    VulnerableState --> Player
+    VulnerableState --> GetGameInstance
+    GetGameInstance --> BombermanGame
+}
+
+@enduml
