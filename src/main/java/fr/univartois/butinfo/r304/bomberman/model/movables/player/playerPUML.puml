@@ -1,0 +1,46 @@
+@startuml
+package "player" {
+    class Player {
+        + Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite)
+        + void setState(PlayerState state)
+        + void takeDamage(int damage)
+        + void makePlayerInvulnerable()
+        + void addBomb(Bomb bomb)
+        + void incrementScore(int score)
+        + void decrementPointsDeVie(int pointsDeVie)
+        + void explode()
+        + void hitEnemy()
+        + int getPointsDeVie()
+        + IntegerProperty pointsDeVieProperty()
+        + ObservableList<Bomb> getBombs()
+        + SpriteStore getSpriteStore()
+    }
+
+    Player --> PlayerState
+    Player --> SpriteStore
+    Player --> Bomb
+    Player --> BombermanGame
+
+    interface PlayerState {
+            + void takeDamage(Player player, int damage)
+            + void updateAppearance(Player player)
+        }
+
+        class InvulnerableState {
+            - {static} final int INVULNERABLE_DURATION = 3
+            + void takeDamage(Player player, int damage)
+            + void updateAppearance(Player player)
+            + {static} void makePlayerInvulnerable(Player player)
+        }
+
+        class VulnerableState {
+            - BombermanGame game = GetGameInstance.getInstance()
+            + void takeDamage(Player player, int damage)
+            + void updateAppearance(Player player)
+        }
+
+        PlayerState <|.. InvulnerableState
+        PlayerState <|.. VulnerableState
+}
+
+@enduml

@@ -12,10 +12,10 @@ package "state" {
     }
 
     class InvulnerableState {
-        - static final int INVULNERABLE_DURATION = 3
+        - {static} final int INVULNERABLE_DURATION = 3
         + void takeDamage(Player player, int damage)
         + void updateAppearance(Player player)
-        + static void makePlayerInvulnerable(Player player)
+        + {static} void makePlayerInvulnerable(Player player)
     }
 
     class VulnerableState {
@@ -34,11 +34,10 @@ package "state" {
     }
 
     class BombermanGame {
-        + void playerIsDead()
     }
 
     class GetGameInstance {
-        + static BombermanGame getInstance()
+        + {static} BombermanGame getInstance()
     }
 
     PlayerState <|.. InvulnerableState
