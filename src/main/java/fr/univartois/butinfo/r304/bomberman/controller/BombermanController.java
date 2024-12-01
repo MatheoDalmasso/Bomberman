@@ -21,6 +21,7 @@ import fr.univartois.butinfo.r304.bomberman.model.IBombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import javafx.animation.PauseTransition;
 import javafx.beans.binding.IntegerExpression;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -183,7 +185,7 @@ public final class BombermanController implements IBombermanController {
         }
     }
 
-    private void returnToMainMenu() {
+    public void returnToMainMenu() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/accueil.fxml"));
             Parent viewContent = fxmlLoader.load();
@@ -296,7 +298,11 @@ public final class BombermanController implements IBombermanController {
     public void gameOver(String endMessage) {
         started = false;
         message.setVisible(true);
-        returnToMainMenu();
+        message.setText(endMessage);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> returnToMainMenu());
+        pause.play();
     }
 
 
