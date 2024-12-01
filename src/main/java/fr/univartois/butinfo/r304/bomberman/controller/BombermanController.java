@@ -204,6 +204,7 @@ public final class BombermanController implements IBombermanController {
             Parent viewContent = fxmlLoader.load();
             Scene scene = new Scene(viewContent, GAME_WIDTH, GAME_HEIGHT);
             stage.setScene(scene);
+            started = true; // Vérification supplémentaire le demarrage du jeu.
         } catch (IOException e) {
             e.printStackTrace();
         }

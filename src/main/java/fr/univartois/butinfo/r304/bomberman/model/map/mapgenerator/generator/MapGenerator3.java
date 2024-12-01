@@ -45,9 +45,9 @@ public class MapGenerator3 extends MapGenerator {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (isPositionAWall(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (random.nextInt(100) < 8) {
+        } else if (random.nextInt(100) < 30) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
-        } else if (random.nextInt(100) < 4) {
+        } else if (random.nextInt(100) < 15) {
             state = new CrackedBrickWallState(spriteStore.getSprite("cracked-bricks"));
         } else {
             return new Cell(spriteStore.getSprite("lawn"));

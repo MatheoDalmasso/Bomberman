@@ -166,7 +166,7 @@ public class Player extends AbstractMovable {
      */
     @Override
     public boolean isEnemy() {
-        return true;
+        return false;
     }
 
     /**
@@ -176,7 +176,7 @@ public class Player extends AbstractMovable {
      */
     @Override
     public boolean isPlayer() {
-        return false;
+        return true;
     }
 
     /**
