@@ -21,16 +21,16 @@ public class HomeController {
     SpriteStore spriteStore = SpriteStore.getInstance();
 
     @FXML
-    public Button buttonLevel1;
+    private Button buttonLevel1;
 
     @FXML
-    public Button buttonLevel2;
+    private Button buttonLevel2;
 
     @FXML
-    public Button buttonLevel3;
+    private Button buttonLevel3;
 
     @FXML
-    public Button buttonLevel4;
+    private Button buttonLevel4;
 
     @FXML
     public void onClickEasy(ActionEvent actionEvent) throws IOException {

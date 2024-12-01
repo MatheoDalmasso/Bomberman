@@ -1,0 +1,64 @@
+@startuml
+package typeBomb {
+    class FakeBomb {
+        - long delai
+        - long startTime
+        + FakeBomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai)
+        + void poseBombe()
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + boolean equals(Object o)
+        + int hashCode()
+    }
+
+    class BigBomb {
+        - long delai
+        - long startTime
+        + BigBomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai)
+        + void poseBombe()
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + boolean equals(Object o)
+        + int hashCode()
+    }
+
+    interface IBomb {
+        + void poseBombe()
+        + void explode()
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+        + void hitEnemy()
+    }
+}
+
+FakeBomb ..|> IBomb
+BigBomb ..|> IBomb
+FakeBomb --|> AbstractMovable
+BigBomb --|> AbstractMovable
+@enduml
