@@ -43,6 +43,7 @@ package movement {
 
   IMovementStrategy --> Enemy
   InteligentMovement --> Player
+  Enemy --> IMovementStrategy : "strategy"
 }
 
 @enduml
