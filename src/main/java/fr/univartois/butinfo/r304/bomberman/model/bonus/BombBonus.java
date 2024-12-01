@@ -11,7 +11,14 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 public class BombBonus extends AbstractMovable implements IWallState {
 
+    /**
+     * La bombe associée au bonus.
+     */
     private final Bomb bomb;
+
+    /**
+     * Le sprite store.
+     */
     private final SpriteStore spriteStore = SpriteStore.getInstance();
 
     /**
@@ -27,6 +34,10 @@ public class BombBonus extends AbstractMovable implements IWallState {
         bomb = new Bomb(game, xPosition, yPosition, spriteStore.getSprite("bomb"), 4000);
     }
 
+    /**
+     * Collisions avec les autres objets.
+     * @param other L'objet avec lequel cet objet est entré en collision.
+     */
     @Override
     public void collidedWith(IMovable other) {
         if (other.isPlayer()) {
@@ -35,71 +46,125 @@ public class BombBonus extends AbstractMovable implements IWallState {
         }
     }
 
+    /**
+     * Gère l'explosion de l'objet.
+     */
     @Override
     public void explode() {
         //
     }
 
+    /**
+     * Gère le fait que l'explosion a touché un ennemi.
+     */
     @Override
     public void hitEnemy() {
         //
     }
 
+    /**
+     * Déplace le fait que l'objet est un ennemi.
+     * @return
+     */
     @Override
     public boolean isEnemy() {
         return false;
     }
 
+    /**
+     * Déplace le fait que l'objet est un joueur.
+     * @return
+     */
     @Override
     public boolean isPlayer() {
         return false;
     }
 
+    /**
+     * Déplace le fait que l'objet est une explosion.
+     * @return
+     */
     @Override
     public boolean isExplosion() {
         return false;
     }
 
+    /**
+     * Ennemi avec vie
+     * @return
+     */
     @Override
     public boolean isEnemyWithLife() {
         return false;
     }
 
+    /**
+     * C'est de la lave
+     * @return
+     */
     @Override
     public boolean isLava() {
         return false;
     }
 
+    /**
+     * C'est une bombe
+     * @return
+     */
     @Override
     public boolean isBomb() {
         return false;
     }
 
+    /**
+     * C'est une bombe factice
+     * @return
+     */
     @Override
     public boolean isFakeBomb() {
         return false;
     }
 
+    /**
+     * C'est une grosse bombe
+     * @return
+     */
     @Override
     public boolean isBigBomb() {
         return false;
     }
 
+    /**
+     * C'est un bonus invisible
+     * @return
+     */
     @Override
     public boolean isInvisibleBonus() {
         return false;
     }
 
+    /**
+     * C'est un bonus de vie
+     * @return
+     */
     @Override
     public boolean isLifeBonus() {
         return false;
     }
 
+    /**
+     * C'est un bonus de bombe
+     * @return
+     */
     @Override
     public boolean isBombBonus() {
         return true;
     }
 
+    /**
+     * Dégrade le mur.
+     * @param wall le mur à dégrader
+     */
     @Override
     public void degrade(Wall wall) {
         // Ne fais rien après la dégradation

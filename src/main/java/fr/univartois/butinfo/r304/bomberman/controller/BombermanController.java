@@ -47,9 +47,19 @@ import java.io.IOException;
  */
 public final class BombermanController implements IBombermanController {
 
-
+    /**
+     * La largeur (en pixels) de la fenêtre affichant le jeu.
+     */
     private static final int GAME_WIDTH = 1080;
+
+    /**
+     * La hauteur (en pixels) de la fenêtre affichant le jeu.
+     */
     private static final int GAME_HEIGHT = 720;
+
+    /**
+     * La taille (en pixels) d'une cellule de la carte du jeu.
+     */
     private static final int CELL_SIZE = 32;
 
     /**
@@ -115,22 +125,20 @@ public final class BombermanController implements IBombermanController {
         addKeyListeners();
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Associe à ce contrôleur la partie du jeu Bomberman en cours.
      *
-     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#setGame(fr.
-     * univartois.butinfo.r304.bomberman.model.BombermanGame)
+     * @param game La partie en cours.
      */
     @Override
     public void setGame(BombermanGame game) {
         this.game = game;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Prépare l'affichage du jeu avant que celui-ci ne démarre.
      *
-     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#prepare(fr.
-     * univartois.butinfo.r304.bomberman.model.map.GameMap)
+     * @param map La carte du jeu à afficher.
      */
     @Override
     public void prepare(GameMap map) {
@@ -185,6 +193,9 @@ public final class BombermanController implements IBombermanController {
         }
     }
 
+    /**
+     * Retourne au menu principal.
+     */
     public void returnToMainMenu() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/accueil.fxml"));
@@ -226,47 +237,36 @@ public final class BombermanController implements IBombermanController {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#bindScore(javafx.
-     * beans.binding.IntegerExpression)
+    /**
+     * Lie le score du joueur à son affichage dans la vue.
+     * @param scoreProperty La propriété stockant le score du joueur.
      */
     @Override
     public void bindScore(IntegerExpression scoreProperty) {
         score.textProperty().bind(scoreProperty.asString());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#bindBombs(javafx.
-     * beans.binding.IntegerExpression)
+    /**
+     * Lie le nombre de bombes du joueur à son affichage dans la vue.
+     * @param bombsProperty La propriété stockant le nombre de bombes.
      */
     @Override
     public void bindBombs(IntegerExpression bombsProperty) {
         bombs.textProperty().bind(bombsProperty.asString());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#bindLife(javafx.
-     * beans.binding.IntegerExpression)
+    /**
+     * Lie la vie du joueur à son affichage dans la vue.
+     * @param lifeProperty La propriété stockant la vie du joueur.
      */
     @Override
     public void bindLife(IntegerExpression lifeProperty) {
         life.textProperty().bind(lifeProperty.asString());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#addMovable(fr.
-     * univartois.butinfo.r304.bomberman.model.IMovable)
+    /**
+     * Ajoute un objet pouvant se déplacer dans le jeu, afin de pouvoir l'afficher.
+     * @param movable L'objet à aficher.
      */
     @Override
     public void addMovable(IMovable movable) {
@@ -287,12 +287,9 @@ public final class BombermanController implements IBombermanController {
         });
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * fr.univartois.butinfo.r304.bomberman.model.IBombermanController#gameOver(java.lang.
-     * String)
+    /**
+     * Affiche un message lorsque la partie est terminée.
+     * @param endMessage Le message à afficher.
      */
     @Override
     public void gameOver(String endMessage) {
@@ -306,11 +303,8 @@ public final class BombermanController implements IBombermanController {
     }
 
 
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see fr.univartois.butinfo.r304.bomberman.model.IBombermanController#reset()
+    /**
+     * Réinitialise l'affichage, afin de préparer une nouvelle partie.
      */
     @Override
     public void reset() {

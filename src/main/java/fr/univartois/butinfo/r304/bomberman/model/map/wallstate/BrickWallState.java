@@ -17,6 +17,9 @@ public class BrickWallState implements IWallState {
      */
     private final Sprite sprite;
 
+    /**
+     * Le magasin de sprites.
+     */
     private final SpriteStore spriteStore = SpriteStore.getInstance();
 
 

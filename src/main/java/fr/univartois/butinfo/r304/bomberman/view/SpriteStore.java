@@ -44,19 +44,26 @@ public final class SpriteStore implements ISpriteStore {
      */
     private final Map<String, Sprite> spriteCache = new HashMap<>();
 
+    /**
+     * Constructeur privé pour empêcher l'instanciation de la classe.
+     */
     private SpriteStore() {
-        // Constructeur privé pour empêcher l'instanciation de la classe.
+        //
     }
 
+    /**
+     * Retourne l'instance unique de la classe {@link SpriteStore}.
+     * @return
+     */
     public static SpriteStore getInstance() {
         return instance;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Charge une instance de {@link Sprite} à partir de son identifiant.
+     * @param identifier L'identifiant de l'instance de {@link Sprite} à charger.
      *
-     * @see
-     * fr.univartois.butinfo.r304.bomberman.view.ISpriteStore#getSprite(java.lang.String)
+     * @return
      */
     @Override
     public Sprite getSprite(String identifier) {

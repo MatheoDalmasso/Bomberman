@@ -171,21 +171,37 @@ public class Cell implements IMapComponent {
         wallProperty.set(cell.getWall());
     }
 
+    /**
+     * Remplace le contenu de cette cellule par un mur.
+     * @param component
+     */
     @Override
     public void add(IMapComponent component) {
         throw new UnsupportedOperationException("Cannot add to a leaf component");
     }
 
+    /**
+     * Supprime le contenu de cette cellule.
+     * @param component
+     */
     @Override
     public void remove(IMapComponent component) {
         throw new UnsupportedOperationException("Cannot remove from a leaf component");
     }
 
+    /**
+     * Donne le composant enfant à l'index spécifié.
+     * @param index
+     * @return
+     */
     @Override
     public IMapComponent getChild(int index) {
         throw new UnsupportedOperationException("Cannot get child from a leaf component");
     }
 
+    /**
+     * Affiche le contenu de cette cellule.
+     */
     @Override
     public void display() {
         // Do nothing

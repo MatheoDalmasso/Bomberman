@@ -50,10 +50,8 @@ final class BombermanAnimation extends AnimationTimer {
         this.movableObjects = movableObjects;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javafx.animation.AnimationTimer#start()
+    /**
+     * Démarre l'animation.
      */
     @Override
     public void start() {
@@ -61,10 +59,9 @@ final class BombermanAnimation extends AnimationTimer {
         super.start();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javafx.animation.AnimationTimer#handle(long)
+    /**
+     * Gère la mise à jour des différents objets du jeu.
+     * @param now
      */
     @Override
     public void handle(long now) {

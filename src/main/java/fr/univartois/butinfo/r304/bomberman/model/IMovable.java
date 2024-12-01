@@ -217,25 +217,69 @@ public interface IMovable {
      */
     IMovable self();
 
+    /**
+     * Vérifie si cet objet est un ennemi.
+     * @return
+     */
     boolean isEnemy();
 
+    /**
+     * Vérifie si cet objet est un joueur.
+     * @return
+     */
     boolean isPlayer();
 
+    /**
+     * Vérifie si cet objet est une explosion.
+     * @return
+     */
     boolean isExplosion();
 
+    /**
+     * Vérifie si cet objet est un ennemi avec une vie.
+     * @return
+     */
     boolean isEnemyWithLife();
 
+    /**
+     * Vérifie si cet objet est de la lave.
+     * @return
+     */
     boolean isLava();
 
+    /**
+     * Vérifie si cet objet est une bombe.
+     * @return
+     */
     boolean isBomb();
 
+    /**
+     * Vérifie si cet objet est une bombe factice.
+     * @return
+     */
     boolean isFakeBomb();
 
+    /**
+     * Vérifie si cet objet est une bombe fact
+     * @return
+     */
     boolean isBigBomb();
 
+    /**
+     * Vérifie si cet objet est un bonus
+     * @return
+     */
     boolean isInvisibleBonus();
 
+    /**
+     * Vérifie si cet objet est un bonus de vie
+     * @return
+     */
     boolean isLifeBonus();
 
+    /**
+     * Vérifie si cet objet est un bonus de bombe
+     * @return
+     */
     boolean isBombBonus();
 }

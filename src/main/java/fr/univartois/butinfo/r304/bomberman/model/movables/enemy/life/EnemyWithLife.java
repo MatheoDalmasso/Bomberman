@@ -1,6 +1,3 @@
-/**
- * Classe EnemyWithLife : permet de gérer la vie d'un ennemi.
- */
 package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.life;
 
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
@@ -9,7 +6,8 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractIMovableDecor
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 
 /**
- * Classe EnemyWithLife : permet de gérer la vie d'un ennemi.
+ * La classe EnemyWithLife permet de gérer la vie d'un ennemi dans le jeu Bomberman.
+ * Elle étend la classe AbstractIMovableDecorator pour ajouter des fonctionnalités de gestion de vie à un ennemi.
  */
 public class EnemyWithLife extends AbstractIMovableDecorator {
     /**
@@ -39,7 +37,7 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     }
 
     /**
-     * Permet de gérer les collisions de cet objet avec un autre objet.
+     * Gère les collisions de cet objet avec un autre objet.
      *
      * @param other L'objet avec lequel cet objet est entré en collision.
      */
@@ -55,59 +53,113 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
                 ennemi.explode();  // L'ennemi meurt
             }
         }
-
     }
 
+    /**
+     * Indique si l'objet est un ennemi.
+     *
+     * @return false car cet objet est un ennemi avec vie.
+     */
     @Override
     public boolean isEnemy() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est un joueur.
+     *
+     * @return false car cet objet n'est pas un joueur.
+     */
     @Override
     public boolean isPlayer() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est une explosion.
+     *
+     * @return false car cet objet n'est pas une explosion.
+     */
     @Override
     public boolean isExplosion() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est un ennemi avec une vie.
+     *
+     * @return true car cet objet est un ennemi avec vie.
+     */
     @Override
     public boolean isEnemyWithLife() {
         return true;
     }
 
+    /**
+     * Indique si l'objet est de la lave.
+     *
+     * @return false car cet objet n'est pas de la lave.
+     */
     @Override
     public boolean isLava() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est une bombe.
+     *
+     * @return false car cet objet n'est pas une bombe.
+     */
     @Override
     public boolean isBomb() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est une bombe factice.
+     *
+     * @return false car cet objet n'est pas une bombe factice.
+     */
     @Override
     public boolean isFakeBomb() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est une grosse bombe.
+     *
+     * @return false car cet objet n'est pas une grosse bombe.
+     */
     @Override
     public boolean isBigBomb() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est un bonus invisible.
+     *
+     * @return false car cet objet n'est pas un bonus invisible.
+     */
     @Override
     public boolean isInvisibleBonus() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est un bonus de vie.
+     *
+     * @return false car cet objet n'est pas un bonus de vie.
+     */
     @Override
     public boolean isLifeBonus() {
         return false;
     }
 
+    /**
+     * Indique si l'objet est un bonus de bombe.
+     *
+     * @return false car cet objet n'est pas un bonus de bombe.
+     */
     @Override
     public boolean isBombBonus() {
         return false;
@@ -127,29 +179,38 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     }
 
     /**
-     * Renvoie les PV de l'ennemi.
+     * Renvoie les points de vie de l'ennemi.
      *
-     * @return Les PV de cet ennemi.
+     * @return Les points de vie de cet ennemi.
      */
     public int getPv() {
         return pv;
     }
 
+    /**
+     * Ajoute une bombe à l'ennemi.
+     *
+     * @param bomb La bombe à ajouter.
+     */
     @Override
     public void addBomb(Bomb bomb) {
-        // Fait rien pour les ennemies avec la vie
-    }
-
-    @Override
-    public void addLife(int life) {
-        // Fait rien pour les ennemies avec la vie
+        // Ne fait rien pour les ennemis avec vie
     }
 
     /**
-     * Deplacement de l'ennemi
+     * Ajoute des points de vie à l'ennemi.
      *
-     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
-     *              millisecondes).
+     * @param life La quantité de points de vie à ajouter.
+     */
+    @Override
+    public void addLife(int life) {
+        // Ne fait rien pour les ennemis avec vie
+    }
+
+    /**
+     * Déplace l'ennemi.
+     *
+     * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en millisecondes).
      * @return true si l'objet a bougé, false sinon.
      */
     @Override

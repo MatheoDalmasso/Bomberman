@@ -34,7 +34,14 @@ public final class Wall {
      */
     private IWallState state;
 
+    /**
+     * La position du mur sur la carte.
+     */
     private final int positionX;
+
+    /**
+     * La position du mur sur la carte.
+     */
     private final int positionY;
 
 

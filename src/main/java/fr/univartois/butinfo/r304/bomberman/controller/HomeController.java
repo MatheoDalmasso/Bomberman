@@ -18,20 +18,40 @@ import java.io.IOException;
 
 public class HomeController {
 
+    /**
+     * Instance of the sprite store
+     */
     SpriteStore spriteStore = SpriteStore.getInstance();
 
+    /**
+     * Buttons for the different levels
+     */
     @FXML
     private Button buttonLevel1;
 
+    /**
+     * Buttons for the different levels
+     */
     @FXML
     private Button buttonLevel2;
 
+    /**
+     * Buttons for the different levels
+     */
     @FXML
     private Button buttonLevel3;
 
+    /**
+     * Buttons for the different levels
+     */
     @FXML
     private Button buttonLevel4;
 
+    /**
+     * Method to start the game with the easy level
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onClickEasy(ActionEvent actionEvent) throws IOException {
         MapGenerator mapGenerator = new MapGenerator1(1080, 720);
@@ -54,6 +74,11 @@ public class HomeController {
 
     }
 
+    /**
+     * Method to start the game with the medium level
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onClickMedium(ActionEvent actionEvent) throws IOException {
         MapGenerator mapGenerator = new MapGenerator2(1080, 720);
@@ -75,6 +100,11 @@ public class HomeController {
         stage.setScene(scene);
     }
 
+    /**
+     * Method to start the game with the hard level
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onClickHard(ActionEvent actionEvent) throws IOException {
         MapGenerator mapGenerator = new MapGenerator3(1080, 720);
@@ -97,6 +127,11 @@ public class HomeController {
 
     }
 
+    /**
+     * Method to start the game with the impossible level
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onClickImpossible(ActionEvent actionEvent) throws IOException {
         MapGenerator mapGenerator = new MapGenerator4(1080, 720);
