@@ -20,250 +20,680 @@ dans le développement de votre projet.
 ## Diagramme de classes
 
 ```plantuml
-hide empty members
+@startuml
+package bomberman{
 
-class Bomberman {
-    - {static} GAME_WIDTH: int
-    - {static} GAME_HEIGHT: int
-    - {static} NB_ENEMIES: int
+package controller {
+    class BombermanController {
+        - BombermanGame game
+        - Stage stage
+        - GridPane backgroundPane
+        - Pane movingPane
+        - Label score
+        - Label bombs
+        - Label life
+        - Label message
+        - boolean started
+        + void setStage(Stage stage)
+        + void setGame(BombermanGame game)
+        + void prepare(GameMap map)
+        - void createBackground(GameMap map)
+        - void addKeyListeners()
+        - void handleKeyTyped(KeyEvent e)
+        - void returnToMainMenu()
+        - void handleKeyPressed(KeyEvent e)
+        - void handleKeyReleased(KeyEvent e)
+        + void bindScore(IntegerExpression scoreProperty)
+        + void bindBombs(IntegerExpression bombsProperty)
+        + void bindLife(IntegerExpression lifeProperty)
+        + void addMovable(IMovable movable)
+        + void gameOver(String endMessage)
+        + void reset()
+    }
 
-    + start(stage: Stage): void
-    + {static} main(args: String[]): void
+    class HomeController {
+        - SpriteStore spriteStore
+        - Button buttonLevel1
+        - Button buttonLevel2
+        - Button buttonLevel3
+        - Button buttonLevel4
+        + void onClickEasy(ActionEvent actionEvent) throws IOException
+        + void onClickMedium(ActionEvent actionEvent) throws IOException
+        + void onClickHard(ActionEvent actionEvent) throws IOException
+        + void onClickImpossible(ActionEvent actionEvent) throws IOException
+    }
+
+    interface IBombermanController {
+        + void bindScore(IntegerExpression scoreProperty)
+        + void bindBombs(IntegerExpression bombsProperty)
+        + void bindLife(IntegerExpression lifeProperty)
+        + void addMovable(IMovable movable)
+        + void gameOver(String endMessage)
+        + void reset()
+    }
 }
-Bomberman --> BombermanController : << charge >>
-Bomberman --> BombermanGame : << crée >>
 
-class BombermanGame {
-    + {static} RANDOM: Random
-    + {static} DEFAULT_SPEED: int
-    + {static} DEFAULT_BOMBS: int
-    - width: int
-    - height: int
-    - spriteStore: ISpriteStore
-    - gameMap: GameMap
-    - player: IMovable
-    - nbEnemies: int
-    - remainingEnemies: int
-    - movableObjects: List<IMovable>
-    - animation: BombermanAnimation
-    - controller: IBombermanController
+BombermanController --> BombermanGame
+BombermanController --> Stage
+BombermanController --> GridPane
+BombermanController --> Pane
+BombermanController --> Label
+BombermanController --> KeyEvent
+BombermanController --> IntegerExpression
+BombermanController --> IMovable
+BombermanController --> GameMap
+BombermanController ..|> IBombermanController
 
-    + BombermanGame(gameWidth: int, gameHeight: int, spriteStore: ISpriteStore, nbEnemies: int)
-    + setController(controller: IBombermanController): void
-    + getWidth(): int
-    + getHeight(): int
-    + prepare(): void
-    - createMap(): GameMap
-    + start(): void
-    - createMovables(): void
-    - initStatistics(): void
-    - spawnMovable(movable: IMovable): void
-    + moveUp(): void
-    + moveRight(): void
-    + moveDown(): void
-    + moveLeft(): void
-    + stopMoving(): void
-    + dropBomb(): void
-    + dropBomb(bomb: IMovable): void
-    - getCellOf(movable: IMovable): Cell
-    + getCellAt(x: int, y: int): Cell
-    + addMovable(object: IMovable): void
-    + removeMovable(object: IMovable): void
-    - clearAllMovables(): void
-    + enemyIsDead(enemy: IMovable): void
-    + playerIsDead(): void
-    - gameOver(message: String): void
+HomeController --> SpriteStore
+HomeController --> Button
+HomeController --> ActionEvent
+HomeController --> IOException
+IOException --> Exception
+
+package model{
+
+package bombs {
+    class Bomb {
+        - {static} logger LOGGER
+        - SpriteStore SPRITESTORE
+        - long delai
+        - long startTime
+        + Bomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai)
+        + void poseBombe()
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + boolean equals(Object o)
+        + int hashCode()
+    }
+
+    class BigBomb {
+        + BigBomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai)
+    }
+
+    class FakeBomb {
+        - long delai
+        - long startTime
+        + FakeBomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite, long delai)
+        + void poseBombe()
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + boolean equals(Object o)
+        + int hashCode()
+    }
+
+    interface IBomb {
+        + void poseBombe()
+        + void explode()
+    }
+
+    class AbstractMovable {
+
+    }
+
+    interface IMovable {
+
+    }
 }
-BombermanGame o-- "1" ISpriteStore
-BombermanGame *-- "1" GameMap
-BombermanGame *-- "*" IMovable
-BombermanGame *-- "1" BombermanAnimation
-BombermanGame o-- "1" IBombermanController
+
+Bomb ..|> IBomb
+BigBomb ..|> IBomb
+FakeBomb ..|> IBomb
+FakeBomb --|> AbstractMovable
+BigBomb --|> AbstractMovable
+Bomb --|> AbstractMovable
+AbstractMovable ..|> IMovable
+
+package bonus {
+    class BombBonus {
+        - Bomb bomb
+        - SpriteStore spriteStore
+        + BombBonus(BombermanGame game, double xPosition, double yPosition, Sprite sprite)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + void degrade(Wall wall)
+    }
+
+    class LifeBonus {
+        - SpriteStore spriteStore
+        + LifeBonus(BombermanGame game, double xPosition, double yPosition, Sprite sprite)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + void degrade(Wall wall)
+    }
+
+    class InvisibleBonus {
+        - SpriteStore spriteStore
+        + InvisibleBonus(BombermanGame game, double xPosition, double yPosition, Sprite sprite)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + void degrade(Wall wall)
+    }
+
+    interface IWallState {
+        + void explode()
+        + void hitEnemy()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+        + void degrade(Wall wall)
+    }
+
+    class AbstractMovable {
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+    }
+
+    interface IMovable {
+        + boolean move(long delta)
+        + void collidedWith(IMovable other)
+    }
+
+    class SpriteStore {
+        + static SpriteStore getInstance()
+        + Sprite getSprite(String name)
+    }
+
+    class Sprite {
+    }
+}
+
+BombBonus --|> AbstractMovable
+LifeBonus --|> AbstractMovable
+InvisibleBonus --|> AbstractMovable
+BombBonus ..|> IWallState
+LifeBonus ..|> IWallState
+InvisibleBonus ..|> IWallState
+AbstractMovable ..|> IMovable
+SpriteStore --> Sprite
+InvisibleBonus --> SpriteStore
+LifeBonus --> SpriteStore
+BombBonus --> SpriteStore
+
+package map {
+    package wallstate {
+        interface IWallState {
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        class WallInvincibleState implements IWallState {
+            - Sprite SPRITE
+            + WallInvincibleState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        class CrackedBrickWallState implements IWallState {
+            - Sprite SPRITE
+            - BombermanGame GAME
+            - SpriteStore SPRITESTORE
+            - Random RANDOM
+
+            + CrackedBrickWallState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        class BrickWallState implements IWallState {
+            - Sprite SPRITE
+            - SpriteStore SPRITESTORE
+            + BrickWallState(Sprite sprite)
+            + void degrade(Wall wall)
+            + Sprite getSprite()
+        }
+
+        Wall ..> IWallState : "state"
+    }
+
+    package mapgenerator {
+        interface IMapGenerator {
+            + GameMap genererMap();
+        }
+
+        abstract class MapGenerator {
+            - int HEIGHT
+            - int WIDTH
+            # SpriteStore spriteStore
+
+            + MapGenerator(int height, int width)
+            + GameMap genererMap()
+            # abstract Cell generateCell(int i, int j)
+            - boolean isBorder(int i, int j)
+            - boolean isWallPosition(int i, int j)
+            + int getHeight()
+            + int getWidth()
+        }
+
+        MapGenerator ..|> IMapGenerator
+
+        class MapGenerator1 {
+            - Random RANDOM
+            + MapGenerator1(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        class MapGenerator2 {
+            - Random RANDOM
+            + MapGenerator2(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        class MapGenerator3 {
+            - Random RANDOM
+            + MapGenerator3(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        class MapGenerator4 {
+            - Random RANDOM
+            + MapGenerator4(int height, int width)
+            # Cell generateCell(int i, int j)
+            - isBorder(int i, int j)
+            - isWallPosition(int i, int j)
+        }
+
+        MapGenerator1 --|> MapGenerator
+        MapGenerator2 --|> MapGenerator
+        MapGenerator3 --|> MapGenerator
+        MapGenerator4 --|> MapGenerator
+
+        interface IMapFactory {
+            + GameMap createMap();
+        }
+
+        class MapFactory {
+            - int height
+            - int width
+            - SpriteStore spriteStore
+
+            + MapFactory(int height, int width, SpriteStore spriteStore)
+            + GameMap createMap(String type)
+        }
+
+        MapFactory ..|> IMapFactory
+        MapFactory o--> MapGenerator : utilise
+    }
+
+    class Wall {
+        - IWallState state
+        + void setState(IWallState state)
+        + void degrade()
+        + Sprite getSprite()
+    }
+
+    Wall --> IWallState : "state"
+
+    class GameMap {
+        + void addComponent(IMapComponent component)
+        + void displayComponents()
+    }
+
+    interface IMapComponent {
+        + void add(IMapComponent component)
+        + void remove(IMapComponent component)
+        + IMapComponent getChild(int index)
+        + void display()
+    }
+
+    class Cell {
+            - int row
+            - int column
+            - ObjectProperty<Sprite> spriteProperty
+            - ObjectProperty<Wall> wallProperty
+
+            + Cell(int row, int column)
+            + Cell(Sprite sprite)
+            + Cell(Wall wall)
+
+            + int getRow()
+            + int getColumn()
+            + int getWidth()
+            + int getHeight()
+            + Sprite getSprite()
+            + void setSprite(Sprite sprite)
+            + Wall getWall()
+            + void setWall(Wall wall)
+    }
+
+    class ObjectProperty<T> {
+        - T value
+        + T get()
+        + void set(T value)
+    }
+
+    class Column {
+    }
+
+    class Row {
+    }
+}
+
+Wall ..|> IWallState
+Cell ..> Sprite
+Cell ..> Wall
+GameMap ..|> IMapComponent
+Cell ..|> IMapComponent
 
 class BombermanAnimation {
-    - movableObjects: List<IMovable>
-    - previousTimestamp: long
+        - movableObjects : List<IMovable>
+        - previousTimestamp : long
+        + BombermanAnimation(movableObjects: List<IMovable>)
+        + start() : void
+        + handle(now: long) : void
+        - moveObjects(delta: long) : void
+        - checkCollisions() : void
+    }
 
-    + BombermanAnimation(movableObjects: List<IMovable>)
-    + start(): void
-    + handle(now: long): void
-    - moveObjects(delta: long): void
-    - checkCollisions(): void
+    interface IMovable {
+        + move(delta: long) : void
+        + isCollidingWith(other: IMovable) : boolean
+        + collidedWith(other: IMovable) : void
+    }
+
+    BombermanAnimation --> IMovable : uses
+
+class BombermanGame {
+        - Random RANDOM
+        - int DEFAULT_SPEED
+        - int DEFAULT_BOMBS
+        - int width
+        - int height
+        - IMapFactory mapFactory
+        - ISpriteStore spriteStore
+        - IntegerProperty remainingBombs
+        - int nbEnemies
+        - int nbBoss
+        - int nbSousBoss
+        - List<IMovable> movableObjects
+        - AnimationTimer animation
+        - GameMap gameMap
+        - Player player
+        - int remainingEnemies
+        - IBombermanController controller
+        - IMapGenerator generateurMap
+        - int difficultyLevel
+        + BombermanGame(int, int, ISpriteStore, int, int, int)
+        + void start(int)
+        + void prepare(int)
+        + void incrementBombCount()
+        + void decreaseBombs()
+        + int getRemainingBombs()
+        + IntegerProperty remainingBombsProperty()
+        + void setController(IBombermanController)
+        + ISpriteStore getSpriteStore()
+        + int getWidth()
+        + int getHeight()
+        + void setMapFactory(IMapFactory)
+        + void setDifficultyLevel(int)
+        + int getDifficultyLevel()
+    }
+
+    interface IMovable {
+        + void move()
+    }
+
+    class Player {
+        + void addBomb(Bomb)
+        + int getX()
+        + int getY()
+    }
+
+    class Bomb {
+        + Bomb(BombermanGame, int, int, Sprite, int)
+    }
+
+    class GameMap {
+        // Présence d'autres méthodes et attributs
+    }
+
+    interface ISpriteStore {
+        + Sprite getSprite(String)
+    }
+
+    interface IBombermanController {
+        + void prepare(GameMap)
+    }
+
+    class Enemy {
+        + Enemy(BombermanGame, int, int, Sprite, IMovement)
+    }
+
+    class EnemyWithLife {
+        + EnemyWithLife(Enemy, int)
+        + void setHorizontalSpeed(int)
+    }
+
+    interface IMovement {
+        + void move()
+    }
+
+    class RandomMovement {
+        + void move()
+    }
+
+    class InteligentMovement {
+        + void move()
+    }
+
+    class Sprite {
+        // Les attributs et méthodes pour les sprites
+    }
+
+    class BombermanAnimation {
+        + BombermanAnimation(List<IMovable>)
+    }
+
+
+    class GetGameInstance {
+        - static BombermanGame instance
+        - GetGameInstance()
+        + static BombermanGame getInstance()
+        + static void setInstance(BombermanGame)
+    }
+
+ interface IBombermanController {
+        + void setGame(BombermanGame game)
+        + void prepare(GameMap map)
+        + void bindScore(IntegerExpression scoreProperty)
+        + void bindBombs(IntegerExpression bombsProperty)
+        + void bindLife(IntegerExpression lifeProperty)
+        + void addMovable(IMovable movable)
+        + void gameOver(String endMessage)
+        + void reset()
+    }
+
+    interface IMovable {
+        + int getWidth()
+        + int getHeight()
+        + void setX(int xPosition)
+        + int getX()
+        + DoubleProperty getXProperty()
+        + void setY(int yPosition)
+        + int getY()
+        + DoubleProperty getYProperty()
+        + void consume()
+        + boolean isConsumed()
+        + BooleanProperty isConsumedProperty()
+        + void setHorizontalSpeed(double speed)
+        + double getHorizontalSpeed()
+        + void setVerticalSpeed(double speed)
+        + double getVerticalSpeed()
+        + void addBomb(Bomb bomb)
+        + void addLife(int life)
+        + void setSprite(Sprite sprite)
+        + Sprite getSprite()
+        + ObjectProperty<Sprite> getSpriteProperty()
+        + boolean move(long timeDelta)
+        + boolean isCollidingWith(IMovable other)
+        + void collidedWith(IMovable other)
+        + void explode()
+        + void hitEnemy()
+        + IMovable self()
+        + boolean isEnemy()
+        + boolean isPlayer()
+        + boolean isExplosion()
+        + boolean isEnemyWithLife()
+        + boolean isLava()
+        + boolean isBomb()
+        + boolean isFakeBomb()
+        + boolean isBigBomb()
+        + boolean isInvisibleBonus()
+        + boolean isLifeBonus()
+        + boolean isBombBonus()
+    }
+
+IMovable --> Bomb : "ajoute"
+IMovable --> Sprite : "utilise"
+IBombermanController --> BombermanGame : "associe"
+IBombermanController --> GameMap : "utilise"
+IBombermanController --> IMovable : "ajoute"
+
+
+GetGameInstance --> BombermanGame : "utilise"
+
+BombermanGame --> ISpriteStore
+BombermanGame --> GameMap
+BombermanGame --> IBombermanController
+BombermanGame --> IMapFactory
+BombermanGame --> IMapGenerator
+BombermanGame --> IMovable
+BombermanGame --> Player
+BombermanGame --> Bomb
+BombermanGame --> Enemy
+BombermanGame --> EnemyWithLife
+IMovable <|-- Player
+IMovable <|-- Enemy
+IMovable <|-- EnemyWithLife
+IMovement <|-- RandomMovement
+IMovement <|-- InteligentMovement
+BombermanGame --> Sprite
+BombermanGame --> BombermanAnimation
+
+
+
 }
-BombermanAnimation o-- "*" IMovable
 
-interface IBombermanController{
-    + {abstract} setGame(game: BombermanGame): void
-    + {abstract} prepare(map: GameMap): void
-    + {abstract} bindScore(scoreProperty: IntegerExpression): void
-    + {abstract} bindBombs(bombsProperty: IntegerExpression): void
-    + {abstract} bindLife(lifeProperty: IntegerExpression): void
-    + {abstract} addMovable(movable: IMovable): void
-    + {abstract} gameOver(endMessage: String): void
-    + {abstract} reset(): void
+
+package view {
+
+    interface ISpriteStore {
+        + getSprite(identifier: String): Sprite
+        + getSpriteSize(): int
+    }
+
+    class Sprite {
+        - image: Image
+        + Sprite(image: Image)
+        + getWidth(): int
+        + getHeight(): int
+        + getImage(): Image
+        + draw(graphics: GraphicsContext, x: int, y: int): void
+    }
+
+    class SpriteAnimator {
+        - frames: List<Image>
+        - currentFrameIndex: int
+        - animation: Timeline
+        + SpriteAnimator(frames: List<Image>, frameDuration: int)
+        - nextFrame(): void
+        + getCurrentFrame(): Image
+        + start(): void
+        + stop(): void
+    }
+
+    class SpriteStore {
+        - instance: SpriteStore
+        - spriteCache: Map<String, Sprite>
+        + getInstance(): SpriteStore
+        + getSprite(identifier: String): Sprite
+        - loadImage(name: String): Image
+    }
+
+    ISpriteStore <|.. SpriteStore
+    SpriteStore --* Sprite
+    SpriteAnimator --* Image
+
+    Sprite o-- "1" Image : has
+
 }
-
-class BombermanController implements IBombermanController {
-    - game: BombermanGame
-    - stage: Stage
-    - backgroundPane: GridPane
-    - movingPane: Pane
-    - score: Label
-    - bombs: Label
-    - life: Label
-    - message: Label
-    - started: boolean
-
-    + setStage(stage: Stage): void
-    + setGame(game: BombermanGame): void
-    + prepare(map: GameMap): void
-    - createBackground(map: GameMap): void
-    - addKeyListeners(): void
-    + bindScore(scoreProperty: IntegerExpression): void
-    + bindBombs(bombsProperty: IntegerExpression): void
-    + bindLife(lifeProperty: IntegerExpression): void
-    + addMovable(movable: IMovable): void
-    + gameOver(endMessage: String): void
-    + reset(): void
 }
-BombermanController o-- "1" BombermanGame
-
-interface IMovable {
-    + {abstract} getWidth(): int
-    + {abstract} getHeight(): int
-    + {abstract} setX(xPosition: int): void
-    + {abstract} getX(): int
-    + {abstract} getXProperty(): DoubleProperty
-    + {abstract} setY(yPosition: int): void
-    + {abstract} getY(): int
-    + {abstract} getYProperty(): DoubleProperty
-    + {abstract} consume(): void
-    + {abstract} isConsumed(): boolean
-    + {abstract} isConsumedProperty(): BooleanProperty
-    + {abstract} setHorizontalSpeed(speed: double): void
-    + {abstract} getHorizontalSpeed(): double
-    + {abstract} setVerticalSpeed(speed: double): void
-    + {abstract} getVerticalSpeed(): double
-    + {abstract} setSprite(sprite: Sprite): void
-    + {abstract} getSprite(): Sprite
-    + {abstract} getSpriteProperty(): ObjectProperty<Sprite>
-    + {abstract} move(timeDelta: long): boolean
-    + {abstract} isCollidingWith(other: IMovable): boolean
-    + {abstract} collidedWith(other: IMovable): void
-    + {abstract} explode(): void
-    + {abstract} hitEnemy(): void
-    + {abstract} self(): IMovable
-}
-
-abstract class AbstractMovable implements IMovable {
-    - {static} MARGIN: int
-    # game: BombermanGame
-    # xPosition: DoubleProperty
-    # yPosition: DoubleProperty
-    # consumed: BooleanProperty
-    # horizontalSpeed: double
-    # verticalSpeed: double
-    # sprite: ObjectProperty<Sprite>
-
-    # AbstractMovable(game: BombermanGame, xPosition: double, yPosition: double, sprite: Sprite)
-    + getWidth(): int
-    + getHeight(): int
-    + setX(xPosition: int): void
-    + getX(): int
-    + getXProperty(): DoubleProperty
-    + setY(yPosition: int): void
-    + getY(): int
-    + getYProperty(): DoubleProperty
-    + consume(): void
-    + isConsumed(): boolean
-    + isConsumedProperty(): BooleanProperty
-    + setHorizontalSpeed(speed: double): void
-    + getHorizontalSpeed(): double
-    + setVerticalSpeed(speed: double): void
-    + getVerticalSpeed(): double
-    + setSprite(sprite: Sprite): void
-    + getSprite(): Sprite
-    + getSpriteProperty(): ObjectProperty<Sprite>
-    + move(timeDelta: long): boolean
-    - isOnWall(x: int, y: int): boolean
-    + isCollidingWith(other: IMovable): boolean
-    + collidedWith(other: IMovable): void
-    + explode(): void
-    + hitEnemy(): void
-    + self(): IMovable
-    + hashCode(): int
-    + equals(obj: Object): boolean
-}
-AbstractMovable *-- "1" BombermanGame
-AbstractMovable o-- "1" Sprite
-
-class GameMap {
-    - height: int
-    - width: int
-    - cells: Cell[][]
-
-    + GameMap(height: int, width: int)
-    - init(): void
-    + getHeight(): int
-    + getWidth(): int
-    + isOnMap(row: int, column: int): boolean
-    + getAt(row: int, column: int): Cell
-    + setAt(row: int, column: int, cell: Cell): void
-    + getEmptyCells(): List<Cell>
-}
-GameMap *-- "*" Cell
-
-class Cell {
-    - row: int
-    - column: int
-    - spriteProperty: ObjectProperty<Sprite>
-    - wallProperty: ObjectProperty<Wall>
-
-    + Cell(row: int, column: int)
-    + Cell(sprite: Sprite)
-    # Cell(wall: Wall)
-    + getRow(): int
-    + getColumn(): int
-    + getWidth(): int
-    + getHeight(): int
-    + isEmpty(): boolean
-    + getSprite(): Sprite
-    + getSpriteProperty(): ObjectProperty<Sprite>
-    + getWall(): Wall
-    + getWallProperty(): ObjectProperty<Wall>
-    + replaceBy(cell: Cell): void
-}
-Cell o-- "1" Sprite
-Cell *-- "0..1" Wall
-
-class Wall {
-    - sprite: Sprite
-
-    + Wall(sprite: Sprite)
-    + getSprite(): Sprite
-}
-
-interface ISpriteStore {
-    + {abstract} getSprite(identifier: String): Sprite
-    + getSpriteSize(): int
-}
-ISpriteStore --> Sprite : << crée >>
-
-class SpriteStore implements ISpriteStore {
-    - spriteCache: Map<String, Sprite>
-    + getSprite(identifier: String): Sprite
-    - loadImage(name: String): Image
-}
-
-class Sprite {
-    - image: Image
-
-    + Sprite(image: Image)
-    + getWidth(): int
-    + getHeight(): int
-    + getImage(): Image
-    + draw(graphics: GraphicsContext, x: int, y: int): void
-}
+@enduml
 ```
 
 ## Tâches réalisées
