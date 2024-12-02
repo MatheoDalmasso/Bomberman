@@ -12,7 +12,7 @@
 }
 
 .label-subtitle {
-    -fx-font-size: 20px; /* Increased font size */
+    -fx-font-size: 24px; /* Increased font size */
     -fx-font-weight: bold;
     -fx-text-fill: #4682b4; /* SteelBlue text color */
 }
@@ -35,6 +35,8 @@
 .button-easy:hover {
     -fx-background-color: #228b22; /* Darker green on hover */
     -fx-cursor:hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
 }
 
 .button-medium {
@@ -50,6 +52,8 @@
 .button-medium:hover {
     -fx-background-color: #ff8c00; /* Darker orange on hover */
     -fx-cursor:hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
 }
 
 .button-hard {
@@ -65,6 +69,8 @@
 .button-hard:hover {
     -fx-background-color: #b22222; /* Darker red on hover */
     -fx-cursor:hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
 }
 
 .button-impossible {
@@ -81,38 +87,61 @@
 .button-impossible:hover {
     -fx-background-color: #4b0082; /* Darker violet on hover */
     -fx-cursor:hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
+}
+
+
+.button-arrow {
+    -fx-font-size: 24px;
+    -fx-background-color: #87cefa;
+    -fx-text-fill: #fff;
+    -fx-border-color: #4682b4;
+    -fx-border-width: 2;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+
+}
+
+.button-arrow:hover {
+    -fx-background-color: #4682b4;
+    -fx-border-color: #1e90ff;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-opacity: 1;
+}
+
+.button-arrow:pressed {
+    -fx-background-color: #1e90ff;
+    -fx-border-color: #1e90ff;
+    -fx-opacity: 0.8;
 }
 
 
 
-/* Personnaliser la barre de défilement verticale */
-.scroll-pane .scroll-bar:vertical {
-    -fx-background-color: transparent; /* Arrière-plan transparent */
-    -fx-padding: 5px;                  /* Espace autour */
-}
-
-/* La partie "track" de la scrollbar */
-.scroll-pane .scroll-bar:vertical .track {
-    -fx-background-color: #cccccc;    /* Couleur de la piste */
-}
-
-/* La partie "thumb" de la scrollbar (la poignée déplaçable) */
-.scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-color: #666666;    /* Couleur de la poignée */
-    -fx-background-radius: 5px;       /* Coins arrondis */
-}
-
-/* Au survol de la souris */
-.scroll-pane .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #333333;    /* Couleur plus sombre */
-}
-
-/* Personnaliser la barre de défilement horizontale si nécessaire */
-.scroll-pane .scroll-bar:horizontal {
+.scroll-pane {
     -fx-background-color: transparent;
 }
 
-/* Masquer complètement une scrollbar (si voulu) */
-.scroll-pane .scroll-bar:horizontal {
-    -fx-opacity: 0; /* Masque la barre */
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 505px;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #cccccc;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #666666;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #333333;
 }

@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import javafx.scene.control.ScrollPane;
 import java.io.IOException;
 
 
@@ -174,7 +176,6 @@ public class HomeController {
     private Button leftButton;
     @FXML
     private Button rightButton;
-
     @FXML
     private ImageView characterImageView;
 
@@ -194,10 +195,13 @@ public class HomeController {
             spriteStore.getSprite("bomberman_1_3"),
             spriteStore.getSprite("bomberman_1_5")
     };
+    @FXML
+    private ScrollPane scrollPane;
 
     // Initialisation
     @FXML
     public void initialize() {
+        scrollPane.setVvalue(0);
         // Afficher le personnage par défaut
         updateCharacterImage();
 
@@ -231,23 +235,22 @@ public class HomeController {
 
     @FXML
     public void onLeftButtonClick(ActionEvent event) {
-        if (selectedIndex > 0) {
-            selectedIndex--;  // Décrémenter l'index
-            updateCharacterImage();
-        }
+        selectedIndex = (selectedIndex - 1 + spritePaths.length) % spritePaths.length;
+        updateCharacterImage();
     }
     // Méthodes pour naviguer à droite
     @FXML
     public void onRightButtonClick(ActionEvent event) {
-        if (selectedIndex < spritePaths.length - 1) {
-            selectedIndex++;  // Incrémenter l'index
-            updateCharacterImage();
-        }
+        selectedIndex = (selectedIndex + 1) % spritePaths.length;
+        updateCharacterImage();
     }
 
     private void updateCharacterImage() {
         Sprite sprite = spritePaths[selectedIndex];
-        characterImageView.setImage(sprite.getImage());
+        Image image = sprite.getImage();
+        Image resizedImage = new Image(image.getUrl(), 250, 250, true, true);
+        characterImageView.setImage(resizedImage);
         selectedSprite = sprite;
     }
+
 }
