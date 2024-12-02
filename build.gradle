@@ -29,3 +29,17 @@ javafx {
     version = '21.0.1'
     modules = ['javafx.controls', 'javafx.fxml']
 }
+
+plugins {
+    id 'org.sonarqube' version '5.1.0.4882'
+}
+
+sonar {
+    properties {
+        property 'sonar.projectKey', '<squ_30cefb0cbff6d2d9cc9e403b3ad78833294de10f>'
+        property 'sonar.host.url', 'https://sonarqube.univ-artois.fr'
+    }
+}
+
+
+
