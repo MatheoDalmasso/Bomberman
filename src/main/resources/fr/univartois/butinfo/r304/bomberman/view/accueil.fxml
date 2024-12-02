@@ -4,9 +4,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox alignment="CENTER" spacing="20" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="fr.univartois.butinfo.r304.bomberman.controller.HomeController">
+    <ImageView fitHeight="300" fitWidth="300" pickOnBounds="true" preserveRatio="true">
+        <Image url="@sprites/logo.png"/>
+    </ImageView>
     <!-- Titre -->
     <Label styleClass="label-title" text="Welcome to Bomberman"/>
 

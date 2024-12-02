@@ -55,7 +55,7 @@ public final class Bomberman extends Application {
         Parent viewContent = fxmlLoader.load();
 
         // Set the scene with the loaded view
-        Scene scene = new Scene(viewContent, GAME_WIDTH, GAME_HEIGHT);
+        Scene scene = new Scene(viewContent,1080, 900);
         stage.setScene(scene);
         stage.setTitle("BombermanFX");
         stage.setResizable(false);
