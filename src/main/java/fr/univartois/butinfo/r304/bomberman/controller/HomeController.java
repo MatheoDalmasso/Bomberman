@@ -8,6 +8,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.Map
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.generator.MapGenerator4;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -201,7 +202,11 @@ public class HomeController {
     // Initialisation
     @FXML
     public void initialize() {
-        scrollPane.setVvalue(0);
+        Platform.runLater(() -> {
+            // Envoie le ScrollPane vers le tout début du contenu
+            characterGallery.requestFocus();
+            scrollPane.setVvalue(0); // Essaie de le remettre en haut
+        });
         // Afficher le personnage par défaut
         updateCharacterImage();
 
