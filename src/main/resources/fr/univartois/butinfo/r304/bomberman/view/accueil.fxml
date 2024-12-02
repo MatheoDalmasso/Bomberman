@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
 <VBox alignment="CENTER" spacing="20" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="fr.univartois.butinfo.r304.bomberman.controller.HomeController">
@@ -17,6 +18,17 @@
     <Label styleClass="label-text"
            text="4. Be careful! Your inventory may contain troll bombs that don't cause any damage (they look like billiard balls)."/>
     <Label styleClass="label-text" text="5. There are 4 levels of difficulty. Easy, medium, hard and impossible."/>
+
+    <Label styleClass="label-subtitle" text="Choose your character"/>
+
+    <HBox fx:id="characterGallery" alignment="CENTER" spacing="10">
+        <Button fx:id="leftButton" text="←" onAction="#onLeftButtonClick"/>
+        <ImageView fx:id="characterImageView" fitWidth="100" fitHeight="100"/>
+        <Button fx:id="rightButton" text="→" onAction="#onRightButtonClick"/>
+    </HBox>
+
+    <!-- Message de confirmation -->
+
 
     <!-- Sélection du niveau -->
     <Label styleClass="label-subtitle" text="Choose your level :"/>

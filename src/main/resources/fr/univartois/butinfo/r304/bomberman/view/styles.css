@@ -80,4 +80,5 @@
 
 .button-impossible:hover {
     -fx-background-color: #4b0082; /* Darker violet on hover */
+    -fx-cursor:hand;
 }

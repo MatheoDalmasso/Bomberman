@@ -71,7 +71,9 @@ public class FakeBomb extends AbstractMovable implements IBomb {
      */
     @Override
     public void collidedWith(IMovable other) {
-        //
+        if (other.isExplosion()) {
+            explode();
+        }
     }
 
     /**

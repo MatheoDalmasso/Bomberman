@@ -3,6 +3,7 @@
  */
 package fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
 
+import fr.univartois.butinfo.r304.bomberman.controller.HomeController;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
@@ -12,6 +13,7 @@ import javafx.util.Duration;
  */
 public class InvulnerableState implements PlayerState {
 
+    private HomeController controller;
     /**
      * La durée de l'invulnérabilité du joueur.
      */
@@ -35,7 +37,7 @@ public class InvulnerableState implements PlayerState {
      */
     @Override
     public void updateAppearance(Player player) {
-        player.setSprite(player.getSpriteStore().getSprite("punker"));
+        player.setSprite(player.getSpriteStore().getSprite("bomberman_1_4"));
     }
 
     /**
@@ -45,11 +47,11 @@ public class InvulnerableState implements PlayerState {
      */
     public static void makePlayerInvulnerable(Player player) {
         player.setState(new InvulnerableState());
-        player.setSprite(player.getSpriteStore().getSprite("punker"));
+        player.setSprite(player.getSpriteStore().getSprite("bomberman_1_4"));
         PauseTransition pause = new PauseTransition(Duration.seconds(INVULNERABLE_DURATION));
         pause.setOnFinished(event -> {
             player.setState(new VulnerableState());
-            player.setSprite(player.getSpriteStore().getSprite("agent"));
+            player.setSprite(player.getSpriteStore().getSprite("bomberman_0_0"));
         });
         pause.play();
     }

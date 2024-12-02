@@ -17,6 +17,7 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 
+import fr.univartois.butinfo.r304.bomberman.controller.HomeController;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
@@ -135,6 +136,7 @@ public final class BombermanGame {
      */
     private IBombermanController controller;
 
+
     /**
      * Le générateur de la carte du jeu.
      */
@@ -144,6 +146,8 @@ public final class BombermanGame {
      * Le niveau de difficulté
      */
     private int difficultyLevel;
+
+    private Sprite selectedSprite;
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -373,6 +377,9 @@ public final class BombermanGame {
         animation.start();
     }
 
+    public void setSelectedSprite(Sprite selectedSprite) {
+        this.selectedSprite = selectedSprite;
+    }
 
     /**
      * Crée les différents objets présents au début de la partie et pouvant se déplacer.
@@ -381,7 +388,7 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Player(this, 0, 0, spriteStore.getSprite("guy"));
+        player = new Player(this, 0, 0, selectedSprite != null ? selectedSprite : spriteStore.getSprite("bomberman_0_0"));
         movableObjects.add(player);
         spawnMovable(player);
 
