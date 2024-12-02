@@ -204,6 +204,10 @@ public final class BombermanGame {
         return remainingBombs.get();
     }
 
+    public void setRemainingBombs(int bombs) {
+        this.remainingBombs.set(remainingBombs.get()+bombs);
+    }
+
     /**
      * Diminue le nombre de bombes restantes du joueur.
      */

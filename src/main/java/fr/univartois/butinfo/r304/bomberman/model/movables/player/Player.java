@@ -124,6 +124,7 @@ public class Player extends AbstractMovable {
     @Override
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
+        game.setRemainingBombs(1);
     }
 
     @Override
@@ -312,6 +313,10 @@ public class Player extends AbstractMovable {
      */
     public int getScore() {
         return score.get();
+    }
+
+    public void setNbBombe(int nbBomb) {
+        this.nbBombe.set(nbBomb);
     }
 
     /**
