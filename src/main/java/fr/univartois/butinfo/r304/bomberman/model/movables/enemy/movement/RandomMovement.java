@@ -5,7 +5,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables.enemy.movement;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.enemy.Enemy;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * Classe RandomMovement : permet de déplacer un personnage ennemi de manière aléatoire.
@@ -14,7 +14,7 @@ public class RandomMovement implements IMovementStrategy {
     /**
      * Le générateur de nombres aléatoires.
      */
-    Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
 
     /**
      * La direction actuelle de cet objet.

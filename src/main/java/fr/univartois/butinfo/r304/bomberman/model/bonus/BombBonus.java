@@ -8,7 +8,6 @@ import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
-import javafx.beans.property.IntegerProperty;
 
 import java.util.Objects;
 
@@ -39,6 +38,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Collisions avec les autres objets.
+     *
      * @param other L'objet avec lequel cet objet est entré en collision.
      */
     @Override
@@ -67,6 +67,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Déplace le fait que l'objet est un ennemi.
+     *
      * @return
      */
     @Override
@@ -76,6 +77,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Déplace le fait que l'objet est un joueur.
+     *
      * @return
      */
     @Override
@@ -85,6 +87,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Déplace le fait que l'objet est une explosion.
+     *
      * @return
      */
     @Override
@@ -94,6 +97,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Ennemi avec vie
+     *
      * @return
      */
     @Override
@@ -103,6 +107,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est de la lave
+     *
      * @return
      */
     @Override
@@ -112,6 +117,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est une bombe
+     *
      * @return
      */
     @Override
@@ -121,6 +127,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est une bombe factice
+     *
      * @return
      */
     @Override
@@ -130,6 +137,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est une grosse bombe
+     *
      * @return
      */
     @Override
@@ -139,6 +147,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est un bonus invisible
+     *
      * @return
      */
     @Override
@@ -148,6 +157,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est un bonus de vie
+     *
      * @return
      */
     @Override
@@ -157,6 +167,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est un bonus de bombe
+     *
      * @return
      */
     @Override
@@ -166,6 +177,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Dégrade le mur.
+     *
      * @param wall le mur à dégrader
      */
     @Override

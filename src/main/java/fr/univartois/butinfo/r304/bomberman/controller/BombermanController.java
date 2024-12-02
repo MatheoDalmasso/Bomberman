@@ -37,6 +37,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * La classe {@link BombermanController} fournit le contrôleur permettant de jouer au jeu
@@ -46,6 +48,8 @@ import java.io.IOException;
  * @version 0.1.0
  */
 public final class BombermanController implements IBombermanController {
+
+    private static final Logger LOGGER = Logger.getLogger(BombermanController.class.getName());
 
     /**
      * La largeur (en pixels) de la fenêtre affichant le jeu.
@@ -206,7 +210,7 @@ public final class BombermanController implements IBombermanController {
             stage.setScene(scene);
             started = true; // Vérification supplémentaire le demarrage du jeu.
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "erreur", e);
         }
     }
 

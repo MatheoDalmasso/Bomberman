@@ -39,8 +39,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -55,7 +55,7 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    private static final Random RANDOM = new Random();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
@@ -205,7 +205,7 @@ public final class BombermanGame {
     }
 
     public void setRemainingBombs(int bombs) {
-        this.remainingBombs.set(remainingBombs.get()+bombs);
+        this.remainingBombs.set(remainingBombs.get() + bombs);
     }
 
     /**

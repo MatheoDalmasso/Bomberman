@@ -8,7 +8,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.CrackedBrickWall
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.WallInvincibleState;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * La classe MapGenerator3 génère une carte pour le jeu Bomberman en utilisant une logique spécifique.
@@ -18,7 +18,7 @@ public class MapGenerator3 extends MapGenerator {
     /**
      * Le générateur de nombres aléatoires utilisé pour générer la carte.
      */
-    private final Random random;
+    private final SecureRandom random;
 
     /**
      * Crée un générateur de carte de jeu.
@@ -28,7 +28,7 @@ public class MapGenerator3 extends MapGenerator {
      */
     public MapGenerator3(int height, int width) {
         super(height, width);
-        this.random = new Random();
+        this.random = new SecureRandom();
     }
 
     /**
