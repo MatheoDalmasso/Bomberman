@@ -193,7 +193,7 @@ public class BigBomb extends AbstractMovable implements IBomb {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof IBomb) {
+        if (other.isExplosion()) {
             explode();
         }
     }
