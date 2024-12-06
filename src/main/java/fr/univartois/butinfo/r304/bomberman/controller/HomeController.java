@@ -14,14 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
-import javafx.scene.control.ScrollPane;
 import java.io.IOException;
 
 
@@ -61,6 +60,7 @@ public class HomeController {
 
     /**
      * Method to start the game with the easy level
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -89,6 +89,7 @@ public class HomeController {
 
     /**
      * Method to start the game with the medium level
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -116,6 +117,7 @@ public class HomeController {
 
     /**
      * Method to start the game with the hard level
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -144,6 +146,7 @@ public class HomeController {
 
     /**
      * Method to start the game with the impossible level
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -169,6 +172,7 @@ public class HomeController {
         stage.setScene(scene);
 
     }
+
     @FXML
     private HBox characterGallery;
     @FXML
@@ -210,7 +214,7 @@ public class HomeController {
         // Afficher le personnage par défaut
         updateCharacterImage();
 
-    // Gestion de la navigation au clavier
+        // Gestion de la navigation au clavier
         characterGallery.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -224,14 +228,8 @@ public class HomeController {
             }
         });
 
-    // Donner le focus à HBox pour écouter les événements clavier
+        // Donner le focus à HBox pour écouter les événements clavier
         characterGallery.setFocusTraversable(true);
-    }
-
-    // Gestion de la sélection du personnage
-    private void selectCharacter(Sprite sprite) {
-        selectedSprite = sprite;
-        selectedCharacterLabel.setText("Selected Character: " + sprite);
     }
 
     public Sprite getSelectedSprite() {
@@ -243,6 +241,7 @@ public class HomeController {
         selectedIndex = (selectedIndex - 1 + spritePaths.length) % spritePaths.length;
         updateCharacterImage();
     }
+
     // Méthodes pour naviguer à droite
     @FXML
     public void onRightButtonClick(ActionEvent event) {
