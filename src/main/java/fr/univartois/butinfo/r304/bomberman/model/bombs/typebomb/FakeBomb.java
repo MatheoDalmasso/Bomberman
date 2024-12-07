@@ -92,51 +92,101 @@ public class FakeBomb extends AbstractMovable implements IBomb {
         //
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas un joueur
+     */
     @Override
     public boolean isEnemy() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas un joueur
+     */
     @Override
     public boolean isPlayer() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas une explosion
+     */
     @Override
     public boolean isExplosion() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas un ennemi avec vie
+     */
     @Override
     public boolean isEnemyWithLife() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas une bombe
+     */
     @Override
     public boolean isBomb() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return true car c'est une fausse bombe
+     */
     @Override
     public boolean isFakeBomb() {
         return true;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas une grosse bombe
+     */
     @Override
     public boolean isBigBomb() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas un bonus invisible
+     */
     @Override
     public boolean isInvisibleBonus() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas un bonus de vie
+     */
     @Override
     public boolean isLifeBonus() {
         return false;
     }
 
+    /**
+     * Permet de gérer le fait que cet objet touche un joueur.
+     *
+     * @return false car ce n'est pas un bonus de bombe
+     */
     @Override
     public boolean isBombBonus() {
         return false;

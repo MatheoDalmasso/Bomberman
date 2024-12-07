@@ -43,7 +43,7 @@ public class MapGenerator3 extends MapGenerator {
         IWallState state;
         if (isBorderOfMap(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (isPositionAWall(i, j)) {
+        } else if (isPositionAWallMapGenerator3(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (random.nextInt(100) < 30) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
@@ -73,7 +73,7 @@ public class MapGenerator3 extends MapGenerator {
      * @param j La position en x.
      * @return true si la position doit contenir un mur, sinon false.
      */
-    private boolean isPositionAWall(int i, int j) {
+    private boolean isPositionAWallMapGenerator3(int i, int j) {
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
         return (i >= centerY - 5 && i < centerY + 5) && (j >= centerX - 5 && j < centerX + 5);

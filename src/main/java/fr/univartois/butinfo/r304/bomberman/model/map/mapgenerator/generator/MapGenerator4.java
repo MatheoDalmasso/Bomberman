@@ -74,4 +74,5 @@ public class MapGenerator4 extends MapGenerator {
     private boolean isPositionAWall() {
         return random.nextInt(100) < 15;
     }
+
 }

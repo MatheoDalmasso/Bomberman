@@ -66,52 +66,56 @@ public class HomeController {
     @FXML
     public void onClickEasy() throws IOException {
         MapGenerator mapGenerator = new MapGenerator1(1080, 720);
-        mapGenerator.genererMap();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
-        Scene scene = new Scene(loader.load());
-        Stage stage = (Stage) buttonLevel1.getScene().getWindow();
-        BombermanController controller = loader.getController();
+        Result result = getResult(mapGenerator, buttonLevel1);
 
         BombermanGame game = new BombermanGame(1080, 720, spriteStore, 3, 0, 0);
 
         game.setGenerateurMap(mapGenerator);
-        game.setController(controller);
+        game.setController(result.controller());
         game.setDifficultyLevel(1);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        controller.setGame(game);
-        controller.setStage(stage);
+        setTheGame(game, result);
         game.prepare(1);
-        stage.setScene(scene);
+        result.stage().setScene(result.scene());
 
+    }
+
+    private void setTheGame(BombermanGame game, Result result) {
+        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
+        result.controller().setGame(game);
+        result.controller().setStage(result.stage());
+    }
+
+    private Result getResult(MapGenerator mapGenerator, Button button) throws IOException {
+        mapGenerator.genererMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) button.getScene().getWindow();
+        BombermanController controller = loader.getController();
+        return new Result(scene, stage, controller);
+    }
+
+    private record Result(Scene scene, Stage stage, BombermanController controller) {
     }
 
     /**
      * Method to start the game with the medium level
      *
-     * @param actionEvent the event
      * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickMedium(ActionEvent actionEvent) throws IOException {
+    public void onClickMedium() throws IOException {
         MapGenerator mapGenerator = new MapGenerator2(1080, 720);
-        mapGenerator.genererMap();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
-        Scene scene = new Scene(loader.load());
-        Stage stage = (Stage) buttonLevel2.getScene().getWindow();
-        BombermanController controller = loader.getController();
+        Result result = getResult(mapGenerator, buttonLevel2);
 
         BombermanGame game = new BombermanGame(1080, 720, spriteStore, 3, 0, 1);
 
         game.setGenerateurMap(mapGenerator);
-        game.setController(controller);
+        game.setController(result.controller);
         game.setDifficultyLevel(2);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        controller.setGame(game);
-        controller.setStage(stage);
+        setTheGame(game, result);
         game.prepare(2);
-        stage.setScene(scene);
+        result.stage().setScene(result.scene());
     }
 
     /**
@@ -122,23 +126,16 @@ public class HomeController {
     @FXML
     public void onClickHard() throws IOException {
         MapGenerator mapGenerator = new MapGenerator3(1080, 720);
-        mapGenerator.genererMap();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
-        Scene scene = new Scene(loader.load());
-        Stage stage = (Stage) buttonLevel3.getScene().getWindow();
-        BombermanController controller = loader.getController();
+        Result result = getResult(mapGenerator, buttonLevel3);
 
         BombermanGame game = new BombermanGame(1080, 720, spriteStore, 5, 0, 2);
 
         game.setGenerateurMap(mapGenerator);
-        game.setController(controller);
+        game.setController(result.controller());
         game.setDifficultyLevel(3);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        controller.setGame(game);
-        controller.setStage(stage);
+        setTheGame(game, result);
         game.prepare(3);
-        stage.setScene(scene);
+        result.stage().setScene(result.scene());
 
     }
 
@@ -150,23 +147,16 @@ public class HomeController {
     @FXML
     public void onClickImpossible() throws IOException {
         MapGenerator mapGenerator = new MapGenerator4(1080, 720);
-        mapGenerator.genererMap();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(BOMBERMAN_FXML));
-        Scene scene = new Scene(loader.load());
-        Stage stage = (Stage) buttonLevel4.getScene().getWindow();
-        BombermanController controller = loader.getController();
+        Result result = getResult(mapGenerator, buttonLevel4);
 
         BombermanGame game = new BombermanGame(1080, 720, spriteStore, 8, 1, 3);
 
         game.setGenerateurMap(mapGenerator);
-        game.setController(controller);
+        game.setController(result.controller());
         game.setDifficultyLevel(4);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        controller.setGame(game);
-        controller.setStage(stage);
+        setTheGame(game, result);
         game.prepare(4);
-        stage.setScene(scene);
+        result.stage().setScene(result.scene());
 
     }
 

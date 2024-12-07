@@ -66,4 +66,15 @@ public abstract class MapGenerator implements IMapGenerator {
     public int getWidth() {
         return width;
     }
+
+    /**
+     * Vérifie si la position spécifiée doit contenir un mur.
+     *
+     * @param i La position en y.
+     * @param j La position en x.
+     * @return true si la position doit contenir un mur, sinon false.
+     */
+    protected static boolean isPositionAWall(int i, int j) {
+        return i % 3 == 0 && j % 3 == 0;
+    }
 }
