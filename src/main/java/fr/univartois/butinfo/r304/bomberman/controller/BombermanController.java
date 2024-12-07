@@ -120,14 +120,38 @@ public final class BombermanController implements IBombermanController {
     private boolean started = false;
 
     /**
+     * Un booléen permettant de savoir si les touches sont désactivées.
+     * Il permet de bloquer les touches lorsque la partie est terminée.
+     */
+    private boolean areKeysDisabled = false;
+
+    /**
+     * Un booléen permettant de savoir si la partie est terminée.
+     */
+    private boolean isGameOver = false;
+
+
+    /**
      * Associe à ce contrôleur la fenêtre affichant le jeu.
      *
      * @param stage La fenêtre affichant le jeu.
      */
     public void setStage(Stage stage) {
         this.stage = stage;
-        addKeyListeners();
+
+        // Récupérer la scène pour ajouter le filtre
+        Scene scene = stage.getScene();
+
+        // Ajouter le filtre pour bloquer les touches
+        scene.addEventFilter(KeyEvent.ANY, event -> {
+            if (areKeysDisabled) {
+                event.consume(); // Empêche la propagation de l'événement clavier
+            }
+        });
+
+        addKeyListeners(); // Appel existant pour les autres écouteurs de touches
     }
+
 
     /*
      * (non-Javadoc)
@@ -186,6 +210,10 @@ public final class BombermanController implements IBombermanController {
      * @param e L'événement de touche tapée.
      */
     private void handleKeyTyped(KeyEvent e) {
+        if (isGameOver) {
+            return; // Ne pas traiter les touches si le jeu est terminé
+        }
+        
         if (!started) {
             // La partie démarre à la première touche appuyée.
             started = true;
@@ -315,11 +343,17 @@ public final class BombermanController implements IBombermanController {
     @Override
     public void gameOver(String endMessage) {
         started = false;
+        isGameOver = true; // Marquer que le jeu est terminé
         message.setVisible(true);
         message.setText(endMessage);
+        areKeysDisabled = true; // Bloquer les entrées clavier
 
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        pause.setOnFinished(event -> returnToMainMenu());
+        pause.setOnFinished(event -> {
+            areKeysDisabled = false; // Réactiver les entrées clavier pour le menu principal
+            returnToMainMenu();
+            isGameOver = false; // Réinitialiser l'état pour permettre un nouveau jeu
+        });
         pause.play();
     }
 
