@@ -131,16 +131,6 @@ public class Enemy extends AbstractMovable {
     }
 
     /**
-     * Indique si l'objet est de la lave.
-     *
-     * @return false car cet objet n'est pas de la lave.
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * Indique si l'objet est une bombe.
      *
      * @return false car cet objet n'est pas une bombe.

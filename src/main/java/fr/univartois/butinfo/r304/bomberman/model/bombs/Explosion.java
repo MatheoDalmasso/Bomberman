@@ -123,16 +123,6 @@ public class Explosion extends AbstractMovable {
     }
 
     /**
-     * Cette méthode permet de savoir si l'objet est de la lave.
-     *
-     * @return false car cet objet n'est pas de la lave.
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * Cette méthode permet de savoir si l'objet est une bombe.
      *
      * @return false car cet objet n'est pas une bombe.

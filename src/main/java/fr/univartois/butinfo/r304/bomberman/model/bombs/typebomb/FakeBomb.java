@@ -113,11 +113,6 @@ public class FakeBomb extends AbstractMovable implements IBomb {
     }
 
     @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    @Override
     public boolean isBomb() {
         return false;
     }

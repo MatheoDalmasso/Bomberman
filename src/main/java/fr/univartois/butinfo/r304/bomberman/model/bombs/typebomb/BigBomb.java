@@ -165,10 +165,6 @@ public class BigBomb extends AbstractMovable implements IBomb {
         return false;
     }
 
-    @Override
-    public boolean isLava() {
-        return false;
-    }
 
     @Override
     public boolean isBomb() {

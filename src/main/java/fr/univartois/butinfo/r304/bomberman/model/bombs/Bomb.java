@@ -199,16 +199,6 @@ public class Bomb extends AbstractMovable implements IBomb {
     }
 
     /**
-     * C'est de la lave
-     *
-     * @return false
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * C'est une bombe
      *
      * @return true

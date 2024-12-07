@@ -106,16 +106,6 @@ public class BombBonus extends AbstractMovable implements IWallState {
     }
 
     /**
-     * C'est de la lave
-     *
-     * @return true si l'objet est de la lave, sinon false.
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * C'est une bombe
      *
      * @return true si l'objet est une bombe, sinon false.

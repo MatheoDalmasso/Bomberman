@@ -73,7 +73,7 @@ public class Player extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other.isEnemy() || other.isEnemyWithLife() || other.isExplosion() || other.isLava()) {
+        if (other.isEnemy() || other.isEnemyWithLife() || other.isExplosion()) {
             takeDamage(1);
         }
     }
@@ -191,16 +191,6 @@ public class Player extends AbstractMovable {
      */
     @Override
     public boolean isEnemyWithLife() {
-        return false;
-    }
-
-    /**
-     * Indique si l'objet est de la lave.
-     *
-     * @return false car cet objet n'est pas de la lave.
-     */
-    @Override
-    public boolean isLava() {
         return false;
     }
 

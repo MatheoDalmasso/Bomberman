@@ -246,13 +246,6 @@ public interface IMovable {
     boolean isEnemyWithLife();
 
     /**
-     * Vérifie si cet objet est de la lave.
-     *
-     * @return Si cet objet est de la lave.
-     */
-    boolean isLava();
-
-    /**
      * Vérifie si cet objet est une bombe.
      *
      * @return Si cet objet est une bombe.
