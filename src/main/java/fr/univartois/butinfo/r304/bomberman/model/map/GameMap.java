@@ -77,9 +77,7 @@ public class GameMap implements IMapComponent {
      * @return The cell at the specified location.
      */
     public Cell getAt(int row, int column) {
-        if ((row < 0) || (height <= row) || (column < 0) || (width <= column)) {
-            throw new IllegalArgumentException("Incorrect cell location!");
-        }
+        incorrectCellLocation(row, column);
         return cells[row][column];
     }
 
@@ -91,10 +89,14 @@ public class GameMap implements IMapComponent {
      * @param cell   The cell to set.
      */
     public void setAt(int row, int column, Cell cell) {
+        incorrectCellLocation(row, column);
+        cells[row][column].replaceBy(cell);
+    }
+
+    private void incorrectCellLocation(int row, int column) {
         if ((row < 0) || (height <= row) || (column < 0) || (width <= column)) {
             throw new IllegalArgumentException("Incorrect cell location!");
         }
-        cells[row][column].replaceBy(cell);
     }
 
     /**

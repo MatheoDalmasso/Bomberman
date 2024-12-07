@@ -73,12 +73,16 @@ public class HomeController {
         game.setGenerateurMap(mapGenerator);
         game.setController(result.controller());
         game.setDifficultyLevel(1);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        result.controller().setGame(game);
-        result.controller().setStage(result.stage());
+        setTheGame(game, result);
         game.prepare(1);
         result.stage().setScene(result.scene());
 
+    }
+
+    private void setTheGame(BombermanGame game, Result result) {
+        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
+        result.controller().setGame(game);
+        result.controller().setStage(result.stage());
     }
 
     private Result getResult(MapGenerator mapGenerator, Button button) throws IOException {
@@ -109,9 +113,7 @@ public class HomeController {
         game.setGenerateurMap(mapGenerator);
         game.setController(result.controller);
         game.setDifficultyLevel(2);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        result.controller().setGame(game);
-        result.controller().setStage(result.stage());
+        setTheGame(game, result);
         game.prepare(2);
         result.stage().setScene(result.scene());
     }
@@ -131,9 +133,7 @@ public class HomeController {
         game.setGenerateurMap(mapGenerator);
         game.setController(result.controller());
         game.setDifficultyLevel(3);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        result.controller().setGame(game);
-        result.controller().setStage(result.stage());
+        setTheGame(game, result);
         game.prepare(3);
         result.stage().setScene(result.scene());
 
@@ -154,9 +154,7 @@ public class HomeController {
         game.setGenerateurMap(mapGenerator);
         game.setController(result.controller());
         game.setDifficultyLevel(4);
-        game.setSelectedSprite(selectedSprite);  // Pass the selected sprite
-        result.controller().setGame(game);
-        result.controller().setStage(result.stage());
+        setTheGame(game, result);
         game.prepare(4);
         result.stage().setScene(result.scene());
 
