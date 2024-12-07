@@ -1,6 +1,5 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,7 +8,6 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
@@ -25,7 +23,6 @@ import java.util.NoSuchElementException;
  * l'instance de {@link Sprite} qui sera créée.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 @FunctionalInterface
@@ -35,11 +32,9 @@ public interface ISpriteStore {
      * Charge une instance de {@link Sprite} donnée par son identifiant.
      *
      * @param identifier L'identifiant de l'instance de {@link Sprite} à charger.
-     *
      * @return L'instance de {@link Sprite} correspondant à l'identifiant donné.
-     *
      * @throws NoSuchElementException Si aucune instance de {@link Sprite} ne correspond à
-     *         l'identifiant donné.
+     *                                l'identifiant donné.
      */
     Sprite getSprite(String identifier);
 

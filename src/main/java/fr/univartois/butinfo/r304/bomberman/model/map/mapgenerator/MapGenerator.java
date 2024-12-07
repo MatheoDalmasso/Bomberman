@@ -52,7 +52,7 @@ public abstract class MapGenerator implements IMapGenerator {
     /**
      * Récupère la hauteur de la carte.
      *
-     * @return
+     * @return La hauteur de la carte.
      */
     public int getHeight() {
         return height;
@@ -61,7 +61,7 @@ public abstract class MapGenerator implements IMapGenerator {
     /**
      * Récupère la largeur de la carte.
      *
-     * @return
+     * @return La largeur de la carte.
      */
     public int getWidth() {
         return width;

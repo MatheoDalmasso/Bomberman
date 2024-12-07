@@ -61,11 +61,10 @@ public class HomeController {
     /**
      * Method to start the game with the easy level
      *
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickEasy(ActionEvent actionEvent) throws IOException {
+    public void onClickEasy() throws IOException {
         MapGenerator mapGenerator = new MapGenerator1(1080, 720);
         mapGenerator.genererMap();
 
@@ -90,8 +89,8 @@ public class HomeController {
     /**
      * Method to start the game with the medium level
      *
-     * @param actionEvent
-     * @throws IOException
+     * @param actionEvent the event
+     * @throws IOException if the fxml file is not found
      */
     @FXML
     public void onClickMedium(ActionEvent actionEvent) throws IOException {
@@ -118,11 +117,10 @@ public class HomeController {
     /**
      * Method to start the game with the hard level
      *
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickHard(ActionEvent actionEvent) throws IOException {
+    public void onClickHard() throws IOException {
         MapGenerator mapGenerator = new MapGenerator3(1080, 720);
         mapGenerator.genererMap();
 
@@ -147,11 +145,10 @@ public class HomeController {
     /**
      * Method to start the game with the impossible level
      *
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickImpossible(ActionEvent actionEvent) throws IOException {
+    public void onClickImpossible() throws IOException {
         MapGenerator mapGenerator = new MapGenerator4(1080, 720);
         mapGenerator.genererMap();
 
@@ -230,10 +227,6 @@ public class HomeController {
 
         // Donner le focus à HBox pour écouter les événements clavier
         characterGallery.setFocusTraversable(true);
-    }
-
-    public Sprite getSelectedSprite() {
-        return selectedSprite;
     }
 
     @FXML

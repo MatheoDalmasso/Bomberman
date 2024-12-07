@@ -179,15 +179,6 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     }
 
     /**
-     * Renvoie les points de vie de l'ennemi.
-     *
-     * @return Les points de vie de cet ennemi.
-     */
-    public int getPv() {
-        return pv;
-    }
-
-    /**
      * Ajoute une bombe à l'ennemi.
      *
      * @param bomb La bombe à ajouter.

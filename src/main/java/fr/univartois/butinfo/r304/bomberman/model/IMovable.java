@@ -219,67 +219,78 @@ public interface IMovable {
 
     /**
      * Vérifie si cet objet est un ennemi.
-     * @return
+     *
+     * @return Si cet objet est un ennemi.
      */
     boolean isEnemy();
 
     /**
      * Vérifie si cet objet est un joueur.
-     * @return
+     *
+     * @return Si cet objet est un joueur.
      */
     boolean isPlayer();
 
     /**
      * Vérifie si cet objet est une explosion.
-     * @return
+     *
+     * @return Si cet objet est une explosion.
      */
     boolean isExplosion();
 
     /**
      * Vérifie si cet objet est un ennemi avec une vie.
-     * @return
+     *
+     * @return Si cet objet est un ennemi avec une vie.
      */
     boolean isEnemyWithLife();
 
     /**
      * Vérifie si cet objet est de la lave.
-     * @return
+     *
+     * @return Si cet objet est de la lave.
      */
     boolean isLava();
 
     /**
      * Vérifie si cet objet est une bombe.
-     * @return
+     *
+     * @return Si cet objet est une bombe.
      */
     boolean isBomb();
 
     /**
      * Vérifie si cet objet est une bombe factice.
-     * @return
+     *
+     * @return Si cet objet est une bombe factice.
      */
     boolean isFakeBomb();
 
     /**
      * Vérifie si cet objet est une bombe fact
-     * @return
+     *
+     * @return Si cet objet est une bombe fact
      */
     boolean isBigBomb();
 
     /**
      * Vérifie si cet objet est un bonus
-     * @return
+     *
+     * @return Si cet objet est un bonus
      */
     boolean isInvisibleBonus();
 
     /**
      * Vérifie si cet objet est un bonus de vie
-     * @return
+     *
+     * @return Si cet objet est un bonus de vie
      */
     boolean isLifeBonus();
 
     /**
      * Vérifie si cet objet est un bonus de bombe
-     * @return
+     *
+     * @return Si cet objet est un bonus de bombe
      */
     boolean isBombBonus();
 }

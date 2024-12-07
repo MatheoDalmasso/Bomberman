@@ -43,11 +43,6 @@ public class Player extends AbstractMovable {
     private final IntegerProperty pointsDeVie;
 
     /**
-     * Nombre de bombes du joueur.
-     */
-    private final IntegerProperty nbBombe;
-
-    /**
      * Liste des bombes du joueur.
      */
     private final ObservableList<Bomb> bombs;
@@ -67,7 +62,6 @@ public class Player extends AbstractMovable {
         this.state = new VulnerableState();
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);
-        this.nbBombe = new SimpleIntegerProperty(1);
         this.bombs = FXCollections.observableArrayList();
     }
 
@@ -286,46 +280,6 @@ public class Player extends AbstractMovable {
      */
     public IntegerProperty pointsDeVieProperty() {
         return pointsDeVie;
-    }
-
-    /**
-     * Retourne le nombre de bombes du joueur.
-     *
-     * @return Le nombre de bombes.
-     */
-    public IntegerProperty nbBombeProperty() {
-        return nbBombe;
-    }
-
-    /**
-     * Retourne le nombre de bombes du joueur.
-     *
-     * @return Le nombre de bombes.
-     */
-    public int getNbBombe() {
-        return nbBombe.get();
-    }
-
-    /**
-     * Retourne le score du joueur.
-     *
-     * @return Le score.
-     */
-    public int getScore() {
-        return score.get();
-    }
-
-    public void setNbBombe(int nbBomb) {
-        this.nbBombe.set(nbBomb);
-    }
-
-    /**
-     * Change le score du joueur.
-     *
-     * @param score Le nouveau score.
-     */
-    public void setScore(int score) {
-        this.score.set(score);
     }
 
     /**

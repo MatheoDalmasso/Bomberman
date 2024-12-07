@@ -42,7 +42,7 @@ public class Explosion extends AbstractMovable {
      *
      * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
      *              millisecondes).
-     * @return
+     * @return true si l'objet a bougé, false sinon.
      */
     @Override
     public boolean move(long delta) {
@@ -60,7 +60,7 @@ public class Explosion extends AbstractMovable {
     @Override
     public void collidedWith(IMovable other) {
         if (other.isEnemyWithLife()) {
-            // Decorator le fait
+            // On ne fait rien
         } else {
             other.explode();
         }
@@ -84,7 +84,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un ennemi.
-     * @return
+     *
+     * @return false car cet objet n'est pas un ennemi.
      */
     @Override
     public boolean isEnemy() {
@@ -93,7 +94,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un joueur.
-     * @return
+     *
+     * @return false car cet objet n'est pas un joueur.
      */
     @Override
     public boolean isPlayer() {
@@ -102,7 +104,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une explosion.
-     * @return
+     *
+     * @return true car cet objet est une explosion.
      */
     @Override
     public boolean isExplosion() {
@@ -111,7 +114,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un ennemi avec une vie.
-     * @return
+     *
+     * @return false car cet objet n'est pas un ennemi avec une vie.
      */
     @Override
     public boolean isEnemyWithLife() {
@@ -120,7 +124,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est de la lave.
-     * @return
+     *
+     * @return false car cet objet n'est pas de la lave.
      */
     @Override
     public boolean isLava() {
@@ -129,7 +134,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas une bombe.
      */
     @Override
     public boolean isBomb() {
@@ -138,7 +144,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une fausse bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas une fausse bombe.
      */
     @Override
     public boolean isFakeBomb() {
@@ -147,7 +154,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une grosse bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas une grosse bombe.
      */
     @Override
     public boolean isBigBomb() {
@@ -156,7 +164,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un bonus invincible.
-     * @return
+     *
+     * @return false car cet objet n'est pas un bonus invincible.
      */
     @Override
     public boolean isInvisibleBonus() {
@@ -165,7 +174,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un bonus de vie.
-     * @return
+     *
+     * @return false car cet objet n'est pas un bonus de vie.
      */
     @Override
     public boolean isLifeBonus() {
@@ -174,7 +184,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un bonus de bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas un bonus de bombe.
      */
     @Override
     public boolean isBombBonus() {

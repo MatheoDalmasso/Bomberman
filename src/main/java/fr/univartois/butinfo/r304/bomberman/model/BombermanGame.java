@@ -128,9 +128,6 @@ public final class BombermanGame {
     private int remainingEnemies;
 
     /**
-     * Le nombre de bombes restant au joueur.
-     */
-    /**
      * Le contrôleur du jeu.
      */
     private IBombermanController controller;
@@ -240,8 +237,6 @@ public final class BombermanGame {
 
     /**
      * Donne le générateur de la carte du jeu.
-     *
-     * @return Le générateur de la carte du jeu.
      */
     public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;

@@ -8,7 +8,8 @@ import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 public interface IMapFactory {
     /**
      * Crée une carte.
-     * @return
+     *
+     * @return La carte créée.
      */
     GameMap createMap();
 }

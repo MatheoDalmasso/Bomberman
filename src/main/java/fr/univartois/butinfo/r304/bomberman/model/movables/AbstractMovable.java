@@ -378,6 +378,7 @@ public abstract class AbstractMovable implements IMovable {
      * @see java.lang.Object#hashCode()
      */
     @Override
+    @SuppressWarnings("Pas fait par le Groupe")
     public int hashCode() {
         return super.hashCode();
     }

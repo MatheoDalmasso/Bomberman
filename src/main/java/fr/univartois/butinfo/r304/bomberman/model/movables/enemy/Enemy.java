@@ -17,28 +17,19 @@ public class Enemy extends AbstractMovable {
     /**
      * La stratégie de déplacement du personnage ennemi.
      */
-    private IMovementStrategy iMovementStrategy; //Instance du patron de conception Strategy
+    private final IMovementStrategy iMovementStrategy; //Instance du patron de conception Strategy
 
     /**
      * Crée une nouvelle instance de Enemy.
      *
-     * @param game      Le jeu dans lequel l'objet évolue.
-     * @param xPosition La position en x initiale de l'objet.
-     * @param yPosition La position en y initiale de l'objet.
-     * @param sprite    L'instance de {@link Sprite} représentant l'objet.
+     * @param game              Le jeu dans lequel l'objet évolue.
+     * @param xPosition         La position en x initiale de l'objet.
+     * @param yPosition         La position en y initiale de l'objet.
+     * @param sprite            L'instance de {@link Sprite} représentant l'objet.
      * @param iMovementStrategy La stratégie de déplacement du personnage ennemi.
      */
     public Enemy(BombermanGame game, double xPosition, double yPosition, Sprite sprite, IMovementStrategy iMovementStrategy) {
         super(game, xPosition, yPosition, sprite);
-        this.iMovementStrategy = iMovementStrategy;
-    }
-
-    /**
-     * Permet de mettre la stratégie de déplacement du personnage ennemi.
-     *
-     * @param iMovementStrategy La stratégie de déplacement du personnage ennemi.
-     */
-    public void setDeplacementStrategy(IMovementStrategy iMovementStrategy) {
         this.iMovementStrategy = iMovementStrategy;
     }
 
@@ -75,7 +66,7 @@ public class Enemy extends AbstractMovable {
             hitEnemy();
         }
         if (!(this.isEnemyWithLife())) {
-            // Decorateur le fait
+            // le décorateur le fait
         } else {
             if (other.isExplosion()) {
                 explode();
