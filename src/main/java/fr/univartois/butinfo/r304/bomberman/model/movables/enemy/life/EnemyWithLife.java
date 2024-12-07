@@ -96,16 +96,6 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
     }
 
     /**
-     * Indique si l'objet est de la lave.
-     *
-     * @return false car cet objet n'est pas de la lave.
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * Indique si l'objet est une bombe.
      *
      * @return false car cet objet n'est pas une bombe.
@@ -176,15 +166,6 @@ public class EnemyWithLife extends AbstractIMovableDecorator {
         if (pv <= 0) {
             pv = 0;
         }
-    }
-
-    /**
-     * Renvoie les points de vie de l'ennemi.
-     *
-     * @return Les points de vie de cet ennemi.
-     */
-    public int getPv() {
-        return pv;
     }
 
     /**

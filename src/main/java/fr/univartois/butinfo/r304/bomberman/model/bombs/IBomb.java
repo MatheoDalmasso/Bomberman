@@ -10,14 +10,16 @@ public interface IBomb {
 
     /**
      * Déplace l'objet de delta.
-     * @param delta
-     * @return
+     *
+     * @param delta Le déplacement à effectuer.
+     * @return Vrai si le déplacement a été effectué, faux sinon.
      */
     boolean move(long delta);
 
     /**
      * Gère la collision avec un autre objet.
-     * @param other
+     *
+     * @param other L'objet avec lequel cet objet est entré en collision.
      */
     void collidedWith(IMovable other);
 

@@ -28,7 +28,6 @@ import java.util.NoSuchElementException;
  * les {@link Sprite} une et une seule fois pendant l'exécution du programme.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 public final class SpriteStore implements ISpriteStore { // NOSONAR
@@ -53,7 +52,8 @@ public final class SpriteStore implements ISpriteStore { // NOSONAR
 
     /**
      * Retourne l'instance unique de la classe {@link SpriteStore}.
-     * @return
+     *
+     * @return L'instance unique de la classe {@link SpriteStore}.
      */
     public static SpriteStore getInstance() {
         return instance;
@@ -61,9 +61,9 @@ public final class SpriteStore implements ISpriteStore { // NOSONAR
 
     /**
      * Charge une instance de {@link Sprite} à partir de son identifiant.
-     * @param identifier L'identifiant de l'instance de {@link Sprite} à charger.
      *
-     * @return
+     * @param identifier L'identifiant de l'instance de {@link Sprite} à charger.
+     * @return L'instance de {@link Sprite} correspondant à l'identifiant donné.
      */
     @Override
     public Sprite getSprite(String identifier) {
@@ -84,11 +84,10 @@ public final class SpriteStore implements ISpriteStore { // NOSONAR
      * Charge une image donnée par son nom.
      *
      * @param name Le nom de l'image à charger.
-     *
      * @return L'image ayant le nom donné.
-     *
      * @throws NoSuchElementException S'il n'existe pas d'image ayant le nom donné.
      */
+    @SuppressWarnings("Pas fait par le groupe")
     private Image loadImage(String name) {
         try {
             URL urlImage = getClass().getResource("sprites/" + name + ".png");

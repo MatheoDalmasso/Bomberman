@@ -6,8 +6,6 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
@@ -133,54 +131,9 @@ public class Bomb extends AbstractMovable implements IBomb {
      * @param adjacentY    la position y de la cellule adjacente
      */
     private void handleWallCell(Cell adjacentCell, int adjacentX, int adjacentY) {
-        Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
-        Cell cell = game.getCellAt(adjacentX, adjacentY);
-        Sprite sp = spriteStore.getSprite("bricks");
-        String urlBricks = sp.image().getUrl();
-        String urlCrackedBricks = spriteStore.getSprite("cracked-bricks").image().getUrl();
-        String urlWall = spriteStore.getSprite("wall").image().getUrl();
-
-        if (isBrickWall(adjacentCell, urlBricks, urlCrackedBricks, urlWall)) {
-            IWallState state = adjacentCell.getWall().getState();
-            createExplosion(adjacentX, adjacentY);
-            degradeWall(adjacentCell, state, lawnCell, cell);
-        }
+        BombsUtils.handleWallCell(adjacentCell, adjacentX, adjacentY, spriteStore, game);
     }
 
-    /**
-     * Vérifie si la cellule est un mur en brique
-     *
-     * @param adjacentCell     la cellule adjacente
-     * @param urlBricks        l'url des briques
-     * @param urlCrackedBricks l'url des briques fissurées
-     * @param urlWall          l'url du mur
-     * @return true si la cellule est un mur en brique, false sinon
-     */
-    private boolean isBrickWall(Cell adjacentCell, String urlBricks, String urlCrackedBricks, String urlWall) {
-        return (adjacentCell.getWall().getSprite().image().getUrl().equals(urlBricks) ||
-                adjacentCell.getWall().getSprite().image().getUrl().equals(urlCrackedBricks)) &&
-                !adjacentCell.getWall().getSprite().image().getUrl().equals(urlWall);
-    }
-
-    /**
-     * Dégrade le mur
-     *
-     * @param adjacentCell les cases adjacentes
-     * @param state        l'état du mur
-     * @param lawnCell     la cellule de l'herbe
-     * @param cell         la cellule
-     */
-    private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
-        if (state.getSprite().image().getUrl().equals(spriteStore.getSprite("bricks").image().getUrl())) {
-            adjacentCell.getWall().degrade();
-            IWallState crackedState = adjacentCell.getWall().getState();
-            Cell cellWallReplace = new Cell(new Wall(crackedState, adjacentCell.getWall().getPositionX(), adjacentCell.getWall().getPositionY()));
-            adjacentCell.replaceBy(cellWallReplace);
-        } else {
-            adjacentCell.getWall().degrade();
-            cell.replaceBy(lawnCell);
-        }
-    }
 
     /**
      * Gère les collisions entre cet objet et un autre objet.
@@ -237,7 +190,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * Ennemi avec vie
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isEnemyWithLife() {
@@ -245,17 +199,9 @@ public class Bomb extends AbstractMovable implements IBomb {
     }
 
     /**
-     * C'est de la lave
-     * @return
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * C'est une bombe
-     * @return
+     *
+     * @return true
      */
     @Override
     public boolean isBomb() {
@@ -264,7 +210,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est une fausse bombe
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isFakeBomb() {
@@ -273,7 +220,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est une grosse bombe
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isBigBomb() {
@@ -282,7 +230,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est un bonus invincible
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isInvisibleBonus() {
@@ -291,7 +240,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est un bonus de vie
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isLifeBonus() {
@@ -300,7 +250,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est un bonus de bombe
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isBombBonus() {

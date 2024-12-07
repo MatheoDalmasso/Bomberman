@@ -14,14 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
-import javafx.scene.control.ScrollPane;
 import java.io.IOException;
 
 
@@ -61,11 +60,11 @@ public class HomeController {
 
     /**
      * Method to start the game with the easy level
-     * @param actionEvent
-     * @throws IOException
+     *
+     * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickEasy(ActionEvent actionEvent) throws IOException {
+    public void onClickEasy() throws IOException {
         MapGenerator mapGenerator = new MapGenerator1(1080, 720);
         mapGenerator.genererMap();
 
@@ -89,8 +88,9 @@ public class HomeController {
 
     /**
      * Method to start the game with the medium level
-     * @param actionEvent
-     * @throws IOException
+     *
+     * @param actionEvent the event
+     * @throws IOException if the fxml file is not found
      */
     @FXML
     public void onClickMedium(ActionEvent actionEvent) throws IOException {
@@ -116,11 +116,11 @@ public class HomeController {
 
     /**
      * Method to start the game with the hard level
-     * @param actionEvent
-     * @throws IOException
+     *
+     * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickHard(ActionEvent actionEvent) throws IOException {
+    public void onClickHard() throws IOException {
         MapGenerator mapGenerator = new MapGenerator3(1080, 720);
         mapGenerator.genererMap();
 
@@ -144,11 +144,11 @@ public class HomeController {
 
     /**
      * Method to start the game with the impossible level
-     * @param actionEvent
-     * @throws IOException
+     *
+     * @throws IOException if the fxml file is not found
      */
     @FXML
-    public void onClickImpossible(ActionEvent actionEvent) throws IOException {
+    public void onClickImpossible() throws IOException {
         MapGenerator mapGenerator = new MapGenerator4(1080, 720);
         mapGenerator.genererMap();
 
@@ -169,6 +169,7 @@ public class HomeController {
         stage.setScene(scene);
 
     }
+
     @FXML
     private HBox characterGallery;
     @FXML
@@ -210,7 +211,7 @@ public class HomeController {
         // Afficher le personnage par défaut
         updateCharacterImage();
 
-    // Gestion de la navigation au clavier
+        // Gestion de la navigation au clavier
         characterGallery.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -224,18 +225,8 @@ public class HomeController {
             }
         });
 
-    // Donner le focus à HBox pour écouter les événements clavier
+        // Donner le focus à HBox pour écouter les événements clavier
         characterGallery.setFocusTraversable(true);
-    }
-
-    // Gestion de la sélection du personnage
-    private void selectCharacter(Sprite sprite) {
-        selectedSprite = sprite;
-        selectedCharacterLabel.setText("Selected Character: " + sprite);
-    }
-
-    public Sprite getSelectedSprite() {
-        return selectedSprite;
     }
 
     @FXML
@@ -243,6 +234,7 @@ public class HomeController {
         selectedIndex = (selectedIndex - 1 + spritePaths.length) % spritePaths.length;
         updateCharacterImage();
     }
+
     // Méthodes pour naviguer à droite
     @FXML
     public void onRightButtonClick(ActionEvent event) {

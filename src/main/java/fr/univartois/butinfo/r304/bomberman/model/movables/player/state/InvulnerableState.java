@@ -3,7 +3,6 @@
  */
 package fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
 
-import fr.univartois.butinfo.r304.bomberman.controller.HomeController;
 import fr.univartois.butinfo.r304.bomberman.model.movables.player.Player;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.PauseTransition;

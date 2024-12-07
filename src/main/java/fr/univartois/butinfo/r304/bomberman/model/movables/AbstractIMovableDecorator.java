@@ -17,7 +17,7 @@ public abstract class AbstractIMovableDecorator implements IMovable {
     /**
      * Le IMovable à décorer
      */
-    protected IMovable iMovable;
+    protected final IMovable iMovable;
 
     /**
      * Le constructeur de la classe AbstractIMovableDecorator
@@ -237,12 +237,6 @@ public abstract class AbstractIMovableDecorator implements IMovable {
         return iMovable;
     }
 
-    /**
-     * Renvoie les PV de l'objet
-     *
-     * @return Les PV de cet objet.
-     */
-    public abstract int getPv();
 
     /**
      * Diminue les PV de l'objet

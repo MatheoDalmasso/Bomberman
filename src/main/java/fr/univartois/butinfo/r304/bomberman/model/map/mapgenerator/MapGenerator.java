@@ -10,7 +10,7 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 public abstract class MapGenerator implements IMapGenerator {
     private final int height;
     private final int width;
-    protected SpriteStore spriteStore = SpriteStore.getInstance();
+    protected final SpriteStore spriteStore = SpriteStore.getInstance();
 
     /**
      * Crée un générateur de carte de jeu.
@@ -51,7 +51,8 @@ public abstract class MapGenerator implements IMapGenerator {
 
     /**
      * Récupère la hauteur de la carte.
-     * @return
+     *
+     * @return La hauteur de la carte.
      */
     public int getHeight() {
         return height;
@@ -59,7 +60,8 @@ public abstract class MapGenerator implements IMapGenerator {
 
     /**
      * Récupère la largeur de la carte.
-     * @return
+     *
+     * @return La largeur de la carte.
      */
     public int getWidth() {
         return width;

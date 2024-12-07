@@ -16,9 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.view;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * La classe {@link Sprite} représente un élément graphique du jeu.
@@ -55,15 +53,4 @@ public record Sprite(Image image) {
     public Image getImage() {
         return image;
     }
-    /**
-     * Dessine cette instance de {@link Sprite} sur un {@link GraphicsContext} donné.
-     *
-     * @param graphics Le {@link GraphicsContext} sur lequel dessiner l'image.
-     * @param x        La position en x à laquelle l'image doit être dessinée.
-     * @param y        La position en y à laquelle l'image doit être dessinée.
-     */
-    public void draw(GraphicsContext graphics, int x, int y) {
-        graphics.drawImage(image, x, y);
-    }
-
 }

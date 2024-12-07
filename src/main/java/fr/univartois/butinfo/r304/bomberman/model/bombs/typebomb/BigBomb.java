@@ -5,11 +5,10 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.BombsUtils;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.IBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
@@ -115,75 +114,7 @@ public class BigBomb extends AbstractMovable implements IBomb {
         int[] directionX = {0, 0, -1, 1, -2, 2};
         int[] directionY = {-2, 2, -1, 1, 0, 0};
 
-        for (int i = 0; i < directionX.length; i++) {
-            int adjacentX = getX() + directionX[i] * spriteStore.getSpriteSize();
-            int adjacentY = getY() + directionY[i] * spriteStore.getSpriteSize();
-
-            Cell adjacentCell = game.getCellAt(adjacentX, adjacentY);
-
-            if (adjacentCell != null && adjacentCell.getWall() != null) {
-                handleWallCell(adjacentCell, adjacentX, adjacentY);
-            } else if (adjacentCell != null && adjacentCell.getWall() == null) {
-                createExplosion(adjacentX, adjacentY);
-            }
-        }
-    }
-
-    /**
-     * Gère les collisions avec les murs
-     *
-     * @param adjacentCell la cellule adjacente
-     * @param adjacentX    la position x de la cellule adjacente
-     * @param adjacentY    la position y de la cellule adjacente
-     */
-    private void handleWallCell(Cell adjacentCell, int adjacentX, int adjacentY) {
-        Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
-        Cell cell = game.getCellAt(adjacentX, adjacentY);
-        Sprite sp = spriteStore.getSprite("bricks");
-        String urlBricks = sp.image().getUrl();
-        String urlCrackedBricks = spriteStore.getSprite("cracked-bricks").image().getUrl();
-        String urlWall = spriteStore.getSprite("wall").image().getUrl();
-
-        if (isBrickWall(adjacentCell, urlBricks, urlCrackedBricks, urlWall)) {
-            IWallState state = adjacentCell.getWall().getState();
-            createExplosion(adjacentX, adjacentY);
-            degradeWall(adjacentCell, state, lawnCell, cell);
-        }
-    }
-
-    /**
-     * Vérifie si la cellule est un mur en brique
-     *
-     * @param adjacentCell     la cellule adjacente
-     * @param urlBricks        l'url des briques
-     * @param urlCrackedBricks l'url des briques fissurées
-     * @param urlWall          l'url du mur
-     * @return true si la cellule est un mur en brique, false sinon
-     */
-    private boolean isBrickWall(Cell adjacentCell, String urlBricks, String urlCrackedBricks, String urlWall) {
-        return (adjacentCell.getWall().getSprite().image().getUrl().equals(urlBricks) ||
-                adjacentCell.getWall().getSprite().image().getUrl().equals(urlCrackedBricks)) &&
-                !adjacentCell.getWall().getSprite().image().getUrl().equals(urlWall);
-    }
-
-    /**
-     * Dégrade le mur
-     *
-     * @param adjacentCell les cases adjacentes
-     * @param state        l'état du mur
-     * @param lawnCell     la cellule de l'herbe
-     * @param cell         la cellule
-     */
-    private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
-        if (state.getSprite().image().getUrl().equals(spriteStore.getSprite("bricks").image().getUrl())) {
-            adjacentCell.getWall().degrade();
-            IWallState crackedState = adjacentCell.getWall().getState();
-            Cell cellWallReplace = new Cell(new Wall(crackedState, adjacentCell.getWall().getPositionX(), adjacentCell.getWall().getPositionY()));
-            adjacentCell.replaceBy(cellWallReplace);
-        } else {
-            adjacentCell.getWall().degrade();
-            cell.replaceBy(lawnCell);
-        }
+        BombsUtils.createAdjacentExplosionsBombs(this, spriteStore, game, directionX, directionY);
     }
 
     /**
@@ -234,10 +165,6 @@ public class BigBomb extends AbstractMovable implements IBomb {
         return false;
     }
 
-    @Override
-    public boolean isLava() {
-        return false;
-    }
 
     @Override
     public boolean isBomb() {

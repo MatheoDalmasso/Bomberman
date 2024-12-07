@@ -1,6 +1,5 @@
 /**
  * Ce logiciel est distribué à des fins éducatives.
- *
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
  * ou implicite, notamment sans garantie de qualité marchande, d’adéquation
  * à un usage particulier et d’absence de contrefaçon.
@@ -9,16 +8,15 @@
  * soit dans le cadre d’un contrat, d’un délit ou autre, en provenance de,
  * consécutif à ou en relation avec le logiciel ou son utilisation, ou avec
  * d’autres éléments du logiciel.
- *
  * (c) 2022-2024 Romain Wallon - Université d'Artois.
  * Tous droits réservés.
  */
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import java.util.List;
-
 import javafx.animation.AnimationTimer;
+
+import java.util.List;
 
 /**
  * La classe {@link BombermanAnimation} implante l'animation permettant de déplacer
@@ -26,7 +24,6 @@ import javafx.animation.AnimationTimer;
  * retardement.
  *
  * @author Romain Wallon
- *
  * @version 0.1.0
  */
 final class BombermanAnimation extends AnimationTimer {
@@ -61,7 +58,8 @@ final class BombermanAnimation extends AnimationTimer {
 
     /**
      * Gère la mise à jour des différents objets du jeu.
-     * @param now
+     *
+     * @param now Le timestamp actuel.
      */
     @Override
     public void handle(long now) {

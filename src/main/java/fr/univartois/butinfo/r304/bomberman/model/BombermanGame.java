@@ -17,7 +17,6 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 
-import fr.univartois.butinfo.r304.bomberman.controller.HomeController;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
@@ -40,8 +39,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -56,7 +55,7 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    private static final Random RANDOM = new Random();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
@@ -129,9 +128,6 @@ public final class BombermanGame {
     private int remainingEnemies;
 
     /**
-     * Le nombre de bombes restant au joueur.
-     */
-    /**
      * Le contrôleur du jeu.
      */
     private IBombermanController controller;
@@ -140,7 +136,7 @@ public final class BombermanGame {
     /**
      * Le générateur de la carte du jeu.
      */
-    private IMapGenerator generateurMap; // NOSONAR
+    private IMapGenerator generateurMap;
 
     /**
      * Le niveau de difficulté
@@ -209,7 +205,7 @@ public final class BombermanGame {
     }
 
     public void setRemainingBombs(int bombs) {
-        this.remainingBombs.set(remainingBombs.get()+bombs);
+        this.remainingBombs.set(remainingBombs.get() + bombs);
     }
 
     /**
@@ -241,8 +237,6 @@ public final class BombermanGame {
 
     /**
      * Donne le générateur de la carte du jeu.
-     *
-     * @return Le générateur de la carte du jeu.
      */
     public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;
@@ -676,4 +670,7 @@ public final class BombermanGame {
         controller.gameOver(message);
     }
 
+    public IMapGenerator getGenerateurMap() {
+        return generateurMap;
+    }
 }

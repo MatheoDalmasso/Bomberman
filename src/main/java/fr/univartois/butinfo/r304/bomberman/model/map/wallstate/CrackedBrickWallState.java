@@ -12,7 +12,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * Classe représentant l'état d'un mur en brique fissuré.
@@ -33,7 +33,7 @@ public class CrackedBrickWallState implements IWallState {
     /**
      * Le générateur de nombres aléatoires.
      */
-    private final Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
 
     /**
      * Crée un nouvel état de mur en brique fissuré.
