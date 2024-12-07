@@ -191,7 +191,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * Ennemi avec vie
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isEnemyWithLife() {
@@ -201,7 +201,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est de la lave
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isLava() {
@@ -211,7 +211,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est une bombe
      *
-     * @return
+     * @return true
      */
     @Override
     public boolean isBomb() {
@@ -221,7 +221,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est une fausse bombe
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isFakeBomb() {
@@ -231,7 +231,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est une grosse bombe
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isBigBomb() {
@@ -241,7 +241,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est un bonus invincible
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isInvisibleBonus() {
@@ -251,7 +251,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est un bonus de vie
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isLifeBonus() {
@@ -261,7 +261,7 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * C'est un bonus de bombe
      *
-     * @return
+     * @return false
      */
     @Override
     public boolean isBombBonus() {

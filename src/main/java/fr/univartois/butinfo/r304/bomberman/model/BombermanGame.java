@@ -17,7 +17,6 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 
-import fr.univartois.butinfo.r304.bomberman.controller.HomeController;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
@@ -140,7 +139,7 @@ public final class BombermanGame {
     /**
      * Le générateur de la carte du jeu.
      */
-    private IMapGenerator generateurMap; // NOSONAR
+    private IMapGenerator generateurMap;
 
     /**
      * Le niveau de difficulté
@@ -676,4 +675,7 @@ public final class BombermanGame {
         controller.gameOver(message);
     }
 
+    public IMapGenerator getGenerateurMap() {
+        return generateurMap;
+    }
 }
