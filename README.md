@@ -731,3 +731,8 @@ package view {
 | Bonus de point de vie           |                                | ✅          | Benjamin             |
 | Apparition aléatoire d'un bonus |                                | ✅          | Benjamin             |
 | Gestion des différents niveaux  | Fabrique abstraite / Composite | ✅          | Matheo/Simon/Mathias |
+
+### Note SonarQube :
+
+![image1](./SonarQube1.png)
+![image2](./SonarQube2.png)
