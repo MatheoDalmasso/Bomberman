@@ -39,8 +39,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -55,7 +55,7 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    private static final Random RANDOM = new Random();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
@@ -128,22 +128,22 @@ public final class BombermanGame {
     private int remainingEnemies;
 
     /**
-     * Le nombre de bombes restant au joueur.
-     */
-    /**
      * Le contrôleur du jeu.
      */
     private IBombermanController controller;
 
+
     /**
      * Le générateur de la carte du jeu.
      */
-    private IMapGenerator generateurMap; // NOSONAR
+    private IMapGenerator generateurMap;
 
     /**
      * Le niveau de difficulté
      */
     private int difficultyLevel;
+
+    private Sprite selectedSprite;
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -204,6 +204,10 @@ public final class BombermanGame {
         return remainingBombs.get();
     }
 
+    public void setRemainingBombs(int bombs) {
+        this.remainingBombs.set(remainingBombs.get() + bombs);
+    }
+
     /**
      * Diminue le nombre de bombes restantes du joueur.
      */
@@ -233,8 +237,6 @@ public final class BombermanGame {
 
     /**
      * Donne le générateur de la carte du jeu.
-     *
-     * @return Le générateur de la carte du jeu.
      */
     public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;
@@ -369,6 +371,9 @@ public final class BombermanGame {
         animation.start();
     }
 
+    public void setSelectedSprite(Sprite selectedSprite) {
+        this.selectedSprite = selectedSprite;
+    }
 
     /**
      * Crée les différents objets présents au début de la partie et pouvant se déplacer.
@@ -377,7 +382,7 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Player(this, 0, 0, spriteStore.getSprite("guy"));
+        player = new Player(this, 0, 0, selectedSprite != null ? selectedSprite : spriteStore.getSprite("bomberman_0_0"));
         movableObjects.add(player);
         spawnMovable(player);
 
@@ -665,4 +670,7 @@ public final class BombermanGame {
         controller.gameOver(message);
     }
 
+    public IMapGenerator getGenerateurMap() {
+        return generateurMap;
+    }
 }

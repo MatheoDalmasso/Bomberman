@@ -8,11 +8,11 @@
     -fx-font-size: 30px; /* Increased font size */
     -fx-font-weight: bold;
     -fx-text-fill: #1e90ff; /* DodgerBlue text color */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0.5, 0, 0); /* Drop shadow effect */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0.5, 0, 0); /* Drop shadow effect */
 }
 
 .label-subtitle {
-    -fx-font-size: 20px; /* Increased font size */
+    -fx-font-size: 24px; /* Increased font size */
     -fx-font-weight: bold;
     -fx-text-fill: #4682b4; /* SteelBlue text color */
 }
@@ -34,7 +34,9 @@
 
 .button-easy:hover {
     -fx-background-color: #228b22; /* Darker green on hover */
-    -fx-cursor:hand;
+    -fx-cursor: hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
 }
 
 .button-medium {
@@ -49,7 +51,9 @@
 
 .button-medium:hover {
     -fx-background-color: #ff8c00; /* Darker orange on hover */
-    -fx-cursor:hand;
+    -fx-cursor: hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
 }
 
 .button-hard {
@@ -64,7 +68,9 @@
 
 .button-hard:hover {
     -fx-background-color: #b22222; /* Darker red on hover */
-    -fx-cursor:hand;
+    -fx-cursor: hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
 }
 
 .button-impossible {
@@ -80,4 +86,32 @@
 
 .button-impossible:hover {
     -fx-background-color: #4b0082; /* Darker violet on hover */
+    -fx-cursor: hand;
+    -fx-scale-x: 1.1; /* Zoom effect */
+    -fx-scale-y: 1.1;
+}
+
+
+.button-arrow {
+    -fx-font-size: 24px;
+    -fx-background-color: #87cefa;
+    -fx-text-fill: #fff;
+    -fx-border-color: #4682b4;
+    -fx-border-width: 2;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+
+}
+
+.button-arrow:hover {
+    -fx-background-color: #4682b4;
+    -fx-border-color: #1e90ff;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-opacity: 1;
 }

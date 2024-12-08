@@ -38,6 +38,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Collisions avec les autres objets.
+     *
      * @param other L'objet avec lequel cet objet est entré en collision.
      */
     @Override
@@ -66,7 +67,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Déplace le fait que l'objet est un ennemi.
-     * @return
+     *
+     * @return true si l'objet est un ennemi, sinon false.
      */
     @Override
     public boolean isEnemy() {
@@ -75,7 +77,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Déplace le fait que l'objet est un joueur.
-     * @return
+     *
+     * @return true si l'objet est un joueur, sinon false.
      */
     @Override
     public boolean isPlayer() {
@@ -84,7 +87,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Déplace le fait que l'objet est une explosion.
-     * @return
+     *
+     * @return true si l'objet est une explosion, sinon false.
      */
     @Override
     public boolean isExplosion() {
@@ -93,7 +97,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Ennemi avec vie
-     * @return
+     *
+     * @return true si l'objet est un ennemi avec vie, sinon false.
      */
     @Override
     public boolean isEnemyWithLife() {
@@ -101,17 +106,9 @@ public class BombBonus extends AbstractMovable implements IWallState {
     }
 
     /**
-     * C'est de la lave
-     * @return
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * C'est une bombe
-     * @return
+     *
+     * @return true si l'objet est une bombe, sinon false.
      */
     @Override
     public boolean isBomb() {
@@ -120,7 +117,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est une bombe factice
-     * @return
+     *
+     * @return true si l'objet est une bombe factice, sinon false.
      */
     @Override
     public boolean isFakeBomb() {
@@ -129,7 +127,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est une grosse bombe
-     * @return
+     *
+     * @return true si l'objet est une grosse bombe, sinon false.
      */
     @Override
     public boolean isBigBomb() {
@@ -138,7 +137,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est un bonus invisible
-     * @return
+     *
+     * @return true si l'objet est un bonus invisible, sinon false.
      */
     @Override
     public boolean isInvisibleBonus() {
@@ -147,7 +147,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est un bonus de vie
-     * @return
+     *
+     * @return true si l'objet est un bonus de vie, sinon false.
      */
     @Override
     public boolean isLifeBonus() {
@@ -156,7 +157,8 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * C'est un bonus de bombe
-     * @return
+     *
+     * @return true si l'objet est un bonus de bombe, sinon false.
      */
     @Override
     public boolean isBombBonus() {
@@ -165,6 +167,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
      * Dégrade le mur.
+     *
      * @param wall le mur à dégrader
      */
     @Override

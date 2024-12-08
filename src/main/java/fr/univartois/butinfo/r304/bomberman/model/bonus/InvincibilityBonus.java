@@ -95,16 +95,6 @@ public class InvincibilityBonus extends AbstractMovable implements IWallState {
     }
 
     /**
-     * Indique si l'objet est de la lave.
-     *
-     * @return false car ce bonus n'est pas de la lave.
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * Indique si l'objet est une bombe.
      *
      * @return false car ce bonus n'est pas une bombe.
