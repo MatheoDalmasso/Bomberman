@@ -135,6 +135,9 @@ public class Player extends AbstractMovable {
         return bombs;
     }
 
+    public int getNumberOfBombs() {
+        return bombs.size();
+    }
     /**
      * Décremente les points de vie du joueur quand il explose.
      */
