@@ -434,7 +434,7 @@ public final class BombermanGame {
         controller.bindScore(player.scoreProperty());
         remainingBombs.set(player.getNumberOfBombs());
         controller.bindBombs(remainingBombs);
-        remainingEnemies = nbEnemies;
+        this.remainingEnemies = nbEnemies + nbBoss + nbSousBoss;
     }
 
     /**
