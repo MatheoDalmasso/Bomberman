@@ -45,6 +45,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
     public void collidedWith(IMovable other) {
         if (other.isPlayer()) {
             game.getPlayer().addBomb(bomb);
+            game.setRemainingBombs(1);
             game.removeMovable(this);
         }
     }
