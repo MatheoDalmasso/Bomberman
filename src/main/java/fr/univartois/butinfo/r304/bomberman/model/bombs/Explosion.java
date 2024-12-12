@@ -5,6 +5,8 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
@@ -59,9 +61,25 @@ public class Explosion extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other.isEnemyWithLife()) {
-            // On ne fait rien
+        if (other.isExplosion()) {
+            // L'explosion n'affecte pas un autre objet d'explosion
+        } else if (other.isEnemyWithLife()) {
+            // Si l'explosion touche un ennemi avec vie, il ne se passe rien
+        } else if (other.isBomb()) {
+            // Si l'explosion touche une Bomb ou BigBomb
+            Bomb bomb = (Bomb) other;
+            bomb.detonateBomb(); // Déclenche l'explosion de la bombe adjacente
+        }
+        else if (other.isBigBomb()) {
+            // Si l'explosion touche une BigBomb
+            BigBomb bigBomb = (BigBomb) other;
+            bigBomb.detonateBomb();
+        } else if (other.isFakeBomb()) {
+            // Si l'explosion touche une FakeBomb, elle disparaît
+            FakeBomb fakeBomb = (FakeBomb) other;
+            game.removeMovable(fakeBomb);  // Retirer la FakeBomb sans explosion
         } else {
+            // Explosion touche un objet, on le fait exploser
             other.explode();
         }
     }

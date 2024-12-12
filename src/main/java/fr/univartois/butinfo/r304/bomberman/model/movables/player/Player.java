@@ -118,7 +118,7 @@ public class Player extends AbstractMovable {
     @Override
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
-        game.setRemainingBombs(1);
+        game.setRemainingBombs(0);
     }
 
     @Override

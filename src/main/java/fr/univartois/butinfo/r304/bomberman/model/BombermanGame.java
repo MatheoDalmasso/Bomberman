@@ -144,6 +144,7 @@ public final class BombermanGame {
     private int difficultyLevel;
 
     private Sprite selectedSprite;
+    private boolean bombTimerStarted = false;
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -168,10 +169,13 @@ public final class BombermanGame {
      * Démarre le timer de recupération des bombes.
      */
     private void startBombTimer() {
-        Timeline bombTimer;
-        bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
-        bombTimer.setCycleCount(Animation.INDEFINITE);
-        bombTimer.play();
+        if (!bombTimerStarted) {
+            Timeline bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
+            bombTimer.setCycleCount(Animation.INDEFINITE);
+            bombTimer.play();
+            bombTimerStarted = true;
+        }
+
     }
 
     public Player getPlayer() {
