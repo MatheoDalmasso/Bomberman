@@ -367,7 +367,7 @@ public final class BombermanGame {
                 throw new IllegalArgumentException(INVALID_DIFFICULTY_LEVEL + difficultyLevel);
         }
         createMovables();
-        initStatistics();
+        initStatistics(player);
         animation.start();
     }
 
@@ -425,9 +425,10 @@ public final class BombermanGame {
     /**
      * Initialise les statistiques de cette partie.
      */
-    private void initStatistics() {
+    private void initStatistics(Player player) {
         controller.bindLife(player.pointsDeVieProperty());
         controller.bindScore(player.scoreProperty());
+        remainingBombs.set(player.getNumberOfBombs());
         controller.bindBombs(remainingBombs);
         remainingEnemies = nbEnemies;
     }
@@ -510,14 +511,17 @@ public final class BombermanGame {
                     BigBomb bomb = new BigBomb(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
                     dropBomb(bomb);
                     player.getBombs().removeFirst();
+                    decreaseBombs();
                 }
             } else if (randomBomb == 3 && difficultyLevel > 1) {
                 FakeBomb bomb = new FakeBomb(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
                 dropBomb(bomb);
                 player.getBombs().removeFirst();
+                decreaseBombs();
             } else {
                 Bomb bomb = player.getBombs().removeFirst();
                 dropBomb(bomb);
+                decreaseBombs();
             }
         }
     }
