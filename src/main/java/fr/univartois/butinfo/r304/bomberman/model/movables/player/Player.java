@@ -123,7 +123,7 @@ public class Player extends AbstractMovable {
     @Override
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
-        game.setRemainingBombs(1);
+        game.setRemainingBombs(0);
     }
 
     @Override
@@ -140,6 +140,9 @@ public class Player extends AbstractMovable {
         return bombs;
     }
 
+    public int getNumberOfBombs() {
+        return bombs.size();
+    }
     /**
      * Décremente les points de vie du joueur quand il explose.
      */

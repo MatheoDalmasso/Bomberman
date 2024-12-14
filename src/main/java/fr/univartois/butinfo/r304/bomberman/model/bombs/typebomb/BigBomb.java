@@ -5,6 +5,7 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.BombsUtils;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.Explosion;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.IBomb;
@@ -70,7 +71,6 @@ public class BigBomb extends AbstractMovable implements IBomb {
     public boolean move(long delta) {
         if (startTime == -1) {
             startTime = System.currentTimeMillis();
-            poseBombe();
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
@@ -84,14 +84,13 @@ public class BigBomb extends AbstractMovable implements IBomb {
     /**
      * Fait exploser la bombe
      */
-    private void detonateBomb() {
+    public void detonateBomb() {
         Cell bombCell = game.getCellAt(getX(), getY());
         if (bombCell.getWall() == null) {
             createExplosion(getX(), getY());
         }
         createAdjacentExplosions();
         game.removeMovable(this);
-        game.decreaseBombs();
     }
 
     /**
@@ -125,7 +124,25 @@ public class BigBomb extends AbstractMovable implements IBomb {
     @Override
     public void collidedWith(IMovable other) {
         if (other.isExplosion()) {
-            explode();
+            // Si la bombe entre en collision avec une explosion, elle explose également
+            if (startTime == -1) {
+                startTime = System.currentTimeMillis(); // On définit le temps de début
+            }
+            detonateBomb(); // Déclenche l'explosion de cette bombe
+        } else if (other.isBomb()){
+            // Si une bombe ou une grosse bombe entre en collision avec une autre bombe
+            Bomb otherBomb = (Bomb) other;  // Cast de l'objet en Bomb
+            if (otherBomb.getStartTime() == -1) {  // Si la deuxième bombe n'a pas encore explosé
+                otherBomb.setStartTime();  // On définit son temps de début
+                otherBomb.detonateBomb();  // Déclenche l'explosion de la seconde bombe
+            }
+        }
+        else if(other.isBigBomb()) {
+            BigBomb otherBigBomb = (BigBomb) other;
+            if (otherBigBomb.startTime == -1) {  // Si la deuxième
+                otherBigBomb.startTime = System.currentTimeMillis();  // On définit son temps de début
+                otherBigBomb.detonateBomb();
+            }
         }
     }
 
@@ -219,5 +236,12 @@ public class BigBomb extends AbstractMovable implements IBomb {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), delai, spriteStore, startTime);
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+    public void setStartTime() {
+        this.startTime = System.currentTimeMillis();
     }
 }
