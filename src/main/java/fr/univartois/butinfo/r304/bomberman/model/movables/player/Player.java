@@ -111,7 +111,12 @@ public class Player extends AbstractMovable {
      * @param damage Les dégâts à infliger.
      */
     public void takeDamage(int damage) {
-        state.takeDamage(this, damage);
+        if (pointsDeVie.get() > 0) {
+            state.takeDamage(this, damage);
+            if (pointsDeVie.get() < 0) {
+                pointsDeVie.set(0);
+            }
+        }
     }
 
 
