@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class HomeController {
@@ -200,6 +201,7 @@ public class HomeController {
         });
         // Afficher le personnage par défaut
         updateCharacterImage();
+        scrollPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/fr/univartois/butinfo/r304/bomberman/view/styles.css")).toExternalForm());
 
         // Gestion de la navigation au clavier
         characterGallery.setOnKeyPressed(event -> {
