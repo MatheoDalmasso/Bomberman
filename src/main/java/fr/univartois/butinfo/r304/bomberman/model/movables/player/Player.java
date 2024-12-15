@@ -111,14 +111,19 @@ public class Player extends AbstractMovable {
      * @param damage Les dégâts à infliger.
      */
     public void takeDamage(int damage) {
-        state.takeDamage(this, damage);
+        if (pointsDeVie.get() > 0) {
+            state.takeDamage(this, damage);
+            if (pointsDeVie.get() < 0) {
+                pointsDeVie.set(0);
+            }
+        }
     }
 
 
     @Override
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
-        game.setRemainingBombs(1);
+        game.setRemainingBombs(0);
     }
 
     @Override
@@ -135,6 +140,9 @@ public class Player extends AbstractMovable {
         return bombs;
     }
 
+    public int getNumberOfBombs() {
+        return bombs.size();
+    }
     /**
      * Décremente les points de vie du joueur quand il explose.
      */

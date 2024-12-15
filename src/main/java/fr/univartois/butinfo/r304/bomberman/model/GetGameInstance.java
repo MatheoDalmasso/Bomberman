@@ -1,5 +1,8 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
+/**
+ * La classe {@link GetGameInstance} permet de récupérer l'instance du jeu.
+ */
 public class GetGameInstance {
 
     /**

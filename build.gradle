@@ -1,32 +1,20 @@
-/*
- * La configuration de Gradle pour compiler et exécuter le projet.
- */
-
-// Les plugins permettant à Gradle de gérer le projet en tant qu'application JavaFX.
 plugins {
     id 'application'
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.sonarqube' version '5.1.0.4882'
+    id 'org.beryx.jlink' version '3.0.1'
 }
 
+application {
+    mainModule = 'fr.univartois.butinfo.r304.bomberman'
+    mainClass = 'fr.univartois.butinfo.r304.bomberman.Bomberman'
+}
 
-// La version du langage Java utilisée dans le projet.
-//sourceCompatibility = '21'
-//targetCompatibility = '21'
-
-// Les dépôts d'où les dépendances doivent être téléchargées.
 repositories {
     mavenCentral()
 }
 
-
-// Le nom de la classe contenant la méthode "main".
-application {
-    mainClass = 'fr.univartois.butinfo.r304.bomberman.Bomberman'
-}
-
-// La version de JavaFX utilisée dans le projet, et les composants requis.
 javafx {
     version = '21.0.1'
     modules = ['javafx.controls', 'javafx.fxml']
@@ -39,6 +27,9 @@ sonar {
     }
 }
 
-
-
-
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'bomberman'
+    }
+}

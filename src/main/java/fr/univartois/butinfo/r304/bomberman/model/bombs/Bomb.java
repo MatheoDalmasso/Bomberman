@@ -5,6 +5,7 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
@@ -69,12 +70,11 @@ public class Bomb extends AbstractMovable implements IBomb {
     @Override
     public boolean move(long delta) {
         if (startTime == -1) {
-            startTime = System.currentTimeMillis();
-            poseBombe();
+            startTime = System.currentTimeMillis();  // Initialise le départ si non défini
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        if (elapsedTime >= 2500) {
+        if (elapsedTime >= delai) {  // Si le délai est atteint, on fait exploser la bombe
             detonateBomb();
             return true;
         }
@@ -84,10 +84,9 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * Fait exploser la bombe
      */
-    private void detonateBomb() {
+    public void detonateBomb() {
         createAdjacentExplosions();
         game.removeMovable(this);
-        game.decreaseBombs();
     }
 
     /**
@@ -143,9 +142,27 @@ public class Bomb extends AbstractMovable implements IBomb {
     @Override
     public void collidedWith(IMovable other) {
         if (other.isExplosion()) {
-            this.explode();
+            // Si la bombe entre en collision avec une explosion, elle explose également
+            if (startTime == -1) {
+                startTime = System.currentTimeMillis(); // On définit le temps de début
+            }
+            detonateBomb(); // Déclenche l'explosion de cette bombe
+        } else if (other.isBomb()) {
+            // Si une bombe ou une grosse bombe entre en collision avec une autre bombe
+            Bomb otherBomb = (Bomb) other;  // Cast de l'objet en Bomb
+            if (otherBomb.startTime == -1) {  // Si la deuxième bombe n'a pas encore explosé
+                otherBomb.startTime = System.currentTimeMillis();  // On définit son temps de début
+                otherBomb.detonateBomb();  // Déclenche l'explosion de la seconde bombe
+            }
+        } else if (other.isBigBomb()) {
+            BigBomb otherBigBomb = (BigBomb) other;
+            if (otherBigBomb.getStartTime() == -1) {  // Si la deuxième
+                otherBigBomb.setStartTime();  // On définit son temps de début
+                otherBigBomb.detonateBomb();
+            }
         }
     }
+
 
     /**
      * Gère l'explosion de cet objet.
@@ -295,5 +312,21 @@ public class Bomb extends AbstractMovable implements IBomb {
      */
     public void setDelai(long delai) {
         this.delai = delai;
+    }
+
+    /**
+     * Donne le temps
+     *
+     * @return Le temps de début.
+     */
+    public long getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Modifie le temps de début
+     */
+    public void setStartTime() {
+        this.startTime = System.currentTimeMillis();
     }
 }

@@ -11,6 +11,9 @@ import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 import java.util.Objects;
 
+/**
+ * Cette classe représente un bonus de bombe dans le jeu Bomberman.
+ */
 public class BombBonus extends AbstractMovable implements IWallState {
 
     /**
@@ -45,6 +48,7 @@ public class BombBonus extends AbstractMovable implements IWallState {
     public void collidedWith(IMovable other) {
         if (other.isPlayer()) {
             game.getPlayer().addBomb(bomb);
+            game.setRemainingBombs(1);
             game.removeMovable(this);
         }
     }
@@ -175,6 +179,12 @@ public class BombBonus extends AbstractMovable implements IWallState {
         // Ne fais rien après la dégradation
     }
 
+    /**
+     * Permet de comparer deux objets.
+     *
+     * @param o L'objet à comparer.
+     * @return true si les objets sont égaux, false sinon.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -184,6 +194,11 @@ public class BombBonus extends AbstractMovable implements IWallState {
         return Objects.equals(bomb, bombBonus.bomb) && Objects.equals(spriteStore, bombBonus.spriteStore);
     }
 
+    /**
+     * Retourne le code de hachage de cet objet.
+     *
+     * @return Le code de hachage de cet objet.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), bomb, spriteStore);

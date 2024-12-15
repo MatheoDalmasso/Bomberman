@@ -19,7 +19,7 @@ package fr.univartois.butinfo.r304.bomberman.view;
 import javafx.scene.image.Image;
 
 /**
- * La classe {@link Sprite} représente un élément graphique du jeu.
+ * Le record {@link Sprite} représente un élément graphique du jeu.
  * Il s'agit d'un objet encapsulant une image sans état interne, et qui peut être placé à
  * un endroit donné de la fenêtre.
  * De cette manière, il est possible d'utiliser la même instance de {@link Sprite} pour
@@ -50,6 +50,11 @@ public record Sprite(Image image) {
         return (int) image.getHeight();
     }
 
+    /**
+     * Donne l'image associée à cette instance de {@link Sprite}.
+     *
+     * @return L'image associée à cette instance de {@link Sprite}.
+     */
     public Image getImage() {
         return image;
     }
