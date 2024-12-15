@@ -155,7 +155,6 @@
     -fx-scale-y: 1.2;
     -fx-opacity: 1;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 15, 0.5, 0, 0);
-    -fx-transform: rotate(10deg);
 }
 
 
