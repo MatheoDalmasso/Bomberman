@@ -62,6 +62,9 @@ public final class BombermanGame {
      */
     private static final int DEFAULT_SPEED = 75;
 
+    /**
+     * Le message indiquant que le niveau de difficulté spécifié est invalide.
+     */
     private static final String INVALID_DIFFICULTY_LEVEL = "Invalid difficulty level: ";
 
     /**
@@ -678,6 +681,11 @@ public final class BombermanGame {
         controller.gameOver(message);
     }
 
+    /**
+     * Donne le contrôleur du jeu.
+     *
+     * @return Le contrôleur du jeu.
+     */
     public IMapGenerator getGenerateurMap() {
         return generateurMap;
     }

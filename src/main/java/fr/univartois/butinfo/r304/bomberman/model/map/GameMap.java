@@ -5,6 +5,9 @@ import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.component.IMa
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The GameMap class represents the map of the game.
+ */
 public class GameMap implements IMapComponent {
 
     /**
@@ -93,6 +96,12 @@ public class GameMap implements IMapComponent {
         cells[row][column].replaceBy(cell);
     }
 
+    /**
+     * Check if the cell location is correct.
+     *
+     * @param row    the row
+     * @param column the column
+     */
     private void incorrectCellLocation(int row, int column) {
         if ((row < 0) || (height <= row) || (column < 0) || (width <= column)) {
             throw new IllegalArgumentException("Incorrect cell location!");
