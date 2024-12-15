@@ -6,7 +6,6 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
-import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
@@ -155,8 +154,7 @@ public class Bomb extends AbstractMovable implements IBomb {
                 otherBomb.startTime = System.currentTimeMillis();  // On définit son temps de début
                 otherBomb.detonateBomb();  // Déclenche l'explosion de la seconde bombe
             }
-        }
-        else if(other.isBigBomb()) {
+        } else if (other.isBigBomb()) {
             BigBomb otherBigBomb = (BigBomb) other;
             if (otherBigBomb.getStartTime() == -1) {  // Si la deuxième
                 otherBigBomb.setStartTime();  // On définit son temps de début
@@ -319,7 +317,8 @@ public class Bomb extends AbstractMovable implements IBomb {
     public long getStartTime() {
         return startTime;
     }
+
     public void setStartTime() {
-        this.startTime=System.currentTimeMillis();
+        this.startTime = System.currentTimeMillis();
     }
 }
