@@ -12,6 +12,10 @@ module fr.univartois.butinfo.r304.bomberman {
     exports fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb;
     exports fr.univartois.butinfo.r304.bomberman.model;
     exports fr.univartois.butinfo.r304.bomberman.controller to javafx.fxml;
+    
+    exports fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.component;
+    exports fr.univartois.butinfo.r304.bomberman.model.movables.player.state;
+    exports fr.univartois.butinfo.r304.bomberman.model.map.wallstate;
 
     requires transitive javafx.controls;
     requires javafx.fxml;
