@@ -736,3 +736,7 @@ package view {
 
 ![image1](./SonarQube1.png)
 ![image2](./SonarQube2.png)
+
+### Fin projet
+
+![image3](./SonarQube3.png)
