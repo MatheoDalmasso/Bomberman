@@ -314,10 +314,18 @@ public class Bomb extends AbstractMovable implements IBomb {
         this.delai = delai;
     }
 
+    /**
+     * Donne le temps
+     *
+     * @return Le temps de début.
+     */
     public long getStartTime() {
         return startTime;
     }
 
+    /**
+     * Modifie le temps de début
+     */
     public void setStartTime() {
         this.startTime = System.currentTimeMillis();
     }
