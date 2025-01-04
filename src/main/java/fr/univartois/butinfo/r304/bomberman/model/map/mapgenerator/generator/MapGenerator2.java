@@ -8,7 +8,7 @@ import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.CrackedBrickWall
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.WallInvincibleState;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * La classe MapGenerator2 génère une carte pour le jeu Bomberman en utilisant une logique spécifique.
@@ -18,7 +18,7 @@ public class MapGenerator2 extends MapGenerator {
     /**
      * Le générateur de nombres aléatoires utilisé pour générer la carte.
      */
-    private final Random random;
+    private final SecureRandom random;
 
     /**
      * Crée un générateur de carte de jeu.
@@ -28,7 +28,7 @@ public class MapGenerator2 extends MapGenerator {
      */
     public MapGenerator2(int height, int width) {
         super(height, width);
-        this.random = new Random();
+        this.random = new SecureRandom();
     }
 
     /**
@@ -43,7 +43,7 @@ public class MapGenerator2 extends MapGenerator {
         IWallState state;
         if (isBorderOfMap(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
-        } else if (isPositionAWall(i, j)) {
+        } else if (MapGenerator.isPositionAWall(i, j)) {
             state = new WallInvincibleState(spriteStore.getSprite("wall"));
         } else if (random.nextInt(100) < 15) {
             state = new BrickWallState(spriteStore.getSprite("bricks"));
@@ -64,16 +64,5 @@ public class MapGenerator2 extends MapGenerator {
      */
     private boolean isBorderOfMap(int i, int j) {
         return i == 0 || j == 0 || i == getHeight() - 1 || j == getWidth() - 1;
-    }
-
-    /**
-     * Vérifie si la position spécifiée doit contenir un mur.
-     *
-     * @param i La position en y.
-     * @param j La position en x.
-     * @return true si la position doit contenir un mur, sinon false.
-     */
-    private boolean isPositionAWall(int i, int j) {
-        return i % 3 == 0 && j % 3 == 0;
     }
 }

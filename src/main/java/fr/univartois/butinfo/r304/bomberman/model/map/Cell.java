@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * La classe {@link Cell} représente une cellule de la carte du jeu du Bomberman.
- *
+ * <p>
  * Ce logiciel est distribué à des fins éducatives.
  * <p>
  * Il est fourni "tel quel", sans garantie d’aucune sorte, explicite
@@ -153,15 +153,6 @@ public class Cell implements IMapComponent {
     }
 
     /**
-     * Donne la propriété contenant le mur présent sur cette cellule sur la carte.
-     *
-     * @return La propriété contenant le mur.
-     */
-    public ObjectProperty<Wall> getWallProperty() {
-        return wallProperty;
-    }
-
-    /**
      * Remplace le contenu de cette cellule par celui d'une autre cellule.
      *
      * @param cell La cellule dont le contenu doit être copié dans cette cellule.
@@ -173,7 +164,8 @@ public class Cell implements IMapComponent {
 
     /**
      * Remplace le contenu de cette cellule par un mur.
-     * @param component
+     *
+     * @param component Le mur à placer sur cette cellule.
      */
     @Override
     public void add(IMapComponent component) {
@@ -182,7 +174,8 @@ public class Cell implements IMapComponent {
 
     /**
      * Supprime le contenu de cette cellule.
-     * @param component
+     *
+     * @param component Le contenu à supprimer.
      */
     @Override
     public void remove(IMapComponent component) {
@@ -191,8 +184,9 @@ public class Cell implements IMapComponent {
 
     /**
      * Donne le composant enfant à l'index spécifié.
-     * @param index
-     * @return
+     *
+     * @param index L'index du composant enfant.
+     * @return Le composant enfant à l'index spécifié.
      */
     @Override
     public IMapComponent getChild(int index) {

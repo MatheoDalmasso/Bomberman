@@ -5,9 +5,8 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
-import fr.univartois.butinfo.r304.bomberman.model.map.wallstate.IWallState;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
@@ -71,12 +70,11 @@ public class Bomb extends AbstractMovable implements IBomb {
     @Override
     public boolean move(long delta) {
         if (startTime == -1) {
-            startTime = System.currentTimeMillis();
-            poseBombe();
+            startTime = System.currentTimeMillis();  // Initialise le départ si non défini
         }
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        if (elapsedTime >= 2500) {
+        if (elapsedTime >= delai) {  // Si le délai est atteint, on fait exploser la bombe
             detonateBomb();
             return true;
         }
@@ -86,10 +84,9 @@ public class Bomb extends AbstractMovable implements IBomb {
     /**
      * Fait exploser la bombe
      */
-    private void detonateBomb() {
+    public void detonateBomb() {
         createAdjacentExplosions();
         game.removeMovable(this);
-        game.decreaseBombs();
     }
 
     /**
@@ -133,54 +130,9 @@ public class Bomb extends AbstractMovable implements IBomb {
      * @param adjacentY    la position y de la cellule adjacente
      */
     private void handleWallCell(Cell adjacentCell, int adjacentX, int adjacentY) {
-        Cell lawnCell = new Cell(spriteStore.getSprite("lawn"));
-        Cell cell = game.getCellAt(adjacentX, adjacentY);
-        Sprite sp = spriteStore.getSprite("bricks");
-        String urlBricks = sp.image().getUrl();
-        String urlCrackedBricks = spriteStore.getSprite("cracked-bricks").image().getUrl();
-        String urlWall = spriteStore.getSprite("wall").image().getUrl();
-
-        if (isBrickWall(adjacentCell, urlBricks, urlCrackedBricks, urlWall)) {
-            IWallState state = adjacentCell.getWall().getState();
-            createExplosion(adjacentX, adjacentY);
-            degradeWall(adjacentCell, state, lawnCell, cell);
-        }
+        BombsUtils.handleWallCell(adjacentCell, adjacentX, adjacentY, spriteStore, game);
     }
 
-    /**
-     * Vérifie si la cellule est un mur en brique
-     *
-     * @param adjacentCell     la cellule adjacente
-     * @param urlBricks        l'url des briques
-     * @param urlCrackedBricks l'url des briques fissurées
-     * @param urlWall          l'url du mur
-     * @return true si la cellule est un mur en brique, false sinon
-     */
-    private boolean isBrickWall(Cell adjacentCell, String urlBricks, String urlCrackedBricks, String urlWall) {
-        return (adjacentCell.getWall().getSprite().image().getUrl().equals(urlBricks) ||
-                adjacentCell.getWall().getSprite().image().getUrl().equals(urlCrackedBricks)) &&
-                !adjacentCell.getWall().getSprite().image().getUrl().equals(urlWall);
-    }
-
-    /**
-     * Dégrade le mur
-     *
-     * @param adjacentCell les cases adjacentes
-     * @param state        l'état du mur
-     * @param lawnCell     la cellule de l'herbe
-     * @param cell         la cellule
-     */
-    private void degradeWall(Cell adjacentCell, IWallState state, Cell lawnCell, Cell cell) {
-        if (state.getSprite().image().getUrl().equals(spriteStore.getSprite("bricks").image().getUrl())) {
-            adjacentCell.getWall().degrade();
-            IWallState crackedState = adjacentCell.getWall().getState();
-            Cell cellWallReplace = new Cell(new Wall(crackedState, adjacentCell.getWall().getPositionX(), adjacentCell.getWall().getPositionY()));
-            adjacentCell.replaceBy(cellWallReplace);
-        } else {
-            adjacentCell.getWall().degrade();
-            cell.replaceBy(lawnCell);
-        }
-    }
 
     /**
      * Gère les collisions entre cet objet et un autre objet.
@@ -190,9 +142,27 @@ public class Bomb extends AbstractMovable implements IBomb {
     @Override
     public void collidedWith(IMovable other) {
         if (other.isExplosion()) {
-            this.explode();
+            // Si la bombe entre en collision avec une explosion, elle explose également
+            if (startTime == -1) {
+                startTime = System.currentTimeMillis(); // On définit le temps de début
+            }
+            detonateBomb(); // Déclenche l'explosion de cette bombe
+        } else if (other.isBomb()) {
+            // Si une bombe ou une grosse bombe entre en collision avec une autre bombe
+            Bomb otherBomb = (Bomb) other;  // Cast de l'objet en Bomb
+            if (otherBomb.startTime == -1) {  // Si la deuxième bombe n'a pas encore explosé
+                otherBomb.startTime = System.currentTimeMillis();  // On définit son temps de début
+                otherBomb.detonateBomb();  // Déclenche l'explosion de la seconde bombe
+            }
+        } else if (other.isBigBomb()) {
+            BigBomb otherBigBomb = (BigBomb) other;
+            if (otherBigBomb.getStartTime() == -1) {  // Si la deuxième
+                otherBigBomb.setStartTime();  // On définit son temps de début
+                otherBigBomb.detonateBomb();
+            }
         }
     }
+
 
     /**
      * Gère l'explosion de cet objet.
@@ -237,7 +207,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * Ennemi avec vie
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isEnemyWithLife() {
@@ -245,17 +216,9 @@ public class Bomb extends AbstractMovable implements IBomb {
     }
 
     /**
-     * C'est de la lave
-     * @return
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * C'est une bombe
-     * @return
+     *
+     * @return true
      */
     @Override
     public boolean isBomb() {
@@ -264,7 +227,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est une fausse bombe
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isFakeBomb() {
@@ -273,7 +237,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est une grosse bombe
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isBigBomb() {
@@ -282,7 +247,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est un bonus invincible
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isInvisibleBonus() {
@@ -291,7 +257,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est un bonus de vie
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isLifeBonus() {
@@ -300,7 +267,8 @@ public class Bomb extends AbstractMovable implements IBomb {
 
     /**
      * C'est un bonus de bombe
-     * @return
+     *
+     * @return false
      */
     @Override
     public boolean isBombBonus() {
@@ -344,5 +312,21 @@ public class Bomb extends AbstractMovable implements IBomb {
      */
     public void setDelai(long delai) {
         this.delai = delai;
+    }
+
+    /**
+     * Donne le temps
+     *
+     * @return Le temps de début.
+     */
+    public long getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Modifie le temps de début
+     */
+    public void setStartTime() {
+        this.startTime = System.currentTimeMillis();
     }
 }

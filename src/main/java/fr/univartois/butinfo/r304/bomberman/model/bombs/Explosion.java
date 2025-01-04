@@ -5,6 +5,8 @@ package fr.univartois.butinfo.r304.bomberman.model.bombs;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.BigBomb;
+import fr.univartois.butinfo.r304.bomberman.model.bombs.typebomb.FakeBomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.AbstractMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 
@@ -42,7 +44,7 @@ public class Explosion extends AbstractMovable {
      *
      * @param delta Le temps écoulé depuis le dernier déplacement de cet objet (en
      *              millisecondes).
-     * @return
+     * @return true si l'objet a bougé, false sinon.
      */
     @Override
     public boolean move(long delta) {
@@ -59,9 +61,25 @@ public class Explosion extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other.isEnemyWithLife()) {
-            // Decorator le fait
+        if (other.isExplosion()) {
+            // L'explosion n'affecte pas un autre objet d'explosion
+        } else if (other.isEnemyWithLife()) {
+            // Si l'explosion touche un ennemi avec vie, il ne se passe rien
+        } else if (other.isBomb()) {
+            // Si l'explosion touche une Bomb ou BigBomb
+            Bomb bomb = (Bomb) other;
+            bomb.detonateBomb(); // Déclenche l'explosion de la bombe adjacente
+        }
+        else if (other.isBigBomb()) {
+            // Si l'explosion touche une BigBomb
+            BigBomb bigBomb = (BigBomb) other;
+            bigBomb.detonateBomb();
+        } else if (other.isFakeBomb()) {
+            // Si l'explosion touche une FakeBomb, elle disparaît
+            FakeBomb fakeBomb = (FakeBomb) other;
+            game.removeMovable(fakeBomb);  // Retirer la FakeBomb sans explosion
         } else {
+            // Explosion touche un objet, on le fait exploser
             other.explode();
         }
     }
@@ -84,7 +102,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un ennemi.
-     * @return
+     *
+     * @return false car cet objet n'est pas un ennemi.
      */
     @Override
     public boolean isEnemy() {
@@ -93,7 +112,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un joueur.
-     * @return
+     *
+     * @return false car cet objet n'est pas un joueur.
      */
     @Override
     public boolean isPlayer() {
@@ -102,7 +122,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une explosion.
-     * @return
+     *
+     * @return true car cet objet est une explosion.
      */
     @Override
     public boolean isExplosion() {
@@ -111,7 +132,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un ennemi avec une vie.
-     * @return
+     *
+     * @return false car cet objet n'est pas un ennemi avec une vie.
      */
     @Override
     public boolean isEnemyWithLife() {
@@ -119,17 +141,9 @@ public class Explosion extends AbstractMovable {
     }
 
     /**
-     * Cette méthode permet de savoir si l'objet est de la lave.
-     * @return
-     */
-    @Override
-    public boolean isLava() {
-        return false;
-    }
-
-    /**
      * Cette méthode permet de savoir si l'objet est une bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas une bombe.
      */
     @Override
     public boolean isBomb() {
@@ -138,7 +152,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une fausse bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas une fausse bombe.
      */
     @Override
     public boolean isFakeBomb() {
@@ -147,7 +162,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est une grosse bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas une grosse bombe.
      */
     @Override
     public boolean isBigBomb() {
@@ -156,7 +172,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un bonus invincible.
-     * @return
+     *
+     * @return false car cet objet n'est pas un bonus invincible.
      */
     @Override
     public boolean isInvisibleBonus() {
@@ -165,7 +182,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un bonus de vie.
-     * @return
+     *
+     * @return false car cet objet n'est pas un bonus de vie.
      */
     @Override
     public boolean isLifeBonus() {
@@ -174,7 +192,8 @@ public class Explosion extends AbstractMovable {
 
     /**
      * Cette méthode permet de savoir si l'objet est un bonus de bombe.
-     * @return
+     *
+     * @return false car cet objet n'est pas un bonus de bombe.
      */
     @Override
     public boolean isBombBonus() {

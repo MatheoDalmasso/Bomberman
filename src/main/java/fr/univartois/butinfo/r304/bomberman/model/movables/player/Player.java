@@ -43,11 +43,6 @@ public class Player extends AbstractMovable {
     private final IntegerProperty pointsDeVie;
 
     /**
-     * Nombre de bombes du joueur.
-     */
-    private final IntegerProperty nbBombe;
-
-    /**
      * Liste des bombes du joueur.
      */
     private final ObservableList<Bomb> bombs;
@@ -67,7 +62,6 @@ public class Player extends AbstractMovable {
         this.state = new VulnerableState();
         this.score = new SimpleIntegerProperty(0);
         this.pointsDeVie = new SimpleIntegerProperty(3);
-        this.nbBombe = new SimpleIntegerProperty(1);
         this.bombs = FXCollections.observableArrayList();
     }
 
@@ -79,7 +73,7 @@ public class Player extends AbstractMovable {
      */
     @Override
     public void collidedWith(IMovable other) {
-        if (other.isEnemy() || other.isEnemyWithLife() || other.isExplosion() || other.isLava()) {
+        if (other.isEnemy() || other.isEnemyWithLife() || other.isExplosion()) {
             takeDamage(1);
         }
     }
@@ -117,13 +111,19 @@ public class Player extends AbstractMovable {
      * @param damage Les dégâts à infliger.
      */
     public void takeDamage(int damage) {
-        state.takeDamage(this, damage);
+        if (pointsDeVie.get() > 0) {
+            state.takeDamage(this, damage);
+            if (pointsDeVie.get() < 0) {
+                pointsDeVie.set(0);
+            }
+        }
     }
 
 
     @Override
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
+        game.setRemainingBombs(0);
     }
 
     @Override
@@ -140,6 +140,9 @@ public class Player extends AbstractMovable {
         return bombs;
     }
 
+    public int getNumberOfBombs() {
+        return bombs.size();
+    }
     /**
      * Décremente les points de vie du joueur quand il explose.
      */
@@ -196,16 +199,6 @@ public class Player extends AbstractMovable {
      */
     @Override
     public boolean isEnemyWithLife() {
-        return false;
-    }
-
-    /**
-     * Indique si l'objet est de la lave.
-     *
-     * @return false car cet objet n'est pas de la lave.
-     */
-    @Override
-    public boolean isLava() {
         return false;
     }
 
@@ -285,42 +278,6 @@ public class Player extends AbstractMovable {
      */
     public IntegerProperty pointsDeVieProperty() {
         return pointsDeVie;
-    }
-
-    /**
-     * Retourne le nombre de bombes du joueur.
-     *
-     * @return Le nombre de bombes.
-     */
-    public IntegerProperty nbBombeProperty() {
-        return nbBombe;
-    }
-
-    /**
-     * Retourne le nombre de bombes du joueur.
-     *
-     * @return Le nombre de bombes.
-     */
-    public int getNbBombe() {
-        return nbBombe.get();
-    }
-
-    /**
-     * Retourne le score du joueur.
-     *
-     * @return Le score.
-     */
-    public int getScore() {
-        return score.get();
-    }
-
-    /**
-     * Change le score du joueur.
-     *
-     * @param score Le nouveau score.
-     */
-    public void setScore(int score) {
-        this.score.set(score);
     }
 
     /**

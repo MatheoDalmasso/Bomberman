@@ -1,5 +1,8 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
+/**
+ * La classe {@link GetGameInstance} permet de récupérer l'instance du jeu.
+ */
 public class GetGameInstance {
 
     /**
@@ -15,8 +18,9 @@ public class GetGameInstance {
     }
 
     /**
-     *  Récupère l'instance du jeu
-     * @return
+     * Récupère l'instance du jeu
+     *
+     * @return l'instance du jeu
      */
     public static BombermanGame getInstance() {
         return instance;
@@ -24,7 +28,8 @@ public class GetGameInstance {
 
     /**
      * Définit l'instance du jeu
-     * @param gameInstance
+     *
+     * @param gameInstance l'instance du jeu
      */
     public static void setInstance(BombermanGame gameInstance) {
         instance = gameInstance;

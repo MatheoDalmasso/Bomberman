@@ -1,9 +1,13 @@
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.mapgenerator.component.IMapComponent;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The GameMap class represents the map of the game.
+ */
 public class GameMap implements IMapComponent {
 
     /**
@@ -28,8 +32,9 @@ public class GameMap implements IMapComponent {
 
     /**
      * Create a new map with the specified height and width.
-     * @param height
-     * @param width
+     *
+     * @param height The height of the map.
+     * @param width  The width of the map.
      */
     public GameMap(int height, int width) {
         this.width = width;
@@ -51,7 +56,8 @@ public class GameMap implements IMapComponent {
 
     /**
      * Get the height of the map.
-     * @return
+     *
+     * @return The height of the map.
      */
     public int getHeight() {
         return height;
@@ -59,51 +65,53 @@ public class GameMap implements IMapComponent {
 
     /**
      * Get the width of the map.
-     * @return
+     *
+     * @return The width of the map.
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * Check if the specified location is on the map.
-     * @param row
-     * @param column
-     * @return
-     */
-    public boolean isOnMap(int row, int column) {
-        return ((0 <= row) && (row < height)) && ((0 <= column) && (column < width));
-    }
-
-    /**
      * Get the cell at the specified location.
-     * @param row
-     * @param column
-     * @return
+     *
+     * @param row    The row of the cell.
+     * @param column The column of the cell.
+     * @return The cell at the specified location.
      */
     public Cell getAt(int row, int column) {
-        if ((row < 0) || (height <= row) || (column < 0) || (width <= column)) {
-            throw new IllegalArgumentException("Incorrect cell location!");
-        }
+        incorrectCellLocation(row, column);
         return cells[row][column];
     }
 
     /**
      * Set the cell at the specified location.
-     * @param row
-     * @param column
-     * @param cell
+     *
+     * @param row    The row of the cell.
+     * @param column The column of the cell.
+     * @param cell   The cell to set.
      */
     public void setAt(int row, int column, Cell cell) {
-        if ((row < 0) || (height <= row) || (column < 0) || (width <= column)) {
-            throw new IllegalArgumentException("Incorrect cell location!");
-        }
+        incorrectCellLocation(row, column);
         cells[row][column].replaceBy(cell);
     }
 
     /**
+     * Check if the cell location is correct.
+     *
+     * @param row    the row
+     * @param column the column
+     */
+    private void incorrectCellLocation(int row, int column) {
+        if ((row < 0) || (height <= row) || (column < 0) || (width <= column)) {
+            throw new IllegalArgumentException("Incorrect cell location!");
+        }
+    }
+
+    /**
      * Get the empty cells on the map.
-     * @return
+     *
+     * @return The empty cells on the map.
      */
     public List<Cell> getEmptyCells() {
         List<Cell> emptyTiles = new ArrayList<>();
@@ -119,7 +127,8 @@ public class GameMap implements IMapComponent {
 
     /**
      * Add a component to the map.
-     * @param component
+     *
+     * @param component The component to add.
      */
     @Override
     public void add(IMapComponent component) {
@@ -128,7 +137,8 @@ public class GameMap implements IMapComponent {
 
     /**
      * Remove the specified component from the map.
-     * @param component
+     *
+     * @param component The component to remove.
      */
     @Override
     public void remove(IMapComponent component) {
@@ -137,8 +147,9 @@ public class GameMap implements IMapComponent {
 
     /**
      * Get the child at the specified index.
-     * @param index
-     * @return
+     *
+     * @param index The index of the child.
+     * @return The child at the specified index.
      */
     @Override
     public IMapComponent getChild(int index) {

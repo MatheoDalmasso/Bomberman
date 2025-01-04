@@ -39,8 +39,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -55,13 +55,16 @@ public final class BombermanGame {
     /**
      * Le génarateur de nombres aléatoires utilisé dans le jeu.
      */
-    private static final Random RANDOM = new Random();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     /**
      * La vitesse de déplacement du joueur (en pixels/s).
      */
     private static final int DEFAULT_SPEED = 75;
 
+    /**
+     * Le message indiquant que le niveau de difficulté spécifié est invalide.
+     */
     private static final String INVALID_DIFFICULTY_LEVEL = "Invalid difficulty level: ";
 
     /**
@@ -128,22 +131,23 @@ public final class BombermanGame {
     private int remainingEnemies;
 
     /**
-     * Le nombre de bombes restant au joueur.
-     */
-    /**
      * Le contrôleur du jeu.
      */
     private IBombermanController controller;
 
+
     /**
      * Le générateur de la carte du jeu.
      */
-    private IMapGenerator generateurMap; // NOSONAR
+    private IMapGenerator generateurMap;
 
     /**
      * Le niveau de difficulté
      */
     private int difficultyLevel;
+
+    private Sprite selectedSprite;
+    private boolean bombTimerStarted = false;
 
     /**
      * Crée une nouvelle instance de BombermanGame.
@@ -168,10 +172,13 @@ public final class BombermanGame {
      * Démarre le timer de recupération des bombes.
      */
     private void startBombTimer() {
-        Timeline bombTimer;
-        bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
-        bombTimer.setCycleCount(Animation.INDEFINITE);
-        bombTimer.play();
+        if (!bombTimerStarted) {
+            Timeline bombTimer = new Timeline(new KeyFrame(Duration.seconds(15), event -> incrementBombCount()));
+            bombTimer.setCycleCount(Animation.INDEFINITE);
+            bombTimer.play();
+            bombTimerStarted = true;
+        }
+
     }
 
     public Player getPlayer() {
@@ -204,6 +211,10 @@ public final class BombermanGame {
         return remainingBombs.get();
     }
 
+    public void setRemainingBombs(int bombs) {
+        this.remainingBombs.set(remainingBombs.get() + bombs);
+    }
+
     /**
      * Diminue le nombre de bombes restantes du joueur.
      */
@@ -233,8 +244,6 @@ public final class BombermanGame {
 
     /**
      * Donne le générateur de la carte du jeu.
-     *
-     * @return Le générateur de la carte du jeu.
      */
     public void setGenerateurMap(IMapGenerator generateurMap) {
         this.generateurMap = generateurMap;
@@ -365,10 +374,13 @@ public final class BombermanGame {
                 throw new IllegalArgumentException(INVALID_DIFFICULTY_LEVEL + difficultyLevel);
         }
         createMovables();
-        initStatistics();
+        initStatistics(player);
         animation.start();
     }
 
+    public void setSelectedSprite(Sprite selectedSprite) {
+        this.selectedSprite = selectedSprite;
+    }
 
     /**
      * Crée les différents objets présents au début de la partie et pouvant se déplacer.
@@ -377,7 +389,7 @@ public final class BombermanGame {
         // On commence par enlever tous les éléments mobiles encore présents.
         clearAllMovables();
 
-        player = new Player(this, 0, 0, spriteStore.getSprite("guy"));
+        player = new Player(this, 0, 0, selectedSprite != null ? selectedSprite : spriteStore.getSprite("bomberman_0_0"));
         movableObjects.add(player);
         spawnMovable(player);
 
@@ -420,11 +432,12 @@ public final class BombermanGame {
     /**
      * Initialise les statistiques de cette partie.
      */
-    private void initStatistics() {
+    private void initStatistics(Player player) {
         controller.bindLife(player.pointsDeVieProperty());
         controller.bindScore(player.scoreProperty());
+        remainingBombs.set(player.getNumberOfBombs());
         controller.bindBombs(remainingBombs);
-        remainingEnemies = nbEnemies;
+        this.remainingEnemies = nbEnemies + nbBoss + nbSousBoss;
     }
 
     /**
@@ -505,14 +518,17 @@ public final class BombermanGame {
                     BigBomb bomb = new BigBomb(this, playerX, playerY, spriteStore.getSprite("large-bomb"), 4000);
                     dropBomb(bomb);
                     player.getBombs().removeFirst();
+                    decreaseBombs();
                 }
             } else if (randomBomb == 3 && difficultyLevel > 1) {
                 FakeBomb bomb = new FakeBomb(this, player.getX(), player.getY(), spriteStore.getSprite("pool_ball"), 4000);
                 dropBomb(bomb);
                 player.getBombs().removeFirst();
+                decreaseBombs();
             } else {
                 Bomb bomb = player.getBombs().removeFirst();
                 dropBomb(bomb);
+                decreaseBombs();
             }
         }
     }
@@ -665,4 +681,12 @@ public final class BombermanGame {
         controller.gameOver(message);
     }
 
+    /**
+     * Donne le contrôleur du jeu.
+     *
+     * @return Le contrôleur du jeu.
+     */
+    public IMapGenerator getGenerateurMap() {
+        return generateurMap;
+    }
 }
